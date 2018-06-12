@@ -5,14 +5,14 @@ const walletRouter = express.Router();
 
 walletRouter.route('/')
   .get(walletController.FindResource)
-  .post(walletController.CreateResource)
-  .put(MessageService(405, 'Use /wallet/idWallet to update specific resource'))
-  .delete(MessageService(405, 'Use /wallet/idWallet to delete specific resource'));
+  .post(MessageService(405, 'Cannot create a new wallet'))
+  .put(MessageService(405, 'Use /wallet/walletId to update specific resource'))
+  .delete(MessageService(405, 'Cannot delete a wallet'));
 
-walletRouter.route('/:idWallet')
+walletRouter.route('/:walletId')
   .get(walletController.FindResourceById)
   .post(MessageService(405, 'Use /wallet/ only to create a new resource'))
   .put(walletController.UpdateResource)
-  .delete(walletController.DeleteResource);
+  .delete(MessageService(405, 'Cannot delete a wallet'));
 
   export default walletRouter;
