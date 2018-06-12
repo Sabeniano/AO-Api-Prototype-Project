@@ -1,4 +1,11 @@
 import config from './server/config/config';
 import app from './server/server';
+import indexdebug from 'debug';
 
-app.listen(config.port);
+const debug = indexdebug('app');
+
+app.listen(config.app.port);
+
+debug(config.app.port);
+console.log(process.env.NODE_ENV)
+console.log(config)
