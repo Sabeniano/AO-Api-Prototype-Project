@@ -4,7 +4,7 @@ const jobSchema = new mongoose.Schema({
   jobTitle: String,
   description: String,
   permissions: [],
-  links: [{}]
+  links: [{}],
 });
 
-export default mongoose.model('job', jobSchema);
+export default mongoose.model('jobs', jobSchema);

@@ -10,4 +10,4 @@ const scheduleSchema = new mongoose.Schema({
   links: [{}],
 });
 
-export default mongoose.model('Schedule', scheduleSchema);
+export default mongoose.model('schedules', scheduleSchema);

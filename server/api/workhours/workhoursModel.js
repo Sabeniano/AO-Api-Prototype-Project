@@ -6,4 +6,4 @@ const workhoursSchema = new mongoose.Schema({
   links: [{}],
 });
 
-export default mongoose.model('Workhours', workhoursSchema);
+export default mongoose.model('workhours', workhoursSchema);

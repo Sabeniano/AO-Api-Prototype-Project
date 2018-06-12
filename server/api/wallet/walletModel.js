@@ -9,4 +9,4 @@ const walletSchema = new mongoose.Schema({
   links: [{}],
 });
 
-export default mongoose.model('Wallet', walletSchema);
+export default mongoose.model('wallets', walletSchema);
