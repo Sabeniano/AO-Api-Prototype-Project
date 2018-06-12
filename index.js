@@ -7,5 +7,3 @@ const debug = indexdebug('app');
 app.listen(config.app.port);
 
 debug(config.app.port);
-console.log(process.env.NODE_ENV)
-console.log(config)

@@ -7,4 +7,4 @@ const jobSchema = new mongoose.Schema({
   links: [{}]
 });
 
-export default mongoose.model('job', jobSchema)
+export default mongoose.model('job', jobSchema);

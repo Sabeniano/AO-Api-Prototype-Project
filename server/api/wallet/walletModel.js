@@ -6,7 +6,7 @@ const walletSchema = new mongoose.Schema({
   paymentMethod: { type: String, enum: ['Monthly', 'Hourly'] },
   _owner: Number,
   lastChanged: Date,
-  links: [{}]
+  links: [{}],
 });
 
-export default mongoose.model('wallet', walletSchema)
+export default mongoose.model('Wallet', walletSchema);

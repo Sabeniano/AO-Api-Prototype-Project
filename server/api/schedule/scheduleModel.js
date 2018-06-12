@@ -7,7 +7,7 @@ const scheduleSchema = new mongoose.Schema({
   end_work_hour: Date,
   is_holiday: Boolean,
   is_weekend: Boolean,
-  links: [{}]
+  links: [{}],
 });
 
-export default mongoose.model('schedule', scheduleSchema)
+export default mongoose.model('Schedule', scheduleSchema);

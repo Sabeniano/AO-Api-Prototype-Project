@@ -8,7 +8,7 @@ const employeeSchema = new mongoose.Schema({
   phoneNumber: Number,
   startDate: { type: Date, default: Date.now },
   lastChanged: { type: Date, default: Date.now },
-  links: [{}]
+  links: [{}],
 });
 
-export default mongoose.model('employee', employeeSchema)
+export default mongoose.model('employees', employeeSchema);
