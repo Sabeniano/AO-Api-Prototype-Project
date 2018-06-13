@@ -1,3 +1,4 @@
+import _ from './server/utils/env';
 import indexdebug from 'debug';
 import config from './server/config/config';
 import app from './server/server';

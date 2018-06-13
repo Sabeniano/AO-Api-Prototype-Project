@@ -11,7 +11,7 @@ scheduleRouter.route('/')
   .delete(MessageService(405, 'Cannot delete a schedule'));
 
 scheduleRouter.route('/:scheduleId')
-  .get(scheduleController.FindResourceById)
+  .get(scheduleController.FindResource)
   .post(MessageService(405, 'Use /schedule/ only to create a new resource'))
   .put(scheduleController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete workhours'));

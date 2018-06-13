@@ -6,7 +6,7 @@ const debug = employeeControllerDebug('app:employeeController');
 const walletController = {
   FindResource: async (req, res) => {
     try {
-      const foundWallet = await wallet.find({ _Owner: req.params.walletId });
+      const foundWallet = await wallet.find({ _owner: req.params.id });
       res.json(foundWallet);
     } catch (error) {
       debug(error);

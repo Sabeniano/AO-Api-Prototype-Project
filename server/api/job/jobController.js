@@ -6,25 +6,11 @@ const debug = employeeControllerDebug('app:employeeController');
 const jobController = {
   FindResource: async (req, res) => {
     try {
-      const foundJob = await job.find(req.query);
-      if (foundJob.length > 0) {
-        res.json(foundJob);
-      } else {
-        res.send('Could not find data').status(204);
-      }
-    } catch (error) {
-      debug(error);
-      res.send('Error, could not find resource').status(204);
-    }
-  },
-
-  FindResourceById: async (req, res) => {
-    try {
-      const foundJob = await job.findById(req.params.jobId);
+      const foundJob = await job.find(req.params.jobId);
       res.json(foundJob);
     } catch (error) {
       debug(error);
-      res.send('The resource you are looking for does not exist').status(204);
+      res.send('Error, could not find resource').status(204);
     }
   },
 

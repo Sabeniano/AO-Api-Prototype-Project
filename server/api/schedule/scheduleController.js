@@ -14,16 +14,6 @@ const scheduleController = {
     }
   },
 
-  FindResourceById: async (req, res) => {
-    try {
-      const foundSchedule = await schedule.findById(req.params.id);
-      res.json(foundSchedule);
-    } catch (error) {
-      debug(error);
-      res.send('The resource you are looking for does not exist').status(204);
-    }
-  },
-
   UpdateResource: async (req, res) => {
     try {
       await schedule.findByIdAndUpdate(req.params.scheduleId, req.body);
