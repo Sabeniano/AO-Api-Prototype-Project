@@ -1,5 +1,6 @@
 import express from 'express';
-//import workhoursController from './server/api/workhours/workhoursController';
+import workhoursController from './workhoursController';
+import MessageService from '../../utils/messageService';
 
 const workhoursRouter = express.Router();
 
@@ -15,4 +16,4 @@ workhoursRouter.route('/:workhoursId')
   .put(workhoursController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete workhours'));
 
-  export default workhoursRouter;
+export default workhoursRouter;

@@ -1,5 +1,6 @@
 import express from 'express';
-//import jobController from './server/api/job/jobController';
+import jobController from './jobController';
+import MessageService from '../../utils/messageService';
 
 const jobRouter = express.Router();
 

@@ -1,5 +1,6 @@
 import express from 'express';
-//import walletController from './server/api/wallet/walletController';
+import walletController from './walletController';
+import MessageService from '../../utils/messageService';
 
 const walletRouter = express.Router();
 
@@ -15,4 +16,4 @@ walletRouter.route('/:walletId')
   .put(walletController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete a wallet'));
 
-  export default walletRouter;
+export default walletRouter;

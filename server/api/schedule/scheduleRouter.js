@@ -1,5 +1,6 @@
 import express from 'express';
-//import walletController from './server/api/schedule/scheduleController';
+import scheduleController from './scheduleController';
+import MessageService from '../../utils/messageService';
 
 const scheduleRouter = express.Router();
 
