@@ -1,8 +1,11 @@
+import indexdebug from 'debug';
 import config from './server/config/config';
 import app from './server/server';
-import indexdebug from 'debug';
+import dbConnect from './server/db';
 
 const debug = indexdebug('app');
+
+dbConnect();
 
 app.listen(config.app.port);
 

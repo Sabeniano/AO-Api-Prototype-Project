@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const workhoursSchema = new mongoose.Schema({
   totalHoursThisPaycheck: Number,
-  totalOvertimeHours: Number,
+  totalOvertimeHoursThisPaycheck: Number,
   links: [{}],
 });
 
