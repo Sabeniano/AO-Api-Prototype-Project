@@ -11,7 +11,7 @@ workhoursRouter.route('/')
 
 workhoursRouter.route('/:workhoursId')
   .get(workhoursController.FindResourceById)
-  .post(MessageService(405, 'Use /workhours/ to update specific resource'))
+  .post(MessageService(405, 'Use /workhours/ only to create a new resource'))
   .put(workhoursController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete workhours'));
 
