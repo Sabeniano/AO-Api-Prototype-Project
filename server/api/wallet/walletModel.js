@@ -4,8 +4,8 @@ const walletSchema = new mongoose.Schema({
   wage: Number,
   salary: Number,
   paymentMethod: { type: String, enum: ['Monthly', 'Hourly'] },
-  _owner: Number,
-  lastChanged: Date,
+  _owner: String,
+  lastChanged: { type: Date, default: Date.now },
   links: [{}],
 });
 
