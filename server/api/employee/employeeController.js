@@ -1,5 +1,6 @@
 import employeeControllerDebug from 'debug';
 import employee from './employeeModel';
+import hlGenerator from '../../utils/hyperMediaLinkGenerator';
 
 const debug = employeeControllerDebug('app:employeeController');
 
@@ -8,6 +9,8 @@ const employeeController = {
   FindResource: async (req, res) => {
     try {
       const foundEmployee = await employee.find(req.query);
+      const endpoins = ['self', 'wallet', 'workhours', 'job'];
+      hlGenerator(foundEmployee, req.headers.host, req.originalUrl, endpoins);
       //  Fills the array with all the contents that coincides within the requested table
       if (foundEmployee.length > 0) {
         res.json(foundEmployee);

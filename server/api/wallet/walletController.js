@@ -1,5 +1,6 @@
 import employeeControllerDebug from 'debug';
 import wallet from './walletModel';
+import hlGenerator from '../../utils/hyperMediaLinkGenerator';
 
 const debug = employeeControllerDebug('app:employeeController');
 
@@ -7,6 +8,7 @@ const walletController = {
   FindResource: async (req, res) => {
     try {
       const foundWallet = await wallet.find({ _owner: req.params.id });
+      hlGenerator(foundWallet, req.headers.host, req.originalUrl, 'self');
       res.json(foundWallet);
     } catch (error) {
       debug(error);
