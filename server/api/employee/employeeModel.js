@@ -6,6 +6,7 @@ const employeeSchema = new mongoose.Schema({
   birthday: Date,
   address: String,
   phoneNumber: Number,
+  jobs_id: String,
   startDate: { type: Date, default: Date.now },
   lastChanged: { type: Date, default: Date.now },
   links: [{}],

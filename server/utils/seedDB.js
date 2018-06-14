@@ -53,17 +53,19 @@ export default async function () {
     await wallets.remove();
     // await workhours.remove();
 
+    const jobsDocuments = await jobs.create(genJobs);
+
+    for (let i = 0; i < genJobs.length; i += 1) {
+      genEmployees[i].jobs_id = jobsDocuments[i]._id;
+    }
 
     const employeeDocuments = await employees.create(genEmployees);
 
     for (let i = 0; i < genEmployees.length; i += 1) {
-      // genJobs[i]._Owner = employeeDocuments[i]._id;
-      genWallets[i]._owner = employeeDocuments[i]._id;
-      // genWorkhours[i]._Owner = employeeDocuments[i]._id;
+      genWallets[i].employees_id = employeeDocuments[i]._id;
+      // genWorkhours[i].employees_id = employeeDocuments[i]._id;
     }
 
-
-    await jobs.create(genJobs);
     await wallets.create(genWallets);
     // await workhours.create(genWorkhours);
 
