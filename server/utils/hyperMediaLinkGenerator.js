@@ -16,20 +16,30 @@ function generateLinks(element, hostname, url, selfId, endPoints) {
   }
 }
 
+function UrlCleaner(url) {
+  if (url.endsWith('/')) {
+    const urlEnd = url.replace(/\/\/+/g, '/');
+    return urlEnd.substring(0, urlEnd.length - 1);
+  }
+  return url;
+}
+
 function hateaosGenerator(documents, hostName, url, endPoints) {
+  const newUrl = UrlCleaner(url);
   if (typeof endPoints === 'object') {
     documents.forEach((element) => {
-      generateLinks(element, hostName, url, element.id, endPoints);
+      generateLinks(element, hostName, newUrl, element.id, endPoints);
     });
   } else if (typeof endPoints === 'string') {
     documents.forEach((element) => {
       const linkBody = {
         rel: endPoints,
-        href: `http://${hostName}${url}/${element.id}`,
+        href: `http://${hostName}${newUrl}/${element.id}`,
       };
       element.links.push(linkBody);
     });
   }
 }
+
 
 export default hateaosGenerator;

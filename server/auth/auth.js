@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import config from '../config/config';
 
 const auth = {
   login: (req, res) => {
@@ -11,22 +12,25 @@ const auth = {
       });
       return;
     }
-
     const dbUserObj = auth.validate(username, password);
+
+    if (dbUserObj) {
+      res.json(SignToken(dbUserObj));
+    }
   },
   validate: (username, password) => {
     //  TODO:  validate user from DB
   },
 
   validateUser: (username) => {
+    //  TODO: valdiate user from DB
   },
 };
 
-function generateToken(user){
-
+function SignToken(user){
+  return jwt.sign({ id: foundUser._id }, config.secret, {
+    expiresIn: 86400,
+  });
 }
 
-function ExpiresIn(numOfDays){
-  let currentDate = new Date();
-  return currentDate.setDate(currentDate)
-}
+export default = auth;

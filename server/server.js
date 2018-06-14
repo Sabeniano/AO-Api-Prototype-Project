@@ -8,4 +8,12 @@ middleware(app);
 
 app.use('/api/v1/', api);
 
+
+//  catch in case no endpoint is hit
+// app.use((req, res, next) => {
+//   const error = new Error('Route Not Found');
+//   error.status = 404;
+//   next(error);
+// });
+
 export default app;
