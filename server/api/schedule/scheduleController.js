@@ -19,7 +19,7 @@ const scheduleController = {
       await schedule.findByIdAndUpdate(req.params.scheduleId, req.body);
       res.send('New data updated').status(201);
     } catch (error) {
-      res.send('Error processing the request').send(409);
+      res.send('Error processing the request').status(409);
     }
   },
 };

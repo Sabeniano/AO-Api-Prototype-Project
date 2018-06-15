@@ -4,12 +4,14 @@ import hlGenerator from '../../utils/hyperMediaLinkGenerator';
 
 const debug = employeeControllerDebug('app:employeeController');
 
-//  Takes a request and sends the correct data
+//  Gets all the data from the employeeModel and sends to employeeRouter
 const employeeController = {
   FindResource: async (req, res) => {
     try {
       const foundEmployee = await employee.find(req.query);
+      // Under this comment you can write down any route "names" found in api.js
       const endpoins = ['self', 'wallet', 'workhours', 'job'];
+      // Calls Hateoas generator in "hyperMediaLinkGenerator" and creates an url link via parameters
       hlGenerator(foundEmployee, req.headers.host, req.originalUrl, endpoins);
       //  Fills the array with all the contents that coincides within the requested table
       if (foundEmployee.length > 0) {
@@ -23,7 +25,7 @@ const employeeController = {
     }
   },
 
-  //  Takes a request and sends the individual data
+  //  Gets the individual data from the employeeModel and sends to employeeRouter
   FindResourceById: async (req, res) => {
     try {
       const foundEmployee = await employee.findById(req.params.id);
@@ -41,7 +43,7 @@ const employeeController = {
       res.send('New data added').status(201);
     } catch (error) {
       debug(error);
-      res.send('Error processing the request').send(409);
+      res.send('Error processing the request').status(409);
     }
   },
 
@@ -50,7 +52,7 @@ const employeeController = {
       await employee.findByIdAndUpdate(req.params.id, req.body);
       res.send('New data updated').status(201);
     } catch (error) {
-      res.send('Error processing the request').send(409);
+      res.send('Error processing the request').status(409);
     }
   },
 
@@ -60,7 +62,7 @@ const employeeController = {
       res.send('data deleted').status(200);
     } catch (error) {
       debug(error);
-      res.send('Error processing the request').send(409);
+      res.send('Error processing the request').status(409);
     }
   },
 };

@@ -21,7 +21,7 @@ const jobController = {
       res.send('New data added').status(201);
     } catch (error) {
       debug(error);
-      res.send('Error processing the request').send(409);
+      res.send('Error processing the request').status(409);
     }
   },
 
@@ -30,7 +30,7 @@ const jobController = {
       await job.findByIdAndUpdate(req.params.jobId, req.body);
       res.send('New data updated').status(201);
     } catch (error) {
-      res.send('Error processing the request').send(409);
+      res.send('Error processing the request').status(409);
     }
   },
 
@@ -40,7 +40,7 @@ const jobController = {
       res.send('data deleted').status(200);
     } catch (error) {
       debug(error);
-      res.send('Error processing the request').send(409);
+      res.send('Error processing the request').status(409);
     }
   },
 };

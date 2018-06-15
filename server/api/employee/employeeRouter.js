@@ -4,6 +4,9 @@ import MessageService from '../../utils/messageService';
 
 const employeeRouter = express.Router();
 
+// Using the specifik methods it sends the data from employeeController to api.js
+// Only the methods with attached parameters will work
+
 employeeRouter.route('/')
   .get(employeeController.FindResource)
   .post(employeeController.CreateResource)
