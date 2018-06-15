@@ -4,7 +4,7 @@ function CorsMIddleware() {
     //  headers to allow  and help CORS
     res.header('Access-Control-Allow-Origin', '*'); //  change * to domain namen
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'X-Access-Token,X-Key');
+    res.header('Access-Control-Allow-Headers', 'X-Access-Token');
     if (req.method === 'OPTIONS') {
       res.status(200).end();
     } else {

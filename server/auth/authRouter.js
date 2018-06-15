@@ -9,4 +9,7 @@ authRouter.route('/register')
 authRouter.route('/logout')
   .get(authController.logout);
 
+authRouter.route('/login')
+  .post(authController.login);
+
 export default authRouter;

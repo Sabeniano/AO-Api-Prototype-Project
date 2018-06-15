@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'; // used to create, sign, and verify tokens
 import bcrypt from 'bcryptjs';
 import config from '../config/config';
-import User from './userModel';
+import user from '../user/userModel';
 
 const authController = {
 
@@ -10,7 +10,7 @@ const authController = {
       //  salt and hashes the password automatically
       const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
-      const newUser = await User.create({
+      const newUser = await user.create({
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
@@ -34,7 +34,7 @@ const authController = {
 
   login: async (req, res) => {
     try {
-      const foundUser = await User.findOne({ email: req.body.email });
+      const foundUser = await user.findOne({ email: req.body.email });
 
       if (!foundUser) {
         res.status(404).send('User not found');
