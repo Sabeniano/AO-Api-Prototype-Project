@@ -43,9 +43,9 @@ for (let index = 0; index < 20; index += 1) {
   // };
 
   const userSeed = {
-    username: faker.internet.userName(),
-    password: faker.internet.password(),
-    email: faker.internet.exampleEmail(),
+    username: `test${index}`,
+    password: `test${index}`,
+    email: `test${index}@email.com`,
   };
 
   genEmployees.push(employeeSeed);
