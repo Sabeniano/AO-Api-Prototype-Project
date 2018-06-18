@@ -26,10 +26,12 @@ function UrlCleaner(url) {
 
 function hateaosGenerator(documents, hostName, url, endPoints) {
   const newUrl = UrlCleaner(url);
-  if (typeof endPoints === 'object') {
+  if (Array.isArray(endPoints) && Array.isArray(documents)) {
     documents.forEach((element) => {
       generateLinks(element, hostName, newUrl, element.id, endPoints);
     });
+  } else if (Array.isArray(endPoints) && !Array.isArray(documents)) {
+    generateLinks(documents, hostName, newUrl, documents.id, endPoints);
   } else if (typeof endPoints === 'string') {
     documents.forEach((element) => {
       const linkBody = {

@@ -4,7 +4,7 @@ import employees from '../api/employee/employeeModel';
 import jobs from '../api/job/jobModel';
 import wallets from '../api/wallet/walletModel';
 // import workhours from '../api/workhours/workhoursModel';
-import users from '../user/userModel';
+//  import users from '../user/userModel';
 
 /* eslint-disable no-underscore-dangle */
 
@@ -61,7 +61,7 @@ export default async function () {
     await jobs.remove();
     await wallets.remove();
     // await workhours.remove();
-    await users.remove();
+    //  await users.remove();
 
     const jobsDocuments = await jobs.create(genJobs);
 
@@ -78,7 +78,7 @@ export default async function () {
 
     await wallets.create(genWallets);
     // await workhours.create(genWorkhours);
-    await users.create(genUsers);
+    //  await users.create(genUsers);
 
     debug('Removed and seeded DB');
   } catch (error) {
