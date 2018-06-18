@@ -11,7 +11,7 @@ const authController = {
       const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
       const newUser = await user.create({
-        name: req.body.name,
+        username: req.body.name,
         email: req.body.email,
         password: hashedPassword,
       });
@@ -34,7 +34,7 @@ const authController = {
 
   login: async (req, res) => {
     try {
-      const foundUser = await user.findOne({ email: req.body.email });
+      const foundUser = await user.findOne({ username: req.body.username });
 
       if (!foundUser) {
         res.status(404).send('User not found');
