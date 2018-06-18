@@ -1,6 +1,10 @@
 import employeeControllerDebug from 'debug';
 import Employee from './employeeModel';
+import Wallet from '../wallet/walletModel';
+import Schedule from '../schedule/scheduleModel';
+import Workhours from '../workhours/workhoursModel';
 import hlGenerator from '../../utils/hyperMediaLinkGenerator';
+import recordGenerator from '../../utils/records';
 
 const debug = employeeControllerDebug('app:employeeController');
 
@@ -44,6 +48,10 @@ const employeeController = {
       const endpoins = ['self', 'wallet', 'workhours', 'job'];
       hlGenerator(createdEmployee, req.headers.host, req.originalUrl, endpoins);
       // TODO: create the other models as soon as employee is creaetd
+      const recordAll = recordGenerator(createdEmployee._id);
+      await Wallet.create(recordAll.walletTemplate);
+      await Schedule.create(recordAll.scheduleTemplate);
+      await Workhours.create(recordAll.workhoursTemplate);
       res.status(201).json(createdEmployee);
     } catch (error) {
       //  TODO: error handle better

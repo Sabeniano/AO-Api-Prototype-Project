@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const scheduleSchema = new mongoose.Schema({
-  employee_id: Number,
+  employee_id: String,
   work_date: Date,
   start_work_hour: Date,
   end_work_hour: Date,
