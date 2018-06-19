@@ -31,7 +31,7 @@ function hateaosGenerator(documents, hostName, url, endPoints) {
       generateLinks(element, hostName, newUrl, element.id, endPoints);
     });
   } else if (Array.isArray(endPoints) && !Array.isArray(documents)) {
-    generateLinks(documents, hostName, newUrl, documents.id, endPoints);
+    generateLinks(documents, hostName, newUrl, documents._id, endPoints);
   } else if (typeof endPoints === 'string') {
     documents.forEach((element) => {
       const linkBody = {

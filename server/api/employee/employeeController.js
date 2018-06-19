@@ -1,10 +1,11 @@
 import employeeControllerDebug from 'debug';
+import mongoose from 'mongoose';
 import Employee from './employeeModel';
 import Wallet from '../wallet/walletModel';
 import Schedule from '../schedule/scheduleModel';
 import Workhours from '../workhours/workhoursModel';
 import hlGenerator from '../../utils/hyperMediaLinkGenerator';
-import recordGenerator from '../../utils/records';
+import emptyModelTemplateGenerator from '../../utils/emptyModelTemplates';
 
 const debug = employeeControllerDebug('app:employeeController');
 
@@ -13,15 +14,10 @@ const employeeController = {
   FindResource: async (req, res) => {
     try {
       const foundEmployee = await Employee.find(req.query);
-      // Under this comment you can write down any route "names" found in api.js
-      const endpoins = ['self', 'wallet', 'workhours', 'job'];
-      // Calls Hateoas generator in "hyperMediaLinkGenerator" and creates an url link via parameters
-      hlGenerator(foundEmployee, req.headers.host, req.originalUrl, endpoins);
-      //  Fills the array with all the contents that coincides within the requested table
       if (foundEmployee.length > 0) {
         res.json(foundEmployee);
       } else {
-        res.status(204).send('Could not find data');
+        res.status(204).json([]);
       }
     } catch (error) {
       //  TODO: error handle better
@@ -34,7 +30,11 @@ const employeeController = {
   FindResourceById: async (req, res) => {
     try {
       const foundEmployee = await Employee.findById(req.params.id);
-      res.json(foundEmployee);
+      if (foundEmployee) {
+        res.status(200).json(foundEmployee);
+      } else {
+        res.status(204).json({});
+      }
     } catch (error) {
       //  TODO: error handle better
       debug(error);
@@ -44,14 +44,26 @@ const employeeController = {
 
   CreateResource: async (req, res) => {
     try {
-      const createdEmployee = await Employee.create(req.body);
-      const endpoins = ['self', 'wallet', 'workhours', 'job'];
-      hlGenerator(createdEmployee, req.headers.host, req.originalUrl, endpoins);
+      const newEmployee = {
+        _id: mongoose.Types.ObjectId(),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        birthday: req.body.birthday,
+        address: req.body.address,
+        phoneNumber: req.body.phoneNumber,
+        startDate: req.body.startDate,
+        lastChanged: req.body.lastChanged,
+        links: [],
+      }
+      const endpoints = ['self', 'wallet', 'workhours', 'job', 'schedule'];
+      hlGenerator(newEmployee, req.headers.host, req.originalUrl, endpoints);
+      const createdEmployee = await Employee.create(newEmployee);
       // TODO: create the other models as soon as employee is creaetd
-      const recordAll = recordGenerator(createdEmployee._id);
-      await Wallet.create(recordAll.walletTemplate);
-      await Schedule.create(recordAll.scheduleTemplate);
-      await Workhours.create(recordAll.workhoursTemplate);
+
+      const emptyModelTemplates = emptyModelTemplateGenerator(createdEmployee._id, mongoose);
+      await Wallet.create(emptyModelTemplates.walletTemplate);
+      await Schedule.create(emptyModelTemplates.scheduleTemplate);
+      await Workhours.create(emptyModelTemplates.workhoursTemplate);
       res.status(201).json(createdEmployee);
     } catch (error) {
       //  TODO: error handle better

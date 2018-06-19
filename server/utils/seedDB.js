@@ -1,84 +1,109 @@
 import faker from 'faker';
 import seeddebug from 'debug';
-import employees from '../api/employee/employeeModel';
-import jobs from '../api/job/jobModel';
-import wallets from '../api/wallet/walletModel';
-// import workhours from '../api/workhours/workhoursModel';
-//  import users from '../user/userModel';
-
-/* eslint-disable no-underscore-dangle */
+import mongoose from 'mongoose';
+import Employees from '../api/employee/employeeModel';
+import Jobs from '../api/job/jobModel';
+import Schedules from '../api/schedule/scheduleModel';
+import Wallets from '../api/wallet/walletModel';
+import Workhours from '../api/workhours/workhoursModel';
+import hateaosGen from './hyperMediaLinkGenerator';
 
 const debug = seeddebug('seed');
 
 const genEmployees = [];
 const genJobs = [];
+const genSchedules = [];
 const genWallets = [];
-// const genWorkhours = [];
-const genUsers = [];
+const genWorkhours = [];
 
 
 for (let index = 0; index < 20; index += 1) {
   const employeeSeed = {
+    _id: mongoose.Types.ObjectId(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     birthday: faker.date.past(),
     address: faker.address.streetAddress(),
     phoneNumber: parseInt(faker.phone.phoneNumber('########'), 10),
+    startDate: faker.date.past(),
+    lastChanged: faker.date.past(),
+    links: [],
   };
+
+  const employeeEndPoinst = ['self', 'wallet', 'schedule', 'workhours']
+  hateaosGen(employeeSeed, 'localhost:3000/', 'api/v1/employee', employeeEndPoinst);
+
 
   const jobSeed = {
-    jobTitle: faker.name.jobTitle(),
+    _id: mongoose.Types.ObjectId(),
+    jobTitle: faker.random.arrayElement(['Administrator', 'Medarbejder', 'IT-Support']),
     description: faker.name.jobDescriptor(),
+    permissions: [faker.random.arrayElement(['Create', 'Read', 'Update', 'Delete'])],
+    links: [],
   };
 
+  const jobEndPoinst = ['self'];
+  hateaosGen(jobSeed, 'localhost:3000/', 'api/v1/employee', jobEndPoinst);
+
+  const scheduleSeed = {
+    _id: mongoose.Types.ObjectId(),
+    employee_id: employeeSeed._id,
+    work_date: faker.date.future(),
+    start_work_hour: faker.date.future(),
+    end_work_hour: faker.date.future(),
+    is_holiday: faker.random.boolean(),
+    is_weekend: faker.random.boolean(),
+    links: [],
+  }
+
+  const scheduleEndPoinst = ['self'];
+  hateaosGen(scheduleSeed, 'localhost:3000/', 'api/v1/employee', scheduleEndPoinst);
+
   const walletSeed = {
+    _id: mongoose.Types.ObjectId(),
     wage: faker.finance.amount(),
     salary: faker.finance.amount(),
     paymentMethod: faker.random.arrayElement(['Monthly', 'Hourly']),
+    employees_id: employeeSeed._id,
+    lastChanged: faker.date.past(),
+    links: [],
   };
 
-  // const workhourSeed = {
-    // totalHoursThisPaycheck: Number,
-    // totalOvertimeHoursThisPaycheck: Number,
-  // };
+  const walletEndPoinst = ['self'];
+  hateaosGen(walletSeed, 'localhost:3000/', 'api/v1/employee', walletEndPoinst);
 
-  const userSeed = {
-    username: `test${index}`,
-    password: `test${index}`,
-    email: `test${index}@email.com`,
+  const workhourSeed = {
+    _id: mongoose.Types.ObjectId(),
+    employees_id: employeeSeed._id,
+    totalHoursThisPaycheck: faker.random.number(),
+    totalOvertimeHoursThisPaycheck: faker.random.number(),
+    links: [],
   };
+
+  const workhourEndPoinst = ['self'];
+  hateaosGen(workhourSeed, 'localhost:3000/', 'api/v1/employee', workhourEndPoinst);
+
 
   genEmployees.push(employeeSeed);
   genJobs.push(jobSeed);
+  genSchedules.push(scheduleSeed);
   genWallets.push(walletSeed);
-  // genWorkhours.push(workhourSeed);
-  genUsers.push(userSeed);
+  genWorkhours.push(workhourSeed);
 }
 
 export default async function () {
   try {
-    await employees.remove();
-    await jobs.remove();
-    await wallets.remove();
-    // await workhours.remove();
-    //  await users.remove();
+    await Employees.remove();
+    await Jobs.remove();
+    await Schedules.remove();
+    await Wallets.remove();
+    await Workhours.remove();
 
-    const jobsDocuments = await jobs.create(genJobs);
-
-    for (let i = 0; i < genJobs.length; i += 1) {
-      genEmployees[i].jobs_id = jobsDocuments[i]._id;
-    }
-
-    const employeeDocuments = await employees.create(genEmployees);
-
-    for (let i = 0; i < genEmployees.length; i += 1) {
-      genWallets[i].employees_id = employeeDocuments[i]._id;
-      // genWorkhours[i].employees_id = employeeDocuments[i]._id;
-    }
-
-    await wallets.create(genWallets);
-    // await workhours.create(genWorkhours);
-    //  await users.create(genUsers);
+    await Employees.create(genEmployees);
+    await Jobs.create(genJobs);
+    await Schedules.create(genSchedules);
+    await Wallets.create(genWallets);
+    await Workhours.create(genWorkhours);
 
     debug('Removed and seeded DB');
   } catch (error) {

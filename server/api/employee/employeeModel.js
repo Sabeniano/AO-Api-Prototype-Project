@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const employeeSchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
   firstName: String,
   lastName: String,
   birthday: Date,
@@ -12,4 +13,4 @@ const employeeSchema = new mongoose.Schema({
   links: [{}],
 });
 
-export default mongoose.model('employees', employeeSchema);
+export default mongoose.model('Employees', employeeSchema);
