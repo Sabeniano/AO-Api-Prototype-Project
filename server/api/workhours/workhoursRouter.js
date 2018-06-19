@@ -1,18 +1,19 @@
 import express from 'express';
-//import workhoursController from './server/api/workhours/workhoursController';
+import workhoursController from './workhoursController';
+import MessageService from '../../utils/messageService';
 
-const workhoursRouter = express.Router();
+const workhoursRouter = express.Router({ mergeParams: true });
 
 workhoursRouter.route('/')
   .get(workhoursController.FindResource)
   .post(MessageService(405, 'Cannot create new work'))
-  .put(MessageService(405, 'Use /workhours/workhoursId to update specific resource'))
+  .patch(MessageService(405, 'Use /workhours/workhoursId to update specific resource'))
   .delete(MessageService(405, 'Cannot delete work'));
 
 workhoursRouter.route('/:workhoursId')
-  .get(workhoursController.FindResourceById)
-  .post(MessageService(405, 'Use /workhours/ to update specific resource'))
-  .put(workhoursController.UpdateResource)
+  .get(workhoursController.FindResource)
+  .post(MessageService(405, 'Cannot create new work'))
+  .patch(workhoursController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete workhours'));
 
-  export default workhoursRouter;
+export default workhoursRouter;
