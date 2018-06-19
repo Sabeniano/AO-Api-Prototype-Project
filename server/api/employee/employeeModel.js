@@ -7,10 +7,17 @@ const employeeSchema = new mongoose.Schema({
   birthday: Date,
   address: String,
   phoneNumber: Number,
-  jobs_id: String,
+  job: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Jobs',
+  },
   startDate: { type: Date, default: Date.now },
   lastChanged: { type: Date, default: Date.now },
-  links: [{}],
+  links: [{
+    _id: false,
+    rel: String,
+    href: String,
+  }],
 });
 
 export default mongoose.model('Employees', employeeSchema);

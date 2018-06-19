@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const jobSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   jobTitle: String,
+  employee_id: String,
   description: String,
   permissions: [],
   links: [{

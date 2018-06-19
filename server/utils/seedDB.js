@@ -18,6 +18,8 @@ const genWorkhours = [];
 
 
 for (let index = 0; index < 20; index += 1) {
+
+
   const employeeSeed = {
     _id: mongoose.Types.ObjectId(),
     firstName: faker.name.firstName(),
@@ -30,20 +32,21 @@ for (let index = 0; index < 20; index += 1) {
     links: [],
   };
 
-  const employeeEndPoinst = ['self', 'wallet', 'schedule', 'workhours']
+  const employeeEndPoinst = ['self', 'wallet', 'schedule', 'workhours', 'job'];
   hateaosGen(employeeSeed, 'localhost:3000/', 'api/v1/employee', employeeEndPoinst);
 
 
   const jobSeed = {
     _id: mongoose.Types.ObjectId(),
     jobTitle: faker.random.arrayElement(['Administrator', 'Medarbejder', 'IT-Support']),
+    employee_id: employeeSeed._id,
     description: faker.name.jobDescriptor(),
     permissions: [faker.random.arrayElement(['Create', 'Read', 'Update', 'Delete'])],
     links: [],
   };
 
   const jobEndPoinst = ['self'];
-  hateaosGen(jobSeed, 'localhost:3000/', 'api/v1/employee', jobEndPoinst);
+  hateaosGen(jobSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/job`, jobEndPoinst);
 
   const scheduleSeed = {
     _id: mongoose.Types.ObjectId(),
@@ -57,7 +60,7 @@ for (let index = 0; index < 20; index += 1) {
   }
 
   const scheduleEndPoinst = ['self'];
-  hateaosGen(scheduleSeed, 'localhost:3000/', 'api/v1/employee', scheduleEndPoinst);
+  hateaosGen(scheduleSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/schedule`, scheduleEndPoinst);
 
   const walletSeed = {
     _id: mongoose.Types.ObjectId(),
@@ -70,7 +73,7 @@ for (let index = 0; index < 20; index += 1) {
   };
 
   const walletEndPoinst = ['self'];
-  hateaosGen(walletSeed, 'localhost:3000/', 'api/v1/employee', walletEndPoinst);
+  hateaosGen(walletSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/wallet`, walletEndPoinst);
 
   const workhourSeed = {
     _id: mongoose.Types.ObjectId(),
@@ -81,7 +84,7 @@ for (let index = 0; index < 20; index += 1) {
   };
 
   const workhourEndPoinst = ['self'];
-  hateaosGen(workhourSeed, 'localhost:3000/', 'api/v1/employee', workhourEndPoinst);
+  hateaosGen(workhourSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/workhours`, workhourEndPoinst);
 
 
   genEmployees.push(employeeSeed);
@@ -90,6 +93,7 @@ for (let index = 0; index < 20; index += 1) {
   genWallets.push(walletSeed);
   genWorkhours.push(workhourSeed);
 }
+
 
 export default async function () {
   try {

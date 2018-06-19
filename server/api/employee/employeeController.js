@@ -1,17 +1,19 @@
 import employeeControllerDebug from 'debug';
 import mongoose from 'mongoose';
 import Employee from './employeeModel';
+import Job from '../job/jobModel';
 import Wallet from '../wallet/walletModel';
 import Schedule from '../schedule/scheduleModel';
 import Workhours from '../workhours/workhoursModel';
 import hlGenerator from '../../utils/hyperMediaLinkGenerator';
 import emptyModelTemplateGenerator from '../../utils/emptyModelTemplates';
+import sendError from '../../utils/sendError';
 
 const debug = employeeControllerDebug('app:employeeController');
 
 //  Gets all the data from the employeeModel and sends to employeeRouter
 const employeeController = {
-  FindResource: async (req, res) => {
+  FindResource: async (req, res, next) => {
     try {
       const foundEmployee = await Employee.find(req.query);
       if (foundEmployee.length > 0) {
@@ -20,13 +22,11 @@ const employeeController = {
         res.status(204).json([]);
       }
     } catch (error) {
-      //  TODO: error handle better
       debug(error);
-      res.status(500).send('Error proccesing the request');
+      sendError(500, 'Error proccesing the request', error);
     }
   },
 
-  //  Gets the individual data from the employeeModel and sends to employeeRouter
   FindResourceById: async (req, res) => {
     try {
       const foundEmployee = await Employee.findById(req.params.id);
@@ -36,9 +36,8 @@ const employeeController = {
         res.status(204).json({});
       }
     } catch (error) {
-      //  TODO: error handle better
       debug(error);
-      res.status(500).send('Error proccesing the request');
+      sendError(500, 'Error proccesing the request', error);
     }
   },
 
@@ -58,17 +57,16 @@ const employeeController = {
       const endpoints = ['self', 'wallet', 'workhours', 'job', 'schedule'];
       hlGenerator(newEmployee, req.headers.host, req.originalUrl, endpoints);
       const createdEmployee = await Employee.create(newEmployee);
-      // TODO: create the other models as soon as employee is creaetd
-
-      const emptyModelTemplates = emptyModelTemplateGenerator(createdEmployee._id, mongoose);
+      const emptyModelTemplates = emptyModelTemplateGenerator(createdEmployee._id, mongoose, req.headers.host, req.originalUrl);
+      
+      await Job.create(emptyModelTemplates.jobTemplate);
       await Wallet.create(emptyModelTemplates.walletTemplate);
       await Schedule.create(emptyModelTemplates.scheduleTemplate);
       await Workhours.create(emptyModelTemplates.workhoursTemplate);
       res.status(201).json(createdEmployee);
     } catch (error) {
-      //  TODO: error handle better
       debug(error);
-      res.status(500).send('Error processing the request');
+      sendError(500, 'Error proccesing the request', error);
     }
   },
 
@@ -78,7 +76,8 @@ const employeeController = {
       const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
       res.status(200).json(updatedEmployee);
     } catch (error) {
-      res.status(500).send('Error processing the request');
+      debug(error);
+      sendError(500, 'Error proccesing the request', error);
     }
   },
 
@@ -89,7 +88,7 @@ const employeeController = {
       res.send('data deleted').status(200);
     } catch (error) {
       debug(error);
-      res.send('Error processing the request').status(500);
+      sendError(500, 'Error proccesing the request', error);
     }
   },
 };
