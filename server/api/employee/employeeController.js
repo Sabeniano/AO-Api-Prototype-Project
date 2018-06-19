@@ -13,7 +13,7 @@ const debug = employeeControllerDebug('app:employeeController');
 
 //  Gets all the data from the employeeModel and sends to employeeRouter
 const employeeController = {
-  FindResource: async (req, res, next) => {
+  FindResource: async (req, res) => {
     try {
       const foundEmployee = await Employee.find(req.query);
       if (foundEmployee.length > 0) {
@@ -53,12 +53,16 @@ const employeeController = {
         startDate: req.body.startDate,
         lastChanged: req.body.lastChanged,
         links: [],
-      }
+      };
       const endpoints = ['self', 'wallet', 'workhours', 'job', 'schedule'];
       hlGenerator(newEmployee, req.headers.host, req.originalUrl, endpoints);
       const createdEmployee = await Employee.create(newEmployee);
-      const emptyModelTemplates = emptyModelTemplateGenerator(createdEmployee._id, mongoose, req.headers.host, req.originalUrl);
-      
+      const emptyModelTemplates = emptyModelTemplateGenerator(
+        createdEmployee._id,
+        mongoose,
+        req.headers.host,
+        req.originalUrl
+      );
       await Job.create(emptyModelTemplates.jobTemplate);
       await Wallet.create(emptyModelTemplates.walletTemplate);
       await Schedule.create(emptyModelTemplates.scheduleTemplate);
@@ -85,7 +89,7 @@ const employeeController = {
     try {
       await Employee.findByIdAndRemove(req.params.id);
       //  TODO: consider sending back a JSON with status and message
-      res.status(200).json({ status: 200, message: 'Successfully deleted employee'});
+      res.status(200).json({ status: 200, message: 'Successfully deleted employee' });
     } catch (error) {
       debug(error);
       sendError(500, 'Error processing the request', error);
