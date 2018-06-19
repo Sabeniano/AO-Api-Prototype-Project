@@ -11,7 +11,7 @@ walletRouter.route('/')
   .delete(MessageService(405, 'Cannot delete a wallet'));
 
 walletRouter.route('/:walletId')
-  .get(walletController.FindResourceById)
+  .get(walletController.FindResource)
   .post(MessageService(405, 'Cannot create a new wallet'))
   .patch(walletController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete a wallet'));

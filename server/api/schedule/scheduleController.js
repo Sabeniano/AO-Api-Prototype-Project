@@ -1,25 +1,27 @@
 import employeeControllerDebug from 'debug';
 import schedule from './scheduleModel';
+import sendError from '../../utils/sendError';
 
-const debug = employeeControllerDebug('app:employeeController');
+const debug = employeeControllerDebug('app:scheduleController');
 
 const scheduleController = {
   FindResource: async (req, res) => {
     try {
-      const foundSchedule = await schedule.find({ _Owner: req.params.id });
-      res.json(foundSchedule);
+      const foundSchedule = await schedule.find({ employee_id: req.params.id });
+      res.status(200).json(foundSchedule);
     } catch (error) {
       debug(error);
-      res.send('Error, could not find resource').status(204);
+      sendError(500, 'Error processing the request', error);
     }
   },
 
   UpdateResource: async (req, res) => {
     try {
-      await schedule.findByIdAndUpdate(req.params.scheduleId, req.body);
-      res.send('New data updated').status(201);
+      const updatedSchedule = await schedule.findByIdAndUpdate(req.params.scheduleId, req.body, { new: true });
+      res.status(200).json(updatedSchedule);
     } catch (error) {
-      res.send('Error processing the request').status(409);
+      debug(error);
+      sendError(500, 'Error processing the request', error);
     }
   },
 };

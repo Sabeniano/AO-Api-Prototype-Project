@@ -66,7 +66,7 @@ const employeeController = {
       res.status(201).json(createdEmployee);
     } catch (error) {
       debug(error);
-      sendError(500, 'Error proccesing the request', error);
+      sendError(500, 'Error processing the request', error);
     }
   },
 
@@ -77,7 +77,7 @@ const employeeController = {
       res.status(200).json(updatedEmployee);
     } catch (error) {
       debug(error);
-      sendError(500, 'Error proccesing the request', error);
+      sendError(500, 'Error processing the request', error);
     }
   },
 
@@ -85,10 +85,10 @@ const employeeController = {
     try {
       await Employee.findByIdAndRemove(req.params.id);
       //  TODO: consider sending back a JSON with status and message
-      res.send('data deleted').status(200);
+      res.status(200).json({ status: 200, message: 'Successfully deleted employee'});
     } catch (error) {
       debug(error);
-      sendError(500, 'Error proccesing the request', error);
+      sendError(500, 'Error processing the request', error);
     }
   },
 };
