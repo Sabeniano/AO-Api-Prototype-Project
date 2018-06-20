@@ -1,8 +1,6 @@
-import express from 'express';
-import jobController from './jobController';
-import MessageService from '../../utils/messageService';
-
-const jobRouter = express.Router({ mergeParams: true });
+const jobRouter = require('express').Router({ mergeParams: true });
+const jobController = require('./jobController');
+const MessageService = require('../../utils/messageService');
 
 jobRouter.route('/')
   .get(jobController.FindResource)
@@ -16,4 +14,4 @@ jobRouter.route('/:jobId')
   .patch(jobController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete a job resource'));
 
-export default jobRouter;
+module.exports = jobRouter;

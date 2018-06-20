@@ -1,8 +1,6 @@
-import employeeControllerDebug from 'debug';
-import schedule from './scheduleModel';
-import sendError from '../../utils/sendError';
-
-const debug = employeeControllerDebug('app:scheduleController');
+const debug = require('debug')('app:scheduleController');
+const schedule = require('./scheduleModel');
+const sendError = require('../../utils/sendError');
 
 const scheduleController = {
   FindResource: async (req, res) => {
@@ -26,4 +24,4 @@ const scheduleController = {
   },
 };
 
-export default scheduleController;
+module.exports = scheduleController;

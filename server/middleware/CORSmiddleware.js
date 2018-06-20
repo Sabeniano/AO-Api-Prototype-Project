@@ -13,4 +13,4 @@ function CorsMIddleware() {
   }
 }
 
-export default CorsMIddleware;
+module.exports = CorsMIddleware;

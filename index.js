@@ -1,11 +1,9 @@
-import _ from './server/utils/env';
-import indexdebug from 'debug';
-import config from './server/config/config';
-import app from './server/server';
-import dbConnect from './server/db';
-import seedDB from './server/utils/seedDB';
-
-const debug = indexdebug('app');
+const dotenv = require('dotenv').config();
+const debug = require('debug')('app');
+const config = require('./server/config/config');
+const app = require('./server/server');
+const dbConnect = require('./server/db');
+const seedDB = require('./server/utils/seedDB');
 
 debug(`You are running in ${process.env.NODE_ENV.toUpperCase()} enviroment`);
 

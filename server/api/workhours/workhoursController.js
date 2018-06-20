@@ -1,8 +1,6 @@
-import employeeControllerDebug from 'debug';
-import workhours from './workhoursModel';
-import sendError from '../../utils/sendError';
-
-const debug = employeeControllerDebug('app:workhoursController');
+const debug = require('debug')('app:workhoursController');
+const workhours = require('./workhoursModel');
+const sendError = require('../../utils/sendError');
 
 const workhoursController = {
   FindResource: async (req, res) => {
@@ -25,4 +23,4 @@ const workhoursController = {
   },
 };
 
-export default workhoursController;
+module.exports = workhoursController;

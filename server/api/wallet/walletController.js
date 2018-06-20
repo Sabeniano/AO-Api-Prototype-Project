@@ -1,8 +1,6 @@
-import employeeControllerDebug from 'debug';
-import wallet from './walletModel';
-import sendError from '../../utils/sendError';
-
-const debug = employeeControllerDebug('app:walletController');
+const debug = require('debug')('app:walletController');
+const wallet = require('./walletModel');
+const sendError = require('../../utils/sendError');
 
 const walletController = {
   FindResource: async (req, res) => {
@@ -26,4 +24,4 @@ const walletController = {
   },
 };
 
-export default walletController;
+module.exports = walletController;

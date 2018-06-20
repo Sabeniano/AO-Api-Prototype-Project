@@ -1,4 +1,4 @@
-import hateaosGenerator from './hyperMediaLinkGenerator';
+const hateaosGenerator = require('./hyperMediaLinkGenerator');
 
 function recordGenerator(employeeId, mongooseInstance, hostname, url) {
   const jobTemplate = {
@@ -50,4 +50,4 @@ function recordGenerator(employeeId, mongooseInstance, hostname, url) {
     workhourTemplate,
   };
 }
-export default recordGenerator;
+module.exports = recordGenerator;

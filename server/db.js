@@ -1,17 +1,14 @@
-import mongoose from 'mongoose';
-import debug from 'debug';
-import config from './config/config';
-
-const msg = debug('app:db');
+const mongoose = require('mongoose');
+const debug = require('debug')('app:db');
+const config = require('./config/config');
 
 const connectionString = `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`;
 
-
-export default function dbConnect() {
+module.exports = function dbConnect() {
   try {
     mongoose.connect(connectionString);
-    msg(`Connected to db with ${connectionString}`);
+    debug(`Connected to db with ${connectionString}`);
   } catch (error) {
-    msg(error);
+    debug(error);
   }
 }

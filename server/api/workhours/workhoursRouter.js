@@ -1,8 +1,6 @@
-import express from 'express';
-import workhoursController from './workhoursController';
-import MessageService from '../../utils/messageService';
-
-const workhoursRouter = express.Router({ mergeParams: true });
+const workhoursRouter = require('express').Router({ mergeParams: true });
+const workhoursController = require('./workhoursController');
+const MessageService = require('../../utils/messageService');
 
 workhoursRouter.route('/')
   .get(workhoursController.FindResource)
@@ -16,4 +14,4 @@ workhoursRouter.route('/:workhoursId')
   .patch(workhoursController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete workhours'));
 
-export default workhoursRouter;
+module.exports = workhoursRouter;

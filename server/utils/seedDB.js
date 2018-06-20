@@ -1,12 +1,12 @@
-import faker from 'faker';
-import seeddebug from 'debug';
-import mongoose from 'mongoose';
-import Employees from '../api/employee/employeeModel';
-import Jobs from '../api/job/jobModel';
-import Schedules from '../api/schedule/scheduleModel';
-import Wallets from '../api/wallet/walletModel';
-import Workhours from '../api/workhours/workhoursModel';
-import hateaosGen from './hyperMediaLinkGenerator';
+const faker = require('faker');
+const seeddebug = require('debug');
+const mongoose = require('mongoose');
+const Employees = require('../api/employee/employeeModel');
+const Jobs = require('../api/job/jobModel');
+const Schedules = require('../api/schedule/scheduleModel');
+const Wallets = require('../api/wallet/walletModel');
+const Workhours = require('../api/workhours/workhoursModel');
+const hateaosGen = require('./hyperMediaLinkGenerator');
 
 const debug = seeddebug('seed');
 
@@ -95,7 +95,7 @@ for (let index = 0; index < 20; index += 1) {
 }
 
 
-export default async function () {
+module.exports = async function () {
   try {
     await Employees.remove();
     await Jobs.remove();

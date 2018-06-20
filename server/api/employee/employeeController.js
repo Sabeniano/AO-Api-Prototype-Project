@@ -1,17 +1,14 @@
-import employeeControllerDebug from 'debug';
-import mongoose from 'mongoose';
-import Employee from './employeeModel';
-import Job from '../job/jobModel';
-import Wallet from '../wallet/walletModel';
-import Schedule from '../schedule/scheduleModel';
-import Workhours from '../workhours/workhoursModel';
-import hlGenerator from '../../utils/hyperMediaLinkGenerator';
-import emptyModelTemplateGenerator from '../../utils/emptyModelTemplates';
-import sendError from '../../utils/sendError';
+const debug = require('debug')('app:employeeController');
+const mongoose = require('mongoose');
+const Employee = require('./employeeModel');
+const Job = require('../job/jobModel');
+const Wallet = require('../wallet/walletModel');
+const Schedule = require('../schedule/scheduleModel');
+const Workhours = require('../workhours/workhoursModel');
+const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
+const emptyModelTemplateGenerator = require('../../utils/emptyModelTemplates');
+const sendError = require('../../utils/sendError');
 
-const debug = employeeControllerDebug('app:employeeController');
-
-//  Gets all the data from the employeeModel and sends to employeeRouter
 const employeeController = {
   FindResource: async (req, res) => {
     try {
@@ -61,7 +58,7 @@ const employeeController = {
         createdEmployee._id,
         mongoose,
         req.headers.host,
-        req.originalUrl
+        req.originalUrl,
       );
       await Job.create(emptyModelTemplates.jobTemplate);
       await Wallet.create(emptyModelTemplates.walletTemplate);
@@ -97,4 +94,5 @@ const employeeController = {
   },
 };
 
-export default employeeController;
+module.exports =  employeeController;
+

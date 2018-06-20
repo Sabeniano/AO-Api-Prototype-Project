@@ -1,8 +1,6 @@
-import express from 'express';
-import employeeController from './employeeController';
-import MessageService from '../../utils/messageService';
-
-const employeeRouter = express.Router();
+const employeeRouter = require('express').Router()
+const employeeController = require('./employeeController');
+const MessageService = require('../../utils/messageService');
 
 // Using the specifik methods it sends the data from employeeController to api.js
 // Only the methods with attached parameters will work
@@ -19,4 +17,4 @@ employeeRouter.route('/:id')
   .patch(employeeController.UpdateResource)
   .delete(employeeController.DeleteResource);
 
-export default employeeRouter;
+module.exports = employeeRouter;

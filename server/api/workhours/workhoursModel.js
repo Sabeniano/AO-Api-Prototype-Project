@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const workhoursSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -12,4 +12,4 @@ const workhoursSchema = new mongoose.Schema({
   }],
 });
 
-export default mongoose.model('Workhours', workhoursSchema);
+module.exports = mongoose.model('Workhours', workhoursSchema);

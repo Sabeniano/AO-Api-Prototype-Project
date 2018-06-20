@@ -1,9 +1,9 @@
-import express from 'express';
-import apiRoutes from './api/api';
-import middleware from './middleware/middleware';
-import authRoutes from './user/userRouter';
-import sendError from './utils/sendError';
-import handleError from './utils/errorHandling';
+const express = require('express');
+const apiRoutes = require('./api/api');
+const middleware = require('./middleware/middleware');
+const authRoutes = require('./user/userRouter');
+const sendError = require('./utils/sendError');
+const handleError = require('./utils/errorHandling');
 
 const app = express();
 
@@ -16,4 +16,4 @@ app.use('/auth', authRoutes);
 app.use(sendError(400, 'route not found'));
 app.use(handleError());
 
-export default app;
+module.exports = app;

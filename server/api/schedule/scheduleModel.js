@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const scheduleSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -15,4 +15,4 @@ const scheduleSchema = new mongoose.Schema({
   }],
 });
 
-export default mongoose.model('Schedules', scheduleSchema);
+module.exports = mongoose.model('Schedules', scheduleSchema);
