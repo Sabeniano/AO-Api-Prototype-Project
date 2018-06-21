@@ -45,8 +45,8 @@ for (let index = 0; index < 20; index += 1) {
     links: [],
   };
 
-  const jobEndPoinst = ['self'];
-  hateaosGen(jobSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/job`, jobEndPoinst);
+  //const jobEndPoinst = ['self'];
+  //hateaosGen(jobSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/job`, jobEndPoinst);
 
   const scheduleSeed = {
     _id: mongoose.Types.ObjectId(),
@@ -72,8 +72,8 @@ for (let index = 0; index < 20; index += 1) {
     links: [],
   };
 
-  const walletEndPoinst = ['self'];
-  hateaosGen(walletSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/wallet`, walletEndPoinst);
+  //const walletEndPoinst = ['self'];
+  //hateaosGen(walletSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/wallet`, walletEndPoinst);
 
   const workhourSeed = {
     _id: mongoose.Types.ObjectId(),
@@ -83,8 +83,8 @@ for (let index = 0; index < 20; index += 1) {
     links: [],
   };
 
-  const workhourEndPoinst = ['self'];
-  hateaosGen(workhourSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/workhours`, workhourEndPoinst);
+  //const workhourEndPoinst = ['self'];
+  //hateaosGen(workhourSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/workhours`, workhourEndPoinst);
 
 
   genEmployees.push(employeeSeed);
