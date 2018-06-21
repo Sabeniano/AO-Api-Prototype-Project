@@ -27,4 +27,8 @@ describe('employeeController', () => {
       })
     });
   });
+  describe('FindResourceById', () => {
+    it('should return one employee')
+          
+  });
 });
