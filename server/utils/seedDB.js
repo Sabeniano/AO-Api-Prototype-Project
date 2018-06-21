@@ -1,5 +1,5 @@
 const faker = require('faker');
-const seeddebug = require('debug');
+const logger = require('./logger');
 const mongoose = require('mongoose');
 const Employees = require('../api/employee/employeeModel');
 const Jobs = require('../api/job/jobModel');
@@ -7,8 +7,6 @@ const Schedules = require('../api/schedule/scheduleModel');
 const Wallets = require('../api/wallet/walletModel');
 const Workhours = require('../api/workhours/workhoursModel');
 const hateaosGen = require('./hyperMediaLinkGenerator');
-
-const debug = seeddebug('seed');
 
 const genEmployees = [];
 const genJobs = [];
@@ -109,8 +107,8 @@ module.exports = async function () {
     await Wallets.create(genWallets);
     await Workhours.create(genWorkhours);
 
-    debug('Removed and seeded DB');
+    logger.log('Removed and seeded DB');
   } catch (error) {
-    debug(error);
+    logger.log(error);
   }
 }

@@ -1,4 +1,3 @@
-const debug = require('debug')('app:employeeController');
 const mongoose = require('mongoose');
 const Employee = require('./employeeModel');
 const Job = require('../job/jobModel');
@@ -10,7 +9,7 @@ const emptyModelTemplateGenerator = require('../../utils/emptyModelTemplates');
 const sendError = require('../../utils/sendError');
 
 const employeeController = {
-  FindResource: async (req, res) => {
+  FindResource: async (req, res, next) => {
     try {
       const foundEmployee = await Employee.find(req.query);
       if (foundEmployee.length > 0) {
@@ -19,12 +18,12 @@ const employeeController = {
         res.status(204).json([]);
       }
     } catch (error) {
-      debug(error);
       sendError(500, 'Error proccesing the request', error);
+      next();
     }
   },
 
-  FindResourceById: async (req, res) => {
+  FindResourceById: async (req, res, next) => {
     try {
       const foundEmployee = await Employee.findById(req.params.id);
       if (foundEmployee) {
@@ -33,15 +32,15 @@ const employeeController = {
         res.status(204).json({});
       }
     } catch (error) {
-      debug(error);
       sendError(500, 'Error proccesing the request', error);
+      next();
     }
   },
 
-  CreateResource: async (req, res) => {
+  CreateResource: async (req, res, next) => {
     try {
       const newEmployee = {
-        _id: mongoose.Types.ObjectId(),
+        _id: req.body._id || mongoose.Types.ObjectId(),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         birthday: req.body.birthday,
@@ -66,30 +65,30 @@ const employeeController = {
       await Workhours.create(emptyModelTemplates.workhoursTemplate);
       res.status(201).json(createdEmployee);
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 
-  UpdateResource: async (req, res) => {
+  UpdateResource: async (req, res, next) => {
     try {
       //  TODO: set validation/checks
       const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
       res.status(200).json(updatedEmployee);
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 
-  DeleteResource: async (req, res) => {
+  DeleteResource: async (req, res, next) => {
     try {
       await Employee.findByIdAndRemove(req.params.id);
       //  TODO: consider sending back a JSON with status and message
       res.status(200).json({ status: 200, message: 'Successfully deleted employee' });
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 };
