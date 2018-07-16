@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const employeeSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  _id: {type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
   firstName: {type: String, required: true },
   lastName: {type: String, required: true },
   birthday: {type: Date, required: true },
@@ -59,9 +59,9 @@ employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
         description: 'get employees schedules',
       },
       {
-        rel: 'work',
+        rel: 'workhours',
         type: 'GET',
-        description: 'get employees work',
+        description: 'get employees workhour',
       },
     ];
     hlGenerator(this, hostName, url, hateaosEndpoints);

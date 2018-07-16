@@ -11,7 +11,7 @@ function handleError() {
     }
     res.status(error.status).json({
       status: error.status,
-      message: error.message,
+      message: error.resMessage,
     });
   };
 }

@@ -6,17 +6,19 @@ const Schedule = require('../schedule/scheduleModel');
 const Workhours = require('../workhours/workhoursModel');
 
 const employeeController = {
-  FindResource: async (req, res, next) => {
+  GetAllEmployees: async (req, res, next) => {
     try {
       const foundEmployees = await Employee.find(req.query, 'firstName lastName phoneNumber links');
-      for (let i = 0; i < foundEmployees.length; i++) {
-        foundEmployees[i].SetUpHyperLinks(req.headers.host, req.originalUrl)
-      };
+      if (foundEmployees < 0 ) {
+      }
       const documents = {
         count: foundEmployees.length,
         employees: foundEmployees,
       };
       if (documents.count > 0) {
+        for (let i = 0; i < foundEmployees.length; i++) {
+          foundEmployees[i].SetUpHyperLinks(req.headers.host, req.originalUrl)
+        };
         res.status(200).json(documents);
       } else {
         res.status(204).json(documents);
@@ -26,7 +28,7 @@ const employeeController = {
     }
   },
 
-  FindResourceById: async (req, res, next) => {
+  GetEmployeeById: async (req, res, next) => {
     try {
       const foundEmployee = await Employee.findOne({ _id: req.params.id });
       if (foundEmployee) {
@@ -40,7 +42,7 @@ const employeeController = {
     }
   },
 
-  CreateResource: async (req, res, next) => {
+  CreateEmployee: async (req, res, next) => {
     try {
       const newEmployee = {
         _id: new mongoose.Types.ObjectId(),
@@ -59,16 +61,13 @@ const employeeController = {
       const createdEmployee = await Employee.create(newEmployee);
       createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
       await Job.create({
-        _id: new mongoose.Types.ObjectId(),
-        _Owner: createdEmployee._id,
+        employee_id: createdEmployee._id,
       });
       await Wallet.create({
-        _id: new mongoose.Types.ObjectId(),
-        _Owner: createdEmployee._id,
+        employee_id: createdEmployee._id,
       });
       await Workhours.create({
-        _id: new mongoose.Types.ObjectId(),
-        _Owner: createdEmployee._id,
+        employee_id: createdEmployee._id,
       });
       res.status(201).json(createdEmployee);
     } catch (error) {
@@ -76,7 +75,7 @@ const employeeController = {
     }
   },
 
-  UpdateResource: async (req, res, next) => {
+  UpdateEmployee: async (req, res, next) => {
     try {
       //  TODO: set validation/checks
       const updatedEmployee = await Employee
@@ -88,7 +87,7 @@ const employeeController = {
     }
   },
 
-  DeleteResource: async (req, res, next) => {
+  DeleteEmployee: async (req, res, next) => {
     try {
       await Employee.findOneAndRemove({ _id: req.params.id });
       res.status(200).json({ status: 200, message: 'Successfully deleted employee' });

@@ -1,19 +1,21 @@
-const workhours = require('./workhoursModel');
+const Workhour = require('./workhoursModel');
 
 const workhoursController = {
-  FindResource: async (req, res, next) => {
+  FindWorkhourById: async (req, res, next) => {
     try {
-      const foundWorkhours = await workhours.find({ employees_id: req.params.id });
-      res.status(200).json(foundWorkhours);
+      const foundWorkhour = await Workhour.findOne({ employee_id: req.params.id });
+      foundWorkhour.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      res.status(200).json(foundWorkhour);
     } catch (error) {
       next(error);
     }
   },
 
-  UpdateResource: async (req, res, next) => {
+  UpdateWorkhour: async (req, res, next) => {
     try {
-      const updatedWorkhours = await workhours.findByIdAndUpdate(req.params.workhoursId, req.body);
-      res.status(200).json(updatedWorkhours);
+      const updatedWorkhour = await Workhour.findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true});
+      updatedWorkhour.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      res.status(200).json(updatedWorkhour);
     } catch (error) {
       next(error);
     }

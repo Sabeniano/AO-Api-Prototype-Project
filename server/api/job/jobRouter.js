@@ -3,9 +3,9 @@ const jobController = require('./jobController');
 const MessageService = require('../../utils/messageService');
 
 jobRouter.route('/')
-  .get(jobController.FindResource)
+  .get(jobController.FindJobById)
   .post(MessageService(405, 'Cannot create a new job resource'))
-  .patch(jobController.UpdateResource)
+  .patch(jobController.UpdateJob)
   .delete(MessageService(405, 'Cannot delete a job resource'));
 
 module.exports = jobRouter;

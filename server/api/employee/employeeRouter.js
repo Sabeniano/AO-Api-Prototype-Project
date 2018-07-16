@@ -6,15 +6,15 @@ const MessageService = require('../../utils/messageService');
 // Only the methods with attached parameters will work
 
 employeeRouter.route('/')
-  .get(employeeController.FindResource)
-  .post(employeeController.CreateResource)
+  .get(employeeController.GetAllEmployees)
+  .post(employeeController.CreateEmployee)
   .patch(MessageService(405, 'Use /employee/ID to update specific resource'))
   .delete(MessageService(405, 'Use /employee/ID to delete specific resource'));
 
 employeeRouter.route('/:id')
-  .get(employeeController.FindResourceById)
+  .get(employeeController.GetEmployeeById)
   .post(MessageService(405, 'Use /employee/ only to create a new resource'))
-  .patch(employeeController.UpdateResource)
-  .delete(employeeController.DeleteResource);
+  .patch(employeeController.GetEmployeeById)
+  .delete(employeeController.DeleteEmployee);
 
 module.exports = employeeRouter;
