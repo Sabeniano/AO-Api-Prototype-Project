@@ -10,6 +10,7 @@ const employeeSchema = new mongoose.Schema({
   country: {type: String, required: true },
   street: {type: String, required: true },
   phoneNumber: {type: Number, require: true},
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   job: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Jobs',

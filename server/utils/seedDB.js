@@ -86,6 +86,12 @@ module.exports = async function () {
     await Schedules.create(genSchedules);
     await Wallets.create(genWallets);
     await Workhours.create(genWorkhours);
+    await User.create({
+      username: 'test',
+      email: employees[0].email,
+      role: 'Master Administrator',
+      password: 'test',
+    });
 
     logger.log('Removed and seeded DB');
   } catch (error) {

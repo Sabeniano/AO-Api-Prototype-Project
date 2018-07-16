@@ -9,7 +9,10 @@ const dev = {
     port: parseInt(process.env.DEV_DB_PORT, 10) || 27017,
     name: process.env.DEV_DB_NAME || 'aoe',
   },
-  secret: process.env.DEV_SECRET,
+  jwt: {
+    secret: process.env.DEV_JWT_SECRET ||'secrettesting',
+    expireTime: process.env.DEV_JWT_EXPIRES || '1h',
+  }
 };
 
 const test = {
