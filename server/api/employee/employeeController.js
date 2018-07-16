@@ -4,6 +4,7 @@ const Job = require('../job/jobModel');
 const Wallet = require('../wallet/walletModel');
 const Schedule = require('../schedule/scheduleModel');
 const Workhours = require('../workhours/workhoursModel');
+const crypto = require('crypto');
 
 const employeeController = {
   GetAllEmployees: async (req, res, next) => {
@@ -55,6 +56,7 @@ const employeeController = {
         street: req.body.country,
         address: req.body.address,
         phoneNumber: req.body.phoneNumber,
+        user: new mongoose.Types.ObjectId(),
         startDate: req.body.startDate,
         lastChanged: req.body.lastChanged,
       };
@@ -68,6 +70,16 @@ const employeeController = {
       });
       await Workhours.create({
         employee_id: createdEmployee._id,
+      });
+      const username = `${req.body.firstName.substring(0, 2)}${req.body.lastName.substring(0, 2)}`;
+      const password = await crypto.randomBytes(12);
+      //  consider giving option to add already created user
+      await User.create({
+        _id: newEmployee.user,
+        username,
+        email: newEmployee.email,
+        employee: newEmployee._id,
+        password: password.toString('hex'),
       });
       res.status(201).json(createdEmployee);
     } catch (error) {

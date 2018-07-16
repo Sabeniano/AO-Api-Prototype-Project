@@ -1,15 +1,16 @@
 const express = require('express');
 const apiRoutes = require('./api/api');
 const middleware = require('./middleware/middleware');
-const authRoutes = require('./user/userRouter');
+const authRoutes = require('./auth/authRouter');
 const handleError = require('./utils/errorHandling');
+
 
 const app = express();
 
 middleware(app);
 
 app.use('/api/v1/', apiRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 //  if no endpoint is hit
 app.use((req, res, next) => {
