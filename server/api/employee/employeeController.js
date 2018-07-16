@@ -4,91 +4,96 @@ const Job = require('../job/jobModel');
 const Wallet = require('../wallet/walletModel');
 const Schedule = require('../schedule/scheduleModel');
 const Workhours = require('../workhours/workhoursModel');
-const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
-const emptyModelTemplateGenerator = require('../../utils/emptyModelTemplates');
-const sendError = require('../../utils/sendError');
 
 const employeeController = {
   FindResource: async (req, res, next) => {
     try {
-      const foundEmployee = await Employee.find(req.query);
-      if (foundEmployee.length > 0) {
-        res.json(foundEmployee);
+      const foundEmployees = await Employee.find(req.query, 'firstName lastName phoneNumber links');
+      for (let i = 0; i < foundEmployees.length; i++) {
+        foundEmployees[i].SetUpHyperLinks(req.headers.host, req.originalUrl)
+      };
+      const documents = {
+        count: foundEmployees.length,
+        employees: foundEmployees,
+      };
+      if (documents.count > 0) {
+        res.status(200).json(documents);
       } else {
-        res.status(204).json([]);
+        res.status(204).json(documents);
       }
     } catch (error) {
-      sendError(500, 'Error proccesing the request', error);
-      next();
+      next(error);
     }
   },
 
   FindResourceById: async (req, res, next) => {
     try {
-      const foundEmployee = await Employee.findById(req.params.id);
+      const foundEmployee = await Employee.findOne({ _id: req.params.id });
       if (foundEmployee) {
+        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl)
         res.status(200).json(foundEmployee);
       } else {
         res.status(204).json({});
       }
     } catch (error) {
-      sendError(500, 'Error proccesing the request', error);
-      next();
+      next(error);
     }
   },
 
   CreateResource: async (req, res, next) => {
     try {
       const newEmployee = {
-        _id: req.body._id || mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         birthday: req.body.birthday,
+        email: req.body.email,
+        city: req.body.city,
+        country: req.body.country,
+        street: req.body.country,
         address: req.body.address,
         phoneNumber: req.body.phoneNumber,
         startDate: req.body.startDate,
         lastChanged: req.body.lastChanged,
-        links: [],
       };
-      const endpoints = ['self', 'wallet', 'workhours', 'job', 'schedule'];
-      hlGenerator(newEmployee, req.headers.host, req.originalUrl, endpoints);
       const createdEmployee = await Employee.create(newEmployee);
-      const emptyModelTemplates = emptyModelTemplateGenerator(
-        createdEmployee._id,
-        mongoose,
-        req.headers.host,
-        req.originalUrl,
-      );
-      await Job.create(emptyModelTemplates.jobTemplate);
-      await Wallet.create(emptyModelTemplates.walletTemplate);
-      await Schedule.create(emptyModelTemplates.scheduleTemplate);
-      await Workhours.create(emptyModelTemplates.workhoursTemplate);
+      createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      await Job.create({
+        _id: new mongoose.Types.ObjectId(),
+        _Owner: createdEmployee._id,
+      });
+      await Wallet.create({
+        _id: new mongoose.Types.ObjectId(),
+        _Owner: createdEmployee._id,
+      });
+      await Workhours.create({
+        _id: new mongoose.Types.ObjectId(),
+        _Owner: createdEmployee._id,
+      });
       res.status(201).json(createdEmployee);
     } catch (error) {
-      sendError(500, 'Error processing the request', error);
-      next();
+      next(error);
     }
   },
 
   UpdateResource: async (req, res, next) => {
     try {
       //  TODO: set validation/checks
-      const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const updatedEmployee = await Employee
+        .findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
+      updatedEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
       res.status(200).json(updatedEmployee);
     } catch (error) {
-      sendError(500, 'Error processing the request', error);
-      next();
+      next(error);
     }
   },
 
   DeleteResource: async (req, res, next) => {
     try {
-      await Employee.findByIdAndRemove(req.params.id);
-      //  TODO: consider sending back a JSON with status and message
+      await Employee.findOneAndRemove({ _id: req.params.id });
       res.status(200).json({ status: 200, message: 'Successfully deleted employee' });
     } catch (error) {
-      sendError(500, 'Error processing the request', error);
-      next();
+      next(error);
     }
   },
 };

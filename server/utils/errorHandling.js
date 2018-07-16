@@ -1,10 +1,15 @@
-const logger = require('./logger');
+const logger = require('./loggerWrapper');
 
 function handleError() {
   return (error, req, res, next) => {
-    logger.log(error)
-    res.status(error.status || 500);
-    res.json({
+    logger.log(error, 'error')
+    if (!error.status) {
+      error.status = 500;
+    }
+    if (!error.resMessage) {
+      error.resMessage = 'Error proccessing the request';
+    }
+    res.status(error.status).json({
       status: error.status,
       message: error.message,
     });
