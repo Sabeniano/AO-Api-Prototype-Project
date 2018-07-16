@@ -1,15 +1,34 @@
 const mongoose = require('mongoose');
+const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const workhoursSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  employees_id: String,
-  totalHoursThisPaycheck: Number,
-  totalOvertimeHoursThisPaycheck: Number,
-  links: [{
+  _id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
+  employee_id: { type:String, required: true },
+  totalHoursThisPaycheck: { type: Number, default: 0 },
+  totalOvertimeHoursThisPaycheck: { type: Number, default: 0},
+  links: { type: [{
     _id: false,
     rel: String,
     href: String,
-  }],
+  }], default: []},
 });
 
-module.exports = mongoose.model('Workhours', workhoursSchema);
+workhoursSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
+  {
+    const hateaosEndpoints = [
+      {
+        rel: 'owner',
+        type: 'GET',
+        description: 'get this workhours owner',
+      },
+      {
+        rel: 'self',
+        type: 'PATCH',
+        description: 'update this workhour',
+      },
+    ];
+    hlGenerator(this, hostName, url, hateaosEndpoints, true);
+  }
+});
+
+module.exports = mongoose.model('Workhour', workhoursSchema);

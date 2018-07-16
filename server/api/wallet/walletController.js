@@ -1,18 +1,20 @@
 const wallet = require('./walletModel');
 
 const walletController = {
-  FindResource: async (req, res, next) => {
+  FindWalletById: async (req, res, next) => {
     try {
-      const foundWallet = await wallet.find({ employees_id: req.params.id });
+      const foundWallet = await wallet.findOne({ employee_id: req.params.id });
+      foundWallet.SetUpHyperLinks(req.headers.host, req.originalUrl);
       res.status(200).json(foundWallet);
     } catch (error) {
       next(error);
     }
   },
 
-  UpdateResource: async (req, res, next) => {
+  UpdateWallet: async (req, res, next) => {
     try {
-      const updatedWallet = await wallet.findByIdAndUpdate(req.params.walletId, req.body, { new: true });
+      const updatedWallet = await wallet.findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true });
+      updatedWallet.SetUpHyperLinks(req.headers.host, req.originalUrl);
       res.status(200).json(updatedWallet);
     } catch (error) {
       next(error);

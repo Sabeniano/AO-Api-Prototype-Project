@@ -1,4 +1,5 @@
 const dotenv = require('dotenv').config();
+const http = require('http');
 const logger = require('./server/utils/loggerWrapper');
 const config = require('./server/config/config');
 const app = require('./server/app');
@@ -11,6 +12,5 @@ dbConnect();
 
 seedDB();
 
-app.listen(config.app.port);
-
-logger.log(config.app.port);
+const server = http.createServer(app);
+server.listen(config.app.port);
