@@ -1,14 +1,12 @@
-import faker from 'faker';
-import seeddebug from 'debug';
-import mongoose from 'mongoose';
-import Employees from '../api/employee/employeeModel';
-import Jobs from '../api/job/jobModel';
-import Schedules from '../api/schedule/scheduleModel';
-import Wallets from '../api/wallet/walletModel';
-import Workhours from '../api/workhours/workhoursModel';
-import hateaosGen from './hyperMediaLinkGenerator';
-
-const debug = seeddebug('seed');
+const faker = require('faker');
+const logger = require('./logger');
+const mongoose = require('mongoose');
+const Employees = require('../api/employee/employeeModel');
+const Jobs = require('../api/job/jobModel');
+const Schedules = require('../api/schedule/scheduleModel');
+const Wallets = require('../api/wallet/walletModel');
+const Workhours = require('../api/workhours/workhoursModel');
+const hateaosGen = require('./hyperMediaLinkGenerator');
 
 const genEmployees = [];
 const genJobs = [];
@@ -45,8 +43,8 @@ for (let index = 0; index < 20; index += 1) {
     links: [],
   };
 
-  const jobEndPoinst = ['self'];
-  hateaosGen(jobSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/job`, jobEndPoinst);
+  //const jobEndPoinst = ['self'];
+  //hateaosGen(jobSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/job`, jobEndPoinst);
 
   const scheduleSeed = {
     _id: mongoose.Types.ObjectId(),
@@ -72,8 +70,8 @@ for (let index = 0; index < 20; index += 1) {
     links: [],
   };
 
-  const walletEndPoinst = ['self'];
-  hateaosGen(walletSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/wallet`, walletEndPoinst);
+  //const walletEndPoinst = ['self'];
+  //hateaosGen(walletSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/wallet`, walletEndPoinst);
 
   const workhourSeed = {
     _id: mongoose.Types.ObjectId(),
@@ -83,8 +81,8 @@ for (let index = 0; index < 20; index += 1) {
     links: [],
   };
 
-  const workhourEndPoinst = ['self'];
-  hateaosGen(workhourSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/workhours`, workhourEndPoinst);
+  //const workhourEndPoinst = ['self'];
+  //hateaosGen(workhourSeed, 'localhost:3000/', `api/v1/employee/${employeeSeed._id}/workhours`, workhourEndPoinst);
 
 
   genEmployees.push(employeeSeed);
@@ -95,7 +93,7 @@ for (let index = 0; index < 20; index += 1) {
 }
 
 
-export default async function () {
+module.exports = async function () {
   try {
     await Employees.remove();
     await Jobs.remove();
@@ -109,8 +107,8 @@ export default async function () {
     await Wallets.create(genWallets);
     await Workhours.create(genWorkhours);
 
-    debug('Removed and seeded DB');
+    logger.log('Removed and seeded DB');
   } catch (error) {
-    debug(error);
+    logger.log(error);
   }
 }

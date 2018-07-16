@@ -1,29 +1,26 @@
-import employeeControllerDebug from 'debug';
-import schedule from './scheduleModel';
-import sendError from '../../utils/sendError';
-
-const debug = employeeControllerDebug('app:scheduleController');
+const schedule = require('./scheduleModel');
+const sendError = require('../../utils/sendError');
 
 const scheduleController = {
-  FindResource: async (req, res) => {
+  FindResource: async (req, res, next) => {
     try {
       const foundSchedule = await schedule.find({ employee_id: req.params.id });
       res.status(200).json(foundSchedule);
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 
-  UpdateResource: async (req, res) => {
+  UpdateResource: async (req, res, next) => {
     try {
       const updatedSchedule = await schedule.findByIdAndUpdate(req.params.scheduleId, req.body, { new: true });
       res.status(200).json(updatedSchedule);
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 };
 
-export default scheduleController;
+module.exports = scheduleController;

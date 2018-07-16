@@ -1,29 +1,27 @@
-import employeeControllerDebug from 'debug';
-import job from './jobModel';
-import sendError from '../../utils/sendError';
+const job = require('./jobModel');
+const sendError = require('../../utils/sendError');
 
-const debug = employeeControllerDebug('app:jobController');
 
 const jobController = {
-  FindResource: async (req, res) => {
+  FindResource: async (req, res, next) => {
     try {
       const foundJob = await job.find({ employee_id: req.params.id });
       res.status(200).json(foundJob);
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 
-  UpdateResource: async (req, res) => {
+  UpdateResource: async (req, res, nex) => {
     try {
       const updatedJob = await job.findByIdAndUpdate(req.params.jobId, req.body, { new: true });
       res.status(200).json(updatedJob);
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 };
 
-export default jobController;
+module.exports = jobController;

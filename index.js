@@ -1,13 +1,11 @@
-import _ from './server/utils/env';
-import indexdebug from 'debug';
-import config from './server/config/config';
-import app from './server/server';
-import dbConnect from './server/db';
-import seedDB from './server/utils/seedDB';
+const dotenv = require('dotenv').config();
+const logger = require('./server/utils/logger');
+const config = require('./server/config/config');
+const app = require('./server/server');
+const dbConnect = require('./server/db');
+const seedDB = require('./server/utils/seedDB');
 
-const debug = indexdebug('app');
-
-debug(`You are running in ${process.env.NODE_ENV.toUpperCase()} enviroment`);
+logger.log(`You are running in ${process.env.NODE_ENV.toUpperCase()} enviroment`);
 
 dbConnect();
 
@@ -15,4 +13,4 @@ seedDB();
 
 app.listen(config.app.port);
 
-debug(config.app.port);
+logger.log(config.app.port);

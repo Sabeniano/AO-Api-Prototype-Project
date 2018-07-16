@@ -1,6 +1,6 @@
-import express from 'express';
-import messageService from '../utils/messageService';
-import userController from './userController';
+const express = require('express');
+const messageService = require('../utils/messageService');
+const userController = require('./userController');
 
 const userRouter = express.Router();
 
@@ -17,4 +17,4 @@ userRouter.route('/')
 //   .put(userController.updateUser)
 //   .delete(userController.deleteUser);
 
-export default userRouter;
+module.exports = userRouter;

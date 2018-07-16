@@ -1,29 +1,26 @@
-import employeeControllerDebug from 'debug';
-import wallet from './walletModel';
-import sendError from '../../utils/sendError';
-
-const debug = employeeControllerDebug('app:walletController');
+const wallet = require('./walletModel');
+const sendError = require('../../utils/sendError');
 
 const walletController = {
-  FindResource: async (req, res) => {
+  FindResource: async (req, res, next) => {
     try {
       const foundWallet = await wallet.find({ employees_id: req.params.id });
       res.status(200).json(foundWallet);
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 
-  UpdateResource: async (req, res) => {
+  UpdateResource: async (req, res, next) => {
     try {
       const updatedWallet = await wallet.findByIdAndUpdate(req.params.walletId, req.body, { new: true });
       res.status(200).json(updatedWallet);
     } catch (error) {
-      debug(error);
       sendError(500, 'Error processing the request', error);
+      next();
     }
   },
 };
 
-export default walletController;
+module.exports = walletController;

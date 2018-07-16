@@ -1,8 +1,6 @@
-import express from 'express';
-import scheduleController from './scheduleController';
-import MessageService from '../../utils/messageService';
-
-const scheduleRouter = express.Router({ mergeParams: true });
+const scheduleRouter = require('express').Router({ mergeParams: true });
+const scheduleController = require('./scheduleController');
+const MessageService = require('../../utils/messageService');
 
 scheduleRouter.route('/')
   .get(scheduleController.FindResource)
@@ -16,4 +14,4 @@ scheduleRouter.route('/:scheduleId')
   .patch(scheduleController.UpdateResource)
   .delete(MessageService(405, 'Cannot delete a schedule'));
 
-export default scheduleRouter;
+module.exports = scheduleRouter;
