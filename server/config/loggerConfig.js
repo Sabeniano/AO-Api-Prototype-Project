@@ -1,6 +1,6 @@
 const winston = require('winston');
 
-const prodLogger = [
+const prod = [
   new winston.transports.File({ filename: 'error.log', level: 'error' }),
   new winston.transports.File({
     filename: 'combined.log',
@@ -9,35 +9,25 @@ const prodLogger = [
         winston.format.timestamp(),
         winston.format.prettyPrint(),
       ),
-  })
+  }),
 ];
 
-const devLogger = [
-  new winston.transports.Console({ 
-    format: 
+const dev = [
+  new winston.transports.Console({
+    format:
     winston.format.combine(
       winston.format.colorize(),
       winston.format.simple(),
-    )}
-  )
-]
+    ),
+  }),
+];
 
 
 const loggerconfig = {
   level: 'info',
-  transports: process.env.NODE_ENV === 'prod' ? prodLogger : devLogger,
+  transports: process.env.NODE_ENV === 'prod' ? prod : dev,
+  exceptionHandlers: process.env.NODE_ENV === 'prod' ? prod : dev,
   silent: false,
-}
+};
 
-const winstonLogger = winston.createLogger(loggerconfig);
-
-
-module.exports = {
-  log: function log(message, level) {
-    if (level) {
-      winstonLogger.log({level, message});
-    } else {
-      winstonLogger.log({level: 'info', message})
-    }
-  }
-}
+module.exports = loggerconfig;

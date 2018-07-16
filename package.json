@@ -2,12 +2,12 @@
   "name": "aostart",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "mocha ./server/api/**/*.test.js",
     "prestart": "npm i",
-    "start": "node ./index.js",
-    "dev": "set DEBUG=app,app:*,seed & nodemon ./index.js"
+    "start": "node ./serverjs",
+    "dev": "nodemon ./server.js"
   },
   "keywords": [],
   "author": "",

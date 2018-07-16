@@ -2,7 +2,6 @@ const express = require('express');
 const apiRoutes = require('./api/api');
 const middleware = require('./middleware/middleware');
 const authRoutes = require('./user/userRouter');
-const sendError = require('./utils/sendError');
 const handleError = require('./utils/errorHandling');
 
 const app = express();
@@ -13,7 +12,11 @@ app.use('/api/v1/', apiRoutes);
 app.use('/auth', authRoutes);
 
 //  if no endpoint is hit
-app.use(sendError(400, 'route not found'));
+app.use((req, res, next) => {
+  const error = new Error('Resource not found');
+  error.status = 404;
+  next(error);
+});
 app.use(handleError());
 
 module.exports = app;

@@ -1,7 +1,7 @@
 const dotenv = require('dotenv').config();
-const logger = require('./server/utils/logger');
+const logger = require('./server/utils/loggerWrapper');
 const config = require('./server/config/config');
-const app = require('./server/server');
+const app = require('./server/app');
 const dbConnect = require('./server/db');
 const seedDB = require('./server/utils/seedDB');
 
