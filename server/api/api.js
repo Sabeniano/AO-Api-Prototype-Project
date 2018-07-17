@@ -7,6 +7,7 @@ const walletRouter = require('./wallet/walletRouter');
 const jobRouter = require('./job/jobRouter');
 const workhoursRouter = require('./workhours/workhoursRouter');
 const scheduleRouter = require('./schedule/scheduleRouter');
+const userRoutes = require('./user/userRouter');
 
 const verifyTokenAndGetUser = [verifyToken(), getFullUser()];
 

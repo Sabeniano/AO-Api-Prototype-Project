@@ -11,3 +11,4 @@ function verifyRole() {
     });
   };
 }
+module.exports = verifyRole;

@@ -6,14 +6,18 @@ const http_mocks = require('node-mocks-http');
 const employeeController = require('./employeeController');
 const Employee = require('./employeeModel');
 
-chai.should();
-
 function buildReponse() {
   return http_mocks.createResponse({eventEmitter: require('events').EventEmitter});
 };
 
 
 describe('employeeController', () => {
+  describe('GetAllEmployees', () => {
+    it('should be called once', (done) => {
+      const test = employeeController.GetAllEmployees();
+      done()
+    })
+  })
   describe('FindResource', () => {
     it('should return all employees', (done) => {
       const employeeMock = sinon.mock(Employee);

@@ -21,3 +21,5 @@ function verifyFields() {
     return next();
   };
 }
+
+module.exports = verifyFields;

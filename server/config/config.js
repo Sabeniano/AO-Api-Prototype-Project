@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV; // 'dev' or 'test'
+const env = process.env.NODE_ENV || 'test'; // 'dev' or 'test'
 
 const dev = {
   app: {
@@ -24,7 +24,10 @@ const test = {
     port: parseInt(process.env.TEST_DB_PORT, 10) || 27017,
     name: process.env.TEST_DB_NAME || 'aoe_test',
   },
-  secret: process.env.DEV_SECRET,
+  jwt: {
+    secret: process.env.DEV_JWT_SECRET || 'secrettesting',
+    expireTime: process.env.DEV_JWT_EXPIRES || '1h',
+  },
 };
 
 const prod = {
