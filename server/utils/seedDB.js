@@ -6,6 +6,7 @@ const Jobs = require('../api/job/jobModel');
 const Schedules = require('../api/schedule/scheduleModel');
 const Wallets = require('../api/wallet/walletModel');
 const Workhours = require('../api/workhours/workhoursModel');
+const User = require('../api/user/userModel');
 
 const genEmployees = [];
 const genJobs = [];
@@ -21,6 +22,7 @@ for (let index = 0; index < 20; index += 1) {
     _id: new mongoose.Types.ObjectId(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
+    email: faker.internet.email(),
     birthday: faker.date.past(),
     city: faker.address.city,
     country: faker.address.country,
@@ -80,6 +82,7 @@ module.exports = async function () {
     await Schedules.remove();
     await Wallets.remove();
     await Workhours.remove();
+    await User.remove();
 
     await Employees.create(genEmployees);
     await Jobs.create(genJobs);
@@ -88,7 +91,7 @@ module.exports = async function () {
     await Workhours.create(genWorkhours);
     await User.create({
       username: 'test',
-      email: employees[0].email,
+      email: genEmployees[0].email,
       role: 'Master Administrator',
       password: 'test',
     });

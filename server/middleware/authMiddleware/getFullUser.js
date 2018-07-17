@@ -20,3 +20,5 @@ function getFullUser() {
     }
   };
 }
+
+module.exports = getFullUser;

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const hlGenerator = require('../../util/HyperMediaLinksGenerator');
+const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const userSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, default: mongoose.Types.ObjectId() },
