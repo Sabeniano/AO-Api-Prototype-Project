@@ -1,5 +1,5 @@
 const winston = require('winston');
-const loggerConfig = require('../config/loggerconfig');
+const loggerConfig = require('../config/loggerConfig');
 
 const winstonLogger = winston.createLogger(loggerConfig);
 

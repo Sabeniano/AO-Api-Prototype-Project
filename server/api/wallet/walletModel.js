@@ -6,14 +6,17 @@ const walletSchema = new mongoose.Schema({
   wage: { type: Number, default: 0 },
   salary: { type: Number, default: 0 },
   paymentMethod: { type: String, enum: ['Monthly', 'Hourly'], default: 'Hourly' },
-  employee_id: { type:String, required: true },
+  employee_id: { type: String, required: true },
   lastChanged: { type: Date, default: Date.now },
-  links: { type: [{
-    _id: false,
-    rel: String,
-    href: String,
-    description: String,
-  }], default: []},
+  links: {
+    type: [{
+      _id: false,
+      rel: String,
+      href: String,
+      description: String,
+    }],
+    default: [],
+  },
 });
 
 walletSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {

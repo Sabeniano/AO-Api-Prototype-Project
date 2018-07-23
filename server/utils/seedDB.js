@@ -24,9 +24,9 @@ for (let index = 0; index < 20; index += 1) {
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
     birthday: faker.date.past(),
-    city: faker.address.city,
-    country: faker.address.country,
-    street: faker.address.streetAddress,
+    city: faker.address.city(),
+    country: faker.address.country(),
+    street: faker.address.streetAddress(),
     phoneNumber: parseInt(faker.phone.phoneNumber('########'), 10),
     startDate: faker.date.past(),
     lastChanged: faker.date.past(),
@@ -75,7 +75,7 @@ for (let index = 0; index < 20; index += 1) {
 }
 
 
-module.exports = async function () {
+module.exports = async () => {
   try {
     await Employees.remove();
     await Jobs.remove();
@@ -100,4 +100,4 @@ module.exports = async function () {
   } catch (error) {
     logger.log(error, 'error');
   }
-}
+};

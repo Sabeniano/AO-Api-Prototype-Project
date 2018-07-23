@@ -39,7 +39,10 @@ const prod = {
     port: parseInt(process.env.PROD_DB_PORT, 10),
     name: process.env.PROD_DB_NAME,
   },
-  secret: process.env.PROD_SECRET,
+  jwt: {
+    secret: process.env.PROD_JWT_SECRET,
+    expireTime: process.env.PROD_JWT_EXPIRES,
+  },
 };
 
 const config = {
@@ -49,4 +52,4 @@ const config = {
 };
 
 
-module.exports =  config[env];
+module.exports = config[env];

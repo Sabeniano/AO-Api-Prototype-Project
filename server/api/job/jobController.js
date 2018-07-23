@@ -11,9 +11,10 @@ const jobController = {
     }
   },
 
-  UpdateJob: async (req, res, nex) => {
+  UpdateJob: async (req, res, next) => {
     try {
-      const updatedJob = await job.findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true });
+      const updatedJob = await job
+        .findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true });
       updatedJob.SetUpHyperLinks(req.headers.host, req.originalUrl);
       res.status(200).json(updatedJob);
     } catch (error) {

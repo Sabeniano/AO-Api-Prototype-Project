@@ -16,13 +16,16 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['Master Administrator', 'Administrative', 'Employee'], default: 'Employee' },
   employee: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
   password: { type: String, required: true },
-  links: { type: [{
-    _id: false,
-    rel: String,
-    type: { type: String, enum: ['GET', 'POST', 'PATCH', 'DELETE'] },
-    href: String,
-    description: String,
-  }], default: [] },
+  links: {
+    type: [{
+      _id: false,
+      rel: String,
+      type: { type: String, enum: ['GET', 'POST', 'PATCH', 'DELETE'] },
+      href: String,
+      description: String,
+    }],
+    default: [],
+  },
 });
 
 userSchema.pre('save', async function hashPassword(next) {

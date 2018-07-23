@@ -2,23 +2,21 @@ const mongoose = require('mongoose');
 const Employee = require('./employeeModel');
 const Job = require('../job/jobModel');
 const Wallet = require('../wallet/walletModel');
-const Schedule = require('../schedule/scheduleModel');
 const Workhours = require('../workhours/workhoursModel');
+const User = require('../user/userModel');
 const crypto = require('crypto');
 
 const employeeController = {
   GetAllEmployees: async (req, res, next) => {
     try {
       const foundEmployees = await Employee.find(req.query, 'firstName lastName phoneNumber links');
-      if (foundEmployees < 0 ) {
-      }
       const documents = {
         count: foundEmployees.length,
         employees: foundEmployees,
       };
       if (documents.count > 0) {
-        for (let i = 0; i < foundEmployees.length; i++) {
-          foundEmployees[i].SetUpHyperLinks(req.headers.host, req.originalUrl)
+        for (let i = 0; i < foundEmployees.length; i += 1) {
+          foundEmployees[i].SetUpHyperLinks(req.headers.host, req.originalUrl);
         };
         res.status(200).json(documents);
       } else {
@@ -33,7 +31,7 @@ const employeeController = {
     try {
       const foundEmployee = await Employee.findOne({ _id: req.params.id });
       if (foundEmployee) {
-        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl)
+        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
         res.status(200).json(foundEmployee);
       } else {
         res.status(204).json({});
@@ -109,5 +107,4 @@ const employeeController = {
   },
 };
 
-module.exports =  employeeController;
-
+module.exports = employeeController;

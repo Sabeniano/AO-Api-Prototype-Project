@@ -1,7 +1,7 @@
 const workhoursRouter = require('express').Router({ mergeParams: true });
 const workhoursController = require('./workhoursController');
 const MessageService = require('../../utils/messageService');
-const verifyRole = require('../../middleware/authMIddleware/verifyRole');
+const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 
 workhoursRouter.route('/')
   .get(workhoursController.FindWorkhourById)

@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "lint": "node_modules/.bin/eslint server.js",
     "test": "mocha ./server/api/**/*.test.js",
     "prestart": "npm i",
     "start": "node ./serverjs",
