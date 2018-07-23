@@ -10,8 +10,6 @@ const employeeController = {
   GetAllEmployees: async (req, res, next) => {
     try {
       const foundEmployees = await Employee.find(req.query, 'firstName lastName phoneNumber links');
-      if (foundEmployees < 0 ) {
-      }
       const documents = {
         count: foundEmployees.length,
         employees: foundEmployees,
