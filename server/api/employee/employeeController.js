@@ -17,7 +17,7 @@ const employeeController = {
       if (documents.count > 0) {
         for (let i = 0; i < foundEmployees.length; i += 1) {
           foundEmployees[i].SetUpHyperLinks(req.headers.host, req.originalUrl);
-        };
+        }
         res.status(200).json(documents);
       } else {
         res.status(204).json(documents);
