@@ -1,7 +1,7 @@
 const jobRouter = require('express').Router({ mergeParams: true });
 const jobController = require('./jobController');
 const MessageService = require('../../utils/messageService');
-const verifyRole = require('../../middleware/authMIddleware/verifyRole');
+const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 
 jobRouter.route('/')
   .get(jobController.FindJobById)

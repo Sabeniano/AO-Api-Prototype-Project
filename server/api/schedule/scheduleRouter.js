@@ -1,7 +1,7 @@
 const scheduleRouter = require('express').Router({ mergeParams: true });
 const scheduleController = require('./scheduleController');
 const MessageService = require('../../utils/messageService');
-const verifyRole = require('../../middleware/authMIddleware/verifyRole');
+const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 
 scheduleRouter.route('/')
   .get(scheduleController.GetAllSchedules)

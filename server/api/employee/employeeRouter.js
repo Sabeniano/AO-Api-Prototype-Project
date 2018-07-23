@@ -1,7 +1,7 @@
-const employeeRouter = require('express').Router()
+const employeeRouter = require('express').Router();
 const employeeController = require('./employeeController');
 const MessageService = require('../../utils/messageService');
-const verifyRole = require('../../middleware/authMIddleware/verifyRole');
+const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 
 // Using the specifik methods it sends the data from employeeController to api.js
 // Only the methods with attached parameters will work

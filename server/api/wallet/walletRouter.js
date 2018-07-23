@@ -1,7 +1,7 @@
 const walletRouter = require('express').Router({ mergeParams: true });
 const walletController = require('./walletController');
 const MessageService = require('../../utils/messageService');
-const verifyRole = require('../../middleware/authMIddleware/verifyRole');
+const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 
 walletRouter.route('/')
   .get(walletController.FindWalletById)

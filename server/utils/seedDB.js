@@ -75,7 +75,7 @@ for (let index = 0; index < 20; index += 1) {
 }
 
 
-module.exports = async function () {
+module.exports = async () => {
   try {
     await Employees.remove();
     await Jobs.remove();
@@ -100,4 +100,4 @@ module.exports = async function () {
   } catch (error) {
     logger.log(error, 'error');
   }
-}
+};

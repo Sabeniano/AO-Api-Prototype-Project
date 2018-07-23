@@ -1,6 +1,6 @@
 const userRouter = require('express').Router();
 const userController = require('./userController');
-const MessageService = require('../../utils/MessageService');
+const MessageService = require('../../utils/messageService');
 
 userRouter.route('/')
   .get(userController.getAllUsers)

@@ -13,7 +13,7 @@ const workhoursController = {
 
   UpdateWorkhour: async (req, res, next) => {
     try {
-      const updatedWorkhour = await Workhour.findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true});
+      const updatedWorkhour = await Workhour.findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true });
       updatedWorkhour.SetUpHyperLinks(req.headers.host, req.originalUrl);
       res.status(200).json(updatedWorkhour);
     } catch (error) {
