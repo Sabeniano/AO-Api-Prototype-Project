@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { validationResult } = require('express-validator/check');
 const crypto = require('crypto');
 const Employee = require('./employeeModel');
 const Job = require('../job/jobModel');
