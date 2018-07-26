@@ -26,7 +26,7 @@ const scheduleController = {
       const foundSchedule = await Schedule.findOne({ employee_id: req.params.id });
       if (foundSchedule) {
         foundSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
-        res.status(200).json(foundSchedule); 
+        res.status(200).json(foundSchedule);
       } else {
         res.status(204).json({});
       }
@@ -55,7 +55,8 @@ const scheduleController = {
 
   UpdateScheduleById: async (req, res, next) => {
     try {
-      const updatedSchedule = await Schedule.findOneAndUpdate({ _id: req.params.scheduleId },  { $set: req.body }, { new: true });
+      const updatedSchedule = await Schedule
+        .findOneAndUpdate({ _id: req.params.scheduleId }, { $set: req.body }, { new: true });
       updatedSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
       res.status(200).json(updatedSchedule);
     } catch (error) {

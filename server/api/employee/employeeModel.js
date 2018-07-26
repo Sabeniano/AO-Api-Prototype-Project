@@ -80,4 +80,4 @@ employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
   }
 });
 
-module.exports = mongoose.model('Employees', employeeSchema);
+module.exports = mongoose.model('Employee', employeeSchema);
