@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const { validationResult } = require('express-validator/check');
+const crypto = require('crypto');
 const Employee = require('./employeeModel');
 const Job = require('../job/jobModel');
 const Wallet = require('../wallet/walletModel');
 const Workhours = require('../workhours/workhoursModel');
 const User = require('../user/userModel');
-const crypto = require('crypto');
 
 const employeeController = {
   GetAllEmployees: async (req, res, next) => {
@@ -51,8 +52,7 @@ const employeeController = {
         email: req.body.email,
         city: req.body.city,
         country: req.body.country,
-        street: req.body.country,
-        address: req.body.address,
+        street: req.body.street,
         phoneNumber: req.body.phoneNumber,
         user: new mongoose.Types.ObjectId(),
         startDate: req.body.startDate,

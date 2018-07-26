@@ -1,43 +1,220 @@
 const chai = require('chai');
+
 const should = chai.should();
 const sinon = require('sinon');
 const employeeController = require('./employeeController');
+const Employee = require('./employeeModel');
 
 describe('Employee Controller Unit Testing', () => {
   describe('GetAllEmployees', () => {
-    beforeEach(() => {
-      const employeeControllerstub = sinon.stub(employeeController, 'GetAllEmployees');
-      employeeControllerstub.returns({ status: 200, documents: { count: 20, employees: [] } });
-      employeeController.GetAllEmployees({}, {}, () => {});
+    describe('Successful Request Found Employees', () => {
+      const req = {
+        params: {
+          id: '424454',
+        },
+        query: {
+  
+        },
+        originalUrl: 'TEST',
+        headers: {
+          host: 'TEST',
+        },
+      };
+      const res = {
+        json: sinon.spy(),
+        status(statuscode) {
+          return this;
+        },
+      };
+      before(async () => {
+        sinon.stub(Employee, 'find').returns([{
+          firstName: 'John',
+          lastName: 'Smith',
+          Phonenumber: '41415465',
+          links: [],
+          SetUpHyperLinks: () => null,
+        }]);
+        await employeeController.GetAllEmployees(req, res, (error) => { throw error; });
+      });
+      after(() => {
+        Employee.find.restore();
+      });
+      it('should not throw', async () => {
+        await employeeController.GetAllEmployees(req, res, () => (error) => { throw error; }).should.not.throw;
+      });
+      it('should call res.json()', () => {
+        res.json.called.should.be.true;
+      });
+      it('should call res.status() with statuscode 200', async () => {
+        const resStatus = {
+          json: sinon.spy(),
+          status(statuscode) {
+            statuscode.should.be.equal(200);
+            return this;
+          },
+        };
+        await employeeController.GetAllEmployees(req, resStatus, (error) => { throw error; });
+      });
+      it('res.json() should return an object', () => {
+        res.json.args[0][0].should.be.an('object');
+      });
+      it('res.json() should return an object with the properties "count" and "employees"', () => {
+        res.json.args[0][0].should.have.property('count');
+        res.json.args[0][0].should.have.property('employees');
+      });
+      it('res.json() should return with a count of more than 0', () => {
+        res.json.args[0][0].count.should.be.above(0);
+      });
+      it('res.json() should return with an array of employees', () => {
+        res.json.args[0][0].employees.should.be.an('array');
+      });
+      it('res.json() should return with an array of employees with length bigger than 0', () => {
+        res.json.args[0][0].employees.length.should.be.above(0);
+      });
     });
-    afterEach(() => {
-      employeeController.GetAllEmployees.restore();
+    describe('Successful Request Found No Employees', () => {
+      const req = {
+        params: {
+          id: '424454',
+        },
+        query: {
+  
+        },
+        originalUrl: 'TEST',
+        headers: {
+          host: 'TEST',
+        },
+      };
+      const res = {
+        json: sinon.spy(),
+        status(statuscode) {
+          return this;
+        },
+      };
+      before(async () => {
+        sinon.stub(Employee, 'find').returns([]);
+        await employeeController.GetAllEmployees(req, res, () => (error) => { throw error; });
+      });
+      after(() => {
+        Employee.find.restore();
+      });
+      it('should not throw', async () => {
+        await employeeController.GetAllEmployees(req, res, () => (error) => { throw error; }).should.not.throw;
+      });
+      it('should call res.json()', () => {
+        res.json.called.should.be.true;
+      });
+      it('should call res.status() with statuscode 200', async () => {
+        const resStatus = {
+          json: sinon.spy(),
+          status(statuscode) {
+            statuscode.should.be.equal(204);
+            return this;
+          },
+        };
+        await employeeController.GetAllEmployees(req, resStatus, (error) => { throw error; });
+      });
+      it('res.json() should return an object', () => {
+        res.json.args[0][0].should.be.an('object');
+      });
+      it('res.json() should return an object with the properties "count" and "employees"', () => {
+        res.json.args[0][0].should.have.property('count');
+        res.json.args[0][0].should.have.property('employees');
+      });
+      it('res.json() should return with a count of 0', () => {
+        res.json.args[0][0].count.should.be.equal(0);
+      });
+      it('res.json() should return with an array of employees', () => {
+        res.json.args[0][0].employees.should.be.an('array');
+      });
+      it('res.json() should return with an array of employees with length bigger equal to 0', () => {
+        res.json.args[0][0].employees.length.should.be.equal(0);
+      });
     });
-    it('should be called once', () => {
-      employeeController.GetAllEmployees.calledOnce.should.be.true;
+    describe('Unsuccessfull Request, Error With Database', () => {
+      const req = {
+        params: {
+          id: '424454',
+        },
+        query: {
+  
+        },
+        originalUrl: 'TEST',
+        headers: {
+          host: 'TEST',
+        },
+      };
+      const res = {
+        json: sinon.spy(),
+        status(statuscode) {
+          return this;
+        },
+      };
+      const next = sinon.spy();
+      before(async () => {
+        sinon.stub(Employee, 'find').throws();
+        await employeeController.GetAllEmployees(req, res, next);
+      });
+      after(() => {
+        Employee.find.restore();
+      });
+      // it('should throw', async () => {
+      //   await employeeController.GetAllEmployees(req, res, next).should.throw;
+      // });
+      it('Should not call res.json()', () => {
+        res.json.calledOnce.should.be.false;
+      });
+      it('should call next()', () => {
+        next.calledOnce.should.be.true;
+      });
+      it('should call next() with Error object ', () => {
+        next.args[0][0].should.be.an('Error');
+      });
     });
-    it('should be called with req, res, next', () => {
-      employeeController.GetAllEmployees.args[0][0].should.be.an('object');
-      employeeController.GetAllEmployees.args[0][1].should.be.an('object');
-      employeeController.GetAllEmployees.args[0][2].should.be.an('function');
-    });
-    it('should return an object', () => {
-      employeeController.GetAllEmployees.returnValues[0].should.be.an('object');
-    });
-    it('should have a status property', () => {
-      employeeController.GetAllEmployees.returnValues[0].should.have.property('status');
-    });
-    it('should have an documents property', () => {
-      employeeController.GetAllEmployees.returnValues[0].should.have.property('documents');
-    });
-    it('should return status code of 200', () => {
-      employeeController.GetAllEmployees.returnValues[0].status.should.be.equal(200);
-    });
-    it('should return an array with found employees', () => {
-      employeeController.GetAllEmployees.returnValues[0].documents.employees.should.be.an('array');
-    });
-    it('should return an array with the length of 20', () => {
-      employeeController.GetAllEmployees.returnValues[0].documents.count.should.be.equal(20);
+    describe('Unsuccessfull Request, Error With HATAEOS', () => {
+      const req = {
+        params: {
+          id: '424454',
+        },
+        query: {
+  
+        },
+        originalUrl: 'TEST',
+        headers: {
+          host: 'TEST',
+        },
+      };
+      const res = {
+        json: sinon.spy(),
+        status(statuscode) {
+          return this;
+        },
+      };
+      const next = sinon.spy();
+      before(async () => {
+        sinon.stub(Employee, 'find').returns([{
+          firstName: 'John',
+          lastName: 'Smith',
+          Phonenumber: '41415465',
+          links: [],
+          SetUpHyperLinks: () => { throw new Error(); },
+        }]);
+        await employeeController.GetAllEmployees(req, res, next);
+      });
+      after(() => {
+        Employee.find.restore();
+      });
+      it('should throw error', async () => {
+        await employeeController.GetAllEmployees(req, res, next).should.throw;
+      });
+      it('Should not call res.json()', () => {
+        res.json.calledOnce.should.be.false;
+      });
+      it('should call next()', () => {
+        next.called.should.be.true;
+      });
+      it('should call next() with Error object ', () => {
+        next.args[0][0].should.be.an('Error');
+      });
     });
   });
-});
