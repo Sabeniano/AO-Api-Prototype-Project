@@ -40,7 +40,7 @@ const employeeController = {
       next(error);
     }
   },
-
+  
   CreateEmployee: async (req, res, next) => {
     try {
       const newEmployee = {

@@ -11,7 +11,7 @@ const verifyTokenAndGetUser = [verifyToken(), getFullUser()];
 
 authRouter.route('/signup')
   .post(validateAuthFields.createfields, validationErrorHandler(), authController.registerUser);
-
+  
 authRouter.route('/signin')
   .post(validateAuthFields.signinFields, validationErrorHandler(), authController.signinUser);
 

@@ -4,7 +4,7 @@ const MessageService = require('../../utils/messageService');
 const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 const validationErrorHandler = require('../../middleware/validationMiddleware/validationErrorHandler');
 const validateWalletFields = require('../../middleware/validationMiddleware/validateWalletFields');
-
+ 
 
 walletRouter.route('/')
   .get(walletController.FindWalletById)

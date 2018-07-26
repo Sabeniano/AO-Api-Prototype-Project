@@ -20,5 +20,5 @@ function verifyToken() {
     }
   };
 }
-
+ 
 module.exports = verifyToken;
