@@ -8,7 +8,7 @@ const handleError = require('./utils/errorHandling');
 const app = express();
 
 middleware(app);
-
+ 
 app.use('/api/v1/', apiRoutes);
 app.use('/api/v1/auth', authRoutes);
 

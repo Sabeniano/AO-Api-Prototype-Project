@@ -10,7 +10,7 @@ function CorsMIddleware() {
     } else {
       next();
     }
-  }
+  };
 }
 
 module.exports = CorsMIddleware;

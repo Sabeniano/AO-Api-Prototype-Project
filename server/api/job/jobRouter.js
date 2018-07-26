@@ -10,5 +10,5 @@ jobRouter.route('/')
   .post(MessageService(405, 'Cannot create a new job resource'))
   .patch(verifyRole(), validateJobFields.updateFields, validationErrorHandler(), jobController.UpdateJob)
   .delete(MessageService(405, 'Cannot delete a job resource'));
-
+  
 module.exports = jobRouter;
