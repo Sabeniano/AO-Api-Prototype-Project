@@ -13,6 +13,7 @@ exports.createFields = [
   body('lastChanged', 'must specify a validate date').isISO8601(),
 ];
 
+
 exports.updateFields = [
   body('_id', 'must not be specified').isEmpty(),
   body('birthday', 'field must be older than right now').isISO8601().isBefore(Date.now.toString()),

@@ -8,6 +8,7 @@ exports.createfields = [
   body('is_weekend', 'must specify a valid boolean').isBoolean(),
 ];
 
+
 exports.updatefields = [
   body('_id', 'must not be specified').isEmpty(),
   body('work_date', 'must specify a valid date').isISO8601(),

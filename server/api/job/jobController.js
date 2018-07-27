@@ -10,7 +10,7 @@ const jobController = {
       next(error);
     }
   },
-  
+
   UpdateJob: async (req, res, next) => {
     try {
       const updatedJob = await job

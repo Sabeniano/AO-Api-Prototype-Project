@@ -9,5 +9,5 @@ function verifyContentType() {
     next();
   };
 }
- 
+
 module.exports = verifyContentType;

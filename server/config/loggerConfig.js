@@ -1,5 +1,5 @@
 const winston = require('winston');
- 
+
 const prod = [
   new winston.transports.File({ filename: 'error.log', level: 'error' }),
   new winston.transports.File({
@@ -21,7 +21,6 @@ const dev = [
     ),
   }),
 ];
-
 
 const loggerconfig = {
   level: 'info',

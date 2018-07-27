@@ -17,7 +17,6 @@ const genWorkhours = [];
 
 for (let index = 0; index < 20; index += 1) {
 
-
   const employeeSeed = {
     _id: new mongoose.Types.ObjectId(),
     firstName: faker.name.firstName(),
@@ -84,7 +83,6 @@ module.exports = async () => {
     await Workhours.remove();
     await User.remove();
 
-    
     await Employees.create(genEmployees);
     await Jobs.create(genJobs);
     await Schedules.create(genSchedules);

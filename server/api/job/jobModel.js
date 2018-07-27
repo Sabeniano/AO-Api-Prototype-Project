@@ -34,6 +34,5 @@ jobSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
     hlGenerator(this, hostName, url, hateaosEndpoints, true);
   }
 });
- 
 
 module.exports = mongoose.model('Job', jobSchema);

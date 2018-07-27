@@ -7,5 +7,4 @@ function MessageService(statusCode, message) {
   };
 }
 
-
 module.exports = MessageService;
