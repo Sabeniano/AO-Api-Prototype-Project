@@ -1,5 +1,6 @@
 const logger = require('./loggerWrapper');
 
+ 
 function handleError() {
   return (error, req, res, next) => {
     logger.log(error, 'error');

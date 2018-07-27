@@ -84,6 +84,7 @@ module.exports = async () => {
     await Workhours.remove();
     await User.remove();
 
+    
     await Employees.create(genEmployees);
     await Jobs.create(genJobs);
     await Schedules.create(genSchedules);

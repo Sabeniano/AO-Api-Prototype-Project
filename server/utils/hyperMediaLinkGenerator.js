@@ -27,7 +27,6 @@ function generateLinks(record, hostname, url, endPoints) {
   }
 }
 
-
 function generateChildLinks(record, hostname, url, endPoints) {
   for (let i = 0; i < endPoints.length; i += 1) {
     if (endPoints[i].rel === 'owner') {
