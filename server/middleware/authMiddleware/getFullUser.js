@@ -1,5 +1,5 @@
 const User = require('../../api/user/userModel');
- 
+
 function getFullUser() {
   return async (req, res, next) => {
     try {

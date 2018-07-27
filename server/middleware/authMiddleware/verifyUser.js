@@ -24,5 +24,5 @@ function verifyUser() {
     }
   };
 }
- 
+
 module.exports = verifyUser;
