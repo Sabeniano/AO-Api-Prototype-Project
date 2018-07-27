@@ -1,4 +1,3 @@
-
 function CorsMIddleware() {
   return (req, res, next) => {
     //  headers to allow  and help CORS

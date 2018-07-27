@@ -69,5 +69,4 @@ function hateoasGenerator(record, hostName, url, endPoints, isChild) {
   }
 }
 
-
 module.exports = hateoasGenerator;

@@ -3,12 +3,6 @@ const User = require('../../api/user/userModel');
 function verifyUser() {
   return async (req, res, next) => {
     try {
-      if (!req.body.username || !req.body.password) {
-        return res.status(400).json({
-          status: 400,
-          message: 'You need a username and password',
-        });
-      }
       const user = await User.findOne({ username: req.body.username });
       if (!user) {
         return res.status(401).json({

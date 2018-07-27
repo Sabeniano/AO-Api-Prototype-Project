@@ -63,7 +63,7 @@ const scheduleController = {
       next(error);
     }
   },
-  
+
   DeleteScheduleById: async (req, res, next) => {
     try {
       await Schedule.findOneAndRemove({ _id: req.params.scheduleId });

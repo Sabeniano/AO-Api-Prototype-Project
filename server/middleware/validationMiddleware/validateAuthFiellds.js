@@ -10,7 +10,7 @@ exports.createfields = [
 exports.signinFields = [
   body('username', 'must specify a username').exists().isString(),
   body('password', 'must specify a password').exists().isString(),
-]
+];
 
 exports.updatefields = [
   body('_id', 'must not be specified').isEmpty(),

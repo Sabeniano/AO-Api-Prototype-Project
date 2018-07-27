@@ -1,5 +1,6 @@
 const { body } = require('express-validator/check');
 
+
 exports.updateFields = [
   body('_id', 'must not be specified').isEmpty(),
   body('jobTitle', 'must specify a city').isString(),

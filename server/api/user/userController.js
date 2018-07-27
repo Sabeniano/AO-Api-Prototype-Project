@@ -61,7 +61,7 @@ const userController = {
       return next(error);
     }
   },
-  
+
   updateOneUser: async (req, res, next) => {
     try {
       const updatedUser = await User

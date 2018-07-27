@@ -1,5 +1,5 @@
 const wallet = require('./walletModel');
- 
+
 const walletController = {
   FindWalletById: async (req, res, next) => {
     try {
