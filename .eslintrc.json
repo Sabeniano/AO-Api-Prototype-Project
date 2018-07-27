@@ -1,7 +1,9 @@
 {
     "extends": "airbnb-base",
+    "plugins": [
+        "mocha/no-exclusive-tests": "error"
+    ],
     "rules": {
-        "no-underscore-dangle": "off",
-        "max-len": "off"
+        "no-underscore-dangle": "off"
     }
 }
