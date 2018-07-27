@@ -1,7 +1,7 @@
 const expressJwt = require('express-jwt');
 const config = require('../../config/config');
-const checkToken = expressJwt({ secret: config.jwt.secret });
 
+const checkToken = expressJwt({ secret: config.jwt.secret });
 
 function verifyToken() {
   return async (req, res, next) => {
@@ -20,5 +20,5 @@ function verifyToken() {
     }
   };
 }
- 
+
 module.exports = verifyToken;
