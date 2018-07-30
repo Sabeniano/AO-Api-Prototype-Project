@@ -2,8 +2,14 @@ const chai = require('chai');
 
 const should = chai.should();
 const sinon = require('sinon');
+const mongoose = require('mongoose');
 const employeeController = require('./employeeController');
 const Employee = require('./employeeModel');
+const Job = require('../job/jobModel');
+const Wallet = require('../wallet/walletModel');
+const Workhours = require('../workhours/workhoursModel');
+const User = require('../user/userModel');
+
 
 describe('Employee Controller Unit Testing', () => {
   describe('GetAllEmployees', () => {
@@ -43,7 +49,9 @@ describe('Employee Controller Unit Testing', () => {
         find.called.should.be.true;
         find.should.not.throw;
       });
-      it('should call Model.SetUpHyperLinks')
+      it('should call Model.SetUpHyperLinks', () => {
+        setupHyperLinks.called.should.be.true;
+      });
       it('should call res.json()', () => {
         res.json.called.should.be.true;
       });
@@ -75,6 +83,7 @@ describe('Employee Controller Unit Testing', () => {
       });
     });
     describe('Successful Request Found No Employees', () => {
+      let find;
       const req = {
         params: {
           id: '424454',
@@ -94,14 +103,15 @@ describe('Employee Controller Unit Testing', () => {
         },
       };
       before(async () => {
-        sinon.stub(Employee, 'find').returns([]);
+        find = sinon.stub(Employee, 'find').returns([]);
         await employeeController.GetAllEmployees(req, res, () => (error) => { throw error; });
       });
       after(() => {
         Employee.find.restore();
       });
-      it('should not throw', async () => {
-        await employeeController.GetAllEmployees(req, res, () => (error) => { throw error; }).should.not.throw;
+      it('should call Employee.find() and not throw', () => {
+        find.called.should.be.true;
+        find.should.not.throw;
       });
       it('should call res.json()', () => {
         res.json.called.should.be.true;
@@ -487,6 +497,62 @@ describe('Employee Controller Unit Testing', () => {
       it('should call next() with Error object ', () => {
         next.args[0][0].should.be.an('Error');
       });
-    })
+    });
+  });
+  describe('CreateEmployee', () => {
+    describe('Sucessful Reqest, Created Employee', () => {
+      let employeeCreate;
+      let jobCreate;
+      let walletCreate;
+      let workhoursCreate;
+      let userCreate;
+      let setupHyperLinks = sinon.spy();
+      const req = {
+        params: {
+          id: '424454',
+        },
+        originalUrl: 'TEST',
+        headers: {
+          host: 'TEST',
+        },
+      };
+      const res = {
+        json: sinon.spy(),
+        status(statuscode) {
+          return this;
+        },
+      };
+      const next = sinon.spy();
+      before(async () => {
+        employeeCreate = sinon.stub(Employee, 'create').returns({
+          firstName: 'John',
+          lastName: 'Smith',
+          Phonenumber: '41415465',
+          links: [],
+          SetUpHyperLinks: setupHyperLinks,
+        });
+        jobCreate = sinon.stub(Job, 'create').returns({});
+        walletCreate = sinon.stub(Wallet, 'create').returns({});
+        workhoursCreate = sinon.stub(Workhours, 'create').returns({});
+        userCreate = sinon.stub(User, 'create').returns({});
+
+        //  TODO: fix this test suite, it keeps throwing
+        sinon.stub(mongoose.Types, 'ObjectId').returns(Math.floor((Math.random() * 100) + 1))
+        await employeeController.CreateEmployee(req, res, next);
+      });
+      after(() => {
+        Employee.create.restore();
+        Job.create.restore();
+        Wallet.create.restore();
+        Workhours.create.restore();
+        User.create.restore();
+      });
+      it('should call Employee.create() and not throw', () => {
+        employeeCreate.called.should.be.true;
+      });
+      it('should call Model.SetUpHyperLinks', () => {
+        setupHyperLinks.called.should.be.true;
+      })
+    });
   });
 });
