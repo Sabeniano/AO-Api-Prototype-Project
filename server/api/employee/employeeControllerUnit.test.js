@@ -8,13 +8,13 @@ const Employee = require('./employeeModel');
 describe('Employee Controller Unit Testing', () => {
   describe('GetAllEmployees', () => {
     describe('Successful Request Found Employees', () => {
+      let find;
+      let setupHyperLinks = sinon.spy();
       const req = {
         params: {
           id: '424454',
         },
-        query: {
-  
-        },
+        query: {},
         originalUrl: 'TEST',
         headers: {
           host: 'TEST',
@@ -27,21 +27,23 @@ describe('Employee Controller Unit Testing', () => {
         },
       };
       before(async () => {
-        sinon.stub(Employee, 'find').returns([{
+        find = sinon.stub(Employee, 'find').returns([{
           firstName: 'John',
           lastName: 'Smith',
           Phonenumber: '41415465',
           links: [],
-          SetUpHyperLinks: () => null,
+          SetUpHyperLinks: setupHyperLinks,
         }]);
         await employeeController.GetAllEmployees(req, res, (error) => { throw error; });
       });
       after(() => {
         Employee.find.restore();
       });
-      it('should not throw', async () => {
-        await employeeController.GetAllEmployees(req, res, () => (error) => { throw error; }).should.not.throw;
+      it('should call Employee.find() and not throw', () => {
+        find.called.should.be.true;
+        find.should.not.throw;
       });
+      it('should call Model.SetUpHyperLinks')
       it('should call res.json()', () => {
         res.json.called.should.be.true;
       });
@@ -127,18 +129,17 @@ describe('Employee Controller Unit Testing', () => {
       it('res.json() should return with an array of employees', () => {
         res.json.args[0][0].employees.should.be.an('array');
       });
-      it('res.json() should return with an array of employees with length bigger equal to 0', () => {
+      it('res.json() should return with an array of employees with length equal to 0', () => {
         res.json.args[0][0].employees.length.should.be.equal(0);
       });
     });
     describe('Unsuccessful Request, Error With Database', () => {
+      let find;
       const req = {
         params: {
           id: '424454',
         },
-        query: {
-  
-        },
+        query: {},
         originalUrl: 'TEST',
         headers: {
           host: 'TEST',
@@ -152,14 +153,17 @@ describe('Employee Controller Unit Testing', () => {
       };
       const next = sinon.spy();
       before(async () => {
-        sinon.stub(Employee, 'find').throws();
+        find = sinon.stub(Employee, 'find').throws();
         await employeeController.GetAllEmployees(req, res, next);
       });
       after(() => {
         Employee.find.restore();
       });
-      it('should throw', async () => {
-        await employeeController.GetAllEmployees(req, res, next).should.throw;
+      it('should call Employee.find()', () => {
+        find.called.should.be.true;
+      });
+      it('Employee.find() should throw', () => {
+        find.should.throw;
       });
       it('Should not call res.json()', () => {
         res.json.calledOnce.should.be.false;
@@ -172,13 +176,13 @@ describe('Employee Controller Unit Testing', () => {
       });
     });
     describe('Unsuccessful Request, Error With HATAEOS', () => {
+      let find;
+      let setupHyperLinks = sinon.stub().throws();
       const req = {
         params: {
           id: '424454',
         },
-        query: {
-  
-        },
+        query: {},
         originalUrl: 'TEST',
         headers: {
           host: 'TEST',
@@ -192,20 +196,27 @@ describe('Employee Controller Unit Testing', () => {
       };
       const next = sinon.spy();
       before(async () => {
-        sinon.stub(Employee, 'find').returns([{
+        find = sinon.stub(Employee, 'find').returns([{
           firstName: 'John',
           lastName: 'Smith',
           Phonenumber: '41415465',
           links: [],
-          SetUpHyperLinks: () => { throw new Error(); },
+          SetUpHyperLinks: setupHyperLinks,
         }]);
         await employeeController.GetAllEmployees(req, res, next);
       });
       after(() => {
         Employee.find.restore();
       });
-      it('should throw error', async () => {
-        await employeeController.GetAllEmployees(req, res, next).should.throw;
+      it('should call Employee.find() and not throw', () => {
+        find.called.should.be.true;
+        find.should.not.throw;
+      });
+      it('should call Model.SetUpHyperLinks()', () => {
+        setupHyperLinks.called.should.be.true;
+      });
+      it('Model.SetUpHyperLinks() should throw', () => {
+        setupHyperLinks.should.throw;
       });
       it('Should not call res.json()', () => {
         res.json.calledOnce.should.be.false;
@@ -220,6 +231,8 @@ describe('Employee Controller Unit Testing', () => {
   });
   describe('GetEmployeeById', () => {
     describe('Successful Request Found Employee', () => {
+      let findOne;
+      let setUpHyperLinks = sinon.spy();
       const req = {
         params: {
           id: '424454',
@@ -240,14 +253,14 @@ describe('Employee Controller Unit Testing', () => {
       };
       const next = sinon.spy();
       before(async () => {
-        sinon.stub(Employee, 'findOne',).callsFake((condition) => {
+        findOne = sinon.stub(Employee, 'findOne',).callsFake((condition) => {
           const db = [{
             _id: '424454',
             firstName: 'John',
             lastName: 'Smith',
             Phonenumber: '41415465',
             links: [],
-            SetUpHyperLinks: () => null,
+            SetUpHyperLinks: setUpHyperLinks,
           }];
           let returnVal;
           for (let i = 0; i < db.length; i++) {
@@ -262,8 +275,13 @@ describe('Employee Controller Unit Testing', () => {
       after(() => {
         Employee.findOne.restore();
       });
-      it('should not throw error', async () => {
-        await employeeController.GetAllEmployees(req, res, next).should.not.throw;
+      it('should call Employee.findOne() and not throw', async () => {
+        findOne.called.should.be.true;
+        findOne.should.not.throw;
+      });
+      it('should call Model.SetUpHyperLinks() and not throw', () => {
+        setUpHyperLinks.called.should.be.true;
+        setUpHyperLinks.should.not.throw;
       });
       it('should call res.json()', () => {
         res.json.called.should.be.true;
@@ -333,13 +351,12 @@ describe('Employee Controller Unit Testing', () => {
       after(() => {
         Employee.findOne.restore();
       });
-      it('Employee.findOne should be called and not throw', () => {
+      it('should call Employee.findOne() and not throw', () => {
         findOne.called.should.be.true;
-        findOne.should.not.throws;
+        findOne.should.not.throw;
       });
-      it('Setup.findOne should be called and not throw', () => {
-        findOne.called.should.be.true;
-        findOne.should.not.throws;
+      it('should not call model.SetUpHyperLinks()', () => {
+        SetUpHyperLinks.called.should.be.false;
       });
       it
       it('should call res.json()', () => {
@@ -394,7 +411,7 @@ describe('Employee Controller Unit Testing', () => {
         findOne.called.should.be.true;
       });
       it('Employee.findOne() should throw', () => {
-        findOne.should.throws;
+        findOne.should.throw;
       });
       it('Should not call res.json()', () => {
         res.json.calledOnce.should.be.false;
@@ -455,10 +472,10 @@ describe('Employee Controller Unit Testing', () => {
         findOne.called.should.be.true;
         findOne.should.not.throw;
       });
-      it('should call SetUpHyperLinks', () => {
+      it('should call Model.SetUpHyperLinks()', () => {
         SetUpHyperLinks.called.should.be.true
       })
-      it('model.SetUpHyperLinks() should throw', () => {
+      it('Model.SetUpHyperLinks() should throw', () => {
         SetUpHyperLinks.called.should.throw;
       });
       it('Should not call res.json()', () => {
