@@ -55,7 +55,7 @@ const employeeController = {
         phoneNumber: req.body.phoneNumber,
         user: new mongoose.Types.ObjectId(),
         startDate: req.body.startDate,
-        lastChanged: req.body.lastChanged,
+        lastChanged: Date.now(),
       };
       const createdEmployee = await Employee.create(newEmployee);
       createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
@@ -86,7 +86,9 @@ const employeeController = {
 
   UpdateEmployee: async (req, res, next) => {
     try {
-      //  TODO: set validation/checks
+      if (!Object.prototype.hasOwnProperty.call(req.body, 'lastChanged')) {
+        req.body.lastChanged = Date.now();
+      }
       const updatedEmployee = await Employee
         .findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
       updatedEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
