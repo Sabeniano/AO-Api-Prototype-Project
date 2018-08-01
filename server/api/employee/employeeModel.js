@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
+const moment = require('moment-timezone');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
+
+const currentTime = new Date(moment().add(2, 'hours').format());
+// console.log(moment().add(2, 'hours').format('DD/MM/YYYY h:mm:ss'));
 
 const employeeSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
@@ -19,8 +23,17 @@ const employeeSchema = new mongoose.Schema({
   street: { type: String, required: true },
   phoneNumber: { type: Number, require: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+<<<<<<< HEAD
   startDate: { type: Date, default: Date.now },
   lastChanged: { type: Date, default: Date.now },
+=======
+  job: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Jobs',
+  },
+  startDate: { type: Date, default: moment().format('DD/MM/YYYY') },
+  lastChanged: { type: Date, default: currentTime },
+>>>>>>> Updated lastChanged to be +2 hours of UTC and removed it from requirements for creating employee
   links: {
     type: [{
       _id: false,

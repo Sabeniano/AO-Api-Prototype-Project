@@ -61,7 +61,10 @@ const employeeController = {
         phoneNumber: req.body.phoneNumber,
         user: new mongoose.Types.ObjectId(),
         startDate: req.body.startDate,
+<<<<<<< HEAD
         lastChanged: Date.now(),
+=======
+>>>>>>> Updated lastChanged to be +2 hours of UTC and removed it from requirements for creating employee
       };
       const createdEmployee = await Employee.create(newEmployee);
       createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
