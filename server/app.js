@@ -4,7 +4,6 @@ const middleware = require('./middleware/middleware');
 const authRoutes = require('./auth/authRouter');
 const handleError = require('./utils/errorHandling');
 
-
 const app = express();
 
 middleware(app);

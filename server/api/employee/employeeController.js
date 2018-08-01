@@ -55,7 +55,6 @@ const employeeController = {
         phoneNumber: req.body.phoneNumber,
         user: new mongoose.Types.ObjectId(),
         startDate: req.body.startDate,
-        lastChanged: req.body.lastChanged,
       };
       const createdEmployee = await Employee.create(newEmployee);
       createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
