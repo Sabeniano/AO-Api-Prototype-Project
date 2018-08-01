@@ -23,17 +23,12 @@ const employeeSchema = new mongoose.Schema({
   street: { type: String, required: true },
   phoneNumber: { type: Number, require: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-<<<<<<< HEAD
-  startDate: { type: Date, default: Date.now },
-  lastChanged: { type: Date, default: Date.now },
-=======
   job: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Jobs',
   },
   startDate: { type: Date, default: moment().format('DD/MM/YYYY') },
   lastChanged: { type: Date, default: currentTime },
->>>>>>> Updated lastChanged to be +2 hours of UTC and removed it from requirements for creating employee
   links: {
     type: [{
       _id: false,

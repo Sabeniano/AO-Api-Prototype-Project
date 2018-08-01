@@ -4,21 +4,13 @@ const { body } = require('express-validator/check');
 exports.createFields = [
   body('firstName', 'must specify a first name').isString().exists(),
   body('lastName', 'must specify a last name').isString().exists(),
-<<<<<<< HEAD
-  body('birthday', 'must specify a valid date').isISO8601().isBefore(Date.now().toString()),
-=======
   body('birthday', 'must specify a valid date').isISO8601().isBefore(moment().format('YYYY-MM-DD')),
->>>>>>> Updated lastChanged to be +2 hours of UTC and removed it from requirements for creating employee
   body('email', 'must specify a valid email').isString().isEmail(),
   body('city', 'must specify a city').isString().exists(),
   body('country', 'must specify a country').isString().exists(),
   body('street', 'must specify a street').isString().exists(),
   body('phoneNumber', 'must specify a mobile phone number').isNumeric().isMobilePhone('da-DK'),
   body('startDate', 'must specify a validate date').isISO8601(),
-<<<<<<< HEAD
-  body('lastChanged', 'must be left empty').isEmpty(),
-=======
->>>>>>> Updated lastChanged to be +2 hours of UTC and removed it from requirements for creating employee
 ];
 
 exports.updateFields = [
