@@ -60,7 +60,6 @@ const employeeController = {
         street: req.body.street,
         phoneNumber: req.body.phoneNumber,
         startDate: req.body.startDate,
-        lastChanged: Date.now(),
       };
       
       //  consider giving option to add already created user

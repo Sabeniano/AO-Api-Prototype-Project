@@ -48,7 +48,7 @@ for (let index = 0; index < 20; index += 1) {
     end_work_hour: faker.date.future(),
     is_holiday: faker.random.boolean(),
     is_weekend: faker.random.boolean(),
-  }
+  };
 
   const walletSeed = {
     _id: new mongoose.Types.ObjectId(),
