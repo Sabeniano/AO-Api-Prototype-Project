@@ -19,10 +19,6 @@ const employeeSchema = new mongoose.Schema({
   street: { type: String, required: true },
   phoneNumber: { type: Number, require: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  job: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Jobs',
-  },
   startDate: { type: Date, default: Date.now },
   lastChanged: { type: Date, default: Date.now },
   links: {
