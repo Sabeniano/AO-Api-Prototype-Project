@@ -994,8 +994,8 @@ describe('Employee Controller Unit Testing', () => {
         res.json.called.should.be.true;
       });
       it('should call res.status with a status code of 200', () => {
-        let test = new Date();
-        console.log(test.to)
+        let test = new Date().toLocaleString();
+        console.log(test)
         res.status.args[0][0].should.be.equal(200);
       });
     });

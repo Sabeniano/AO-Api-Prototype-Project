@@ -11,7 +11,7 @@ function handleError() {
     }
     const status = error.status || 500;
     const resMessage = error.resMessage || 'Error proccessing the request';
-    return res.status(error.status).json({
+    return res.status(status).json({
       status,
       message: resMessage,
     });
