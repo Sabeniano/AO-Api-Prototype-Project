@@ -19,7 +19,7 @@ const authController = {
           message: 'Email already exists',
         });
       }
-      const role = `${req.body.role.substring(0, 1).toUpperCase()}${req.body.role.substring(1, req.body.role.length - 1).toLowerCase()}`;
+      const role = `${req.body.role.substring(0, 1).toUpperCase()}${req.body.role.substring(1, req.body.role.length).toLowerCase()}`;
       const user = new User({
         username: req.body.username,
         email: req.body.email,

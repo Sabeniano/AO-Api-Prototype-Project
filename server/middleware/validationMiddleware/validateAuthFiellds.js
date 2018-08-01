@@ -3,7 +3,10 @@ const { body } = require('express-validator/check');
 exports.createfields = [
   body('username', 'must specify a username').exists().isString(),
   body('email', 'must specify a valid email').exists().isString().isEmail(),
-  body('role', 'must specify a valid email').isString(),
+  body('role', 'must specify a valid email').isString().custom((value) => {
+    const roles = ['employee', 'administrative', 'master administrator'];
+    return roles.includes(value.toLowerCase());
+  }),
   body('password', 'must specify a password').exists().isString(),
 ];
 
@@ -16,6 +19,9 @@ exports.updatefields = [
   body('_id', 'must not be specified').isEmpty(),
   body('username', 'must specify a username').isString(),
   body('email', 'must specify an email').isString().isEmail(),
-  body('role', 'must be a valid email').isString(),
+  body('role', 'must be a valid email').isString().custom((value) => {
+    const roles = ['employee', 'administrative', 'master administrator'];
+    return roles.includes(value.toLowerCase());
+  }),
   body('password', 'must specify a password').isString(),
 ];

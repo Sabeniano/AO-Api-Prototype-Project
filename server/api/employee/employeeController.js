@@ -29,6 +29,12 @@ const employeeController = {
 
   GetEmployeeById: async (req, res, next) => {
     try {
+      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        const error = new Error();
+        error.status = 404;
+        error.resMessage = 'Invalid ID';
+        next(error)
+      }
       const foundEmployee = await Employee.findOne({ _id: req.params.id });
       if (foundEmployee) {
         foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
@@ -86,9 +92,7 @@ const employeeController = {
 
   UpdateEmployee: async (req, res, next) => {
     try {
-      if (!Object.prototype.hasOwnProperty.call(req.body, 'lastChanged')) {
-        req.body.lastChanged = Date.now();
-      }
+      req.body.lastChanged = new Date();
       const updatedEmployee = await Employee
         .findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
       updatedEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
