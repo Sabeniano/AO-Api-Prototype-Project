@@ -13,6 +13,7 @@ const walletController = {
 
   UpdateWallet: async (req, res, next) => {
     try {
+      req.body.lastChanged = new Date();
       const updatedWallet = await wallet.findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true });
       updatedWallet.SetUpHyperLinks(req.headers.host, req.originalUrl);
       res.status(200).json(updatedWallet);

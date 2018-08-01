@@ -17,7 +17,7 @@ authRouter.route('/signin')
 authRouter.route('/me')
   .all(verifyTokenAndGetUser)
   .get(authController.viewCurrentUserUser)
-  .patch(validateAuthFields.updatefields, validationErrorHandler(), authController.updateCurrentUse)
+  .patch(validateAuthFields.updatefields, validationErrorHandler(), authController.updateCurrentUser)
   .delete(authController.deleteCurrentUser);
 
 module.exports = authRouter;
