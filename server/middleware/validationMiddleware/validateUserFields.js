@@ -9,8 +9,8 @@ exports.createfields = [
 
 exports.updatefields = [
   body('_id', 'must not be specified').isEmpty(),
-  body('username', 'must specify a username').isString(),
-  body('email', 'must specify an email').isString().isEmail(),
-  body('role', 'must be a valid email').isString(),
-  body('password', 'must specify a password').isString(),
+  body('username', 'must specify a username').isString().optional(),
+  body('email', 'must specify an email').isString().isEmail().optional(),
+  body('role', 'must be a valid email').isString().optional(),
+  body('password', 'must specify a password').isString().optional(),
 ];

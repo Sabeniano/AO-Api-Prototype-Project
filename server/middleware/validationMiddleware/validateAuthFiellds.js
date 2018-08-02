@@ -1,27 +1,62 @@
 const { body } = require('express-validator/check');
 
 exports.createfields = [
-  body('username', 'must specify a username').exists().isString(),
-  body('email', 'must specify a valid email').exists().isString().isEmail(),
-  body('role', 'must specify a valid email').isString().custom((value) => {
+  body('username')
+    .exists().withMessage('username must not be empty')
+    .isString().withMessage('username must be a string')
+    .optional(),
+
+  body('email')
+  .exists().withMessage('email must not be empty')
+  .isString().withMessage('email must be a string')
+  .isEmail().withMessage('email must be a valid email'),
+  
+  body('role')
+  .isString().withMessage('role must be a string')
+  .custom((value) => {
     const roles = ['employee', 'administrative', 'master administrator'];
     return roles.includes(value.toLowerCase());
-  }),
-  body('password', 'must specify a password').exists().isString(),
+  })
+  .withMessage('role must be valid role'),
+  
+  body('password')
+  .exists().withMessage('password must not be empty')
+  .isString().withMessage('password must be a string'),
 ];
 
 exports.signinFields = [
-  body('username', 'must specify a username').exists().isString(),
-  body('password', 'must specify a password').exists().isString(),
+  body('username')
+  .exists().withMessage('username must not be empty')
+  .isString().withMessage('username must be a string'),
+  
+  body('password')
+  .exists().withMessage('password must not be empty')
+  .isString().withMessage('password must be a string'),
 ];
 
 exports.updatefields = [
-  body('_id', 'must not be specified').isEmpty(),
-  body('username', 'must specify a username').isString(),
-  body('email', 'must specify an email').isString().isEmail(),
-  body('role', 'must be a valid email').isString().custom((value) => {
+  body('_id', 'must not be specified')
+  .isEmpty(),
+
+  body('username')
+  .isString().withMessage('username must be a string')
+  .optional(),
+
+  body('email')
+  .isString().withMessage('email must be a string')
+  .isEmail().withMessage('email must be a valid email')
+  .optional(),
+
+  body('role')
+  .isString().withMessage('role must be a string')
+  .custom((value) => {
     const roles = ['employee', 'administrative', 'master administrator'];
     return roles.includes(value.toLowerCase());
-  }),
-  body('password', 'must specify a password').isString(),
+  })
+  .withMessage('role must be a valid role')
+  .optional(),
+
+  body('password', 'password must be a string')
+  .isString()
+  .optional(),
 ];
