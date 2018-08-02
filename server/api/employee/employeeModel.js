@@ -3,6 +3,12 @@ const moment = require('moment-timezone');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const currentTime = new Date(moment().add(2, 'hours').format());
+const nDate = new Date(moment().format()).toLocaleString('en-DK', {
+  timeZone: 'Europe/Copenhagen'
+});
+
+console.log(currentTime);
+console.log(nDate);
 // console.log(moment().add(2, 'hours').format('DD/MM/YYYY h:mm:ss'));
 
 const employeeSchema = new mongoose.Schema({
@@ -24,7 +30,7 @@ const employeeSchema = new mongoose.Schema({
   phoneNumber: { type: Number, require: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   startDate: { type: Date, default: moment().format('DD/MM/YYYY') },
-  lastChanged: { type: Date, default: currentTime },
+  lastChanged: { type: Date, default: nDate },
   links: {
     type: [{
       _id: false,
