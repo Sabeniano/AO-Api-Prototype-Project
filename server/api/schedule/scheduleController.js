@@ -1,4 +1,5 @@
 const Schedule = require('./scheduleModel');
+const mongoose = require('mongoose');
 
 const scheduleController = {
   GetAllSchedules: async (req, res, next) => {
@@ -38,6 +39,7 @@ const scheduleController = {
   CreateSchedule: async (req, res, next) => {
     try {
       const newSchedule = {
+        _id: new mongoose.Types.ObjectId(),
         employee_id: req.params.id,
         work_date: req.body.work_date,
         start_work_hour: req.body.start_work_hour,

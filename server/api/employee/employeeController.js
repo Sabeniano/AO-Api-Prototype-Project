@@ -59,31 +59,36 @@ const employeeController = {
         country: req.body.country,
         street: req.body.street,
         phoneNumber: req.body.phoneNumber,
-        user: new mongoose.Types.ObjectId(),
         startDate: req.body.startDate,
         lastChanged: Date.now(),
       };
-      const createdEmployee = await Employee.create(newEmployee);
-      createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
-      await Job.create({
-        employee_id: createdEmployee._id,
-      });
-      await Wallet.create({
-        employee_id: createdEmployee._id,
-      });
-      await Workhours.create({
-        employee_id: createdEmployee._id,
-      });
-      const username = `${req.body.firstName.substring(0, 2)}${req.body.lastName.substring(0, 2)}`;
-      const password = await crypto.randomBytes(12);
+      
       //  consider giving option to add already created user
-      await User.create({
-        _id: newEmployee.user,
+      const username = `${req.body.firstName.substring(0, 2)}${req.body.lastName.substring(0, 2)}${Math.floor((Math.random() * 1000) + 1)}`;
+      const password = await crypto.randomBytes(12);
+      const newUser = {
+        _id: new mongoose.Types.ObjectId(),
         username,
         email: newEmployee.email,
         employee: newEmployee._id,
         password: password.toString('hex'),
+      }
+      newEmployee.user = newUser._id;
+      const createdEmployee = await Employee.create(newEmployee);
+      createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      await Job.create({
+        _id: new mongoose.Types.ObjectId(),
+        employee_id: createdEmployee._id,
       });
+      await Wallet.create({
+        _id: new mongoose.Types.ObjectId(),
+        employee_id: createdEmployee._id,
+      });
+      await Workhours.create({
+        _id: new mongoose.Types.ObjectId(),
+        employee_id: createdEmployee._id,
+      });
+      await User.create(newUser);
       res.status(201).json(createdEmployee);
     } catch (error) {
       next(error);
