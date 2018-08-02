@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const User = require('../api/user/userModel');
 const config = require('../config/config');
 
@@ -21,6 +22,7 @@ const authController = {
       }
       const role = `${req.body.role.substring(0, 1).toUpperCase()}${req.body.role.substring(1, req.body.role.length).toLowerCase()}`;
       const user = new User({
+        _id: new mongoose.Types.ObjectId(),
         username: req.body.username,
         email: req.body.email,
         role,
