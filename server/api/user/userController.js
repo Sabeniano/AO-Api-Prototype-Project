@@ -23,7 +23,7 @@ const userController = {
   },
   getOneUser: async (req, res, next) => {
     try {
-      const foundUser = await User.findOne({ _id: req.params.id }, 'username email links employee').populate('employee', 'firstName lastName email phoneNumber links');
+      const foundUser = await User.findOne({ _id: req.params.id }, 'username role email links employee').populate('employee', 'firstName lastName email phoneNumber links');
       foundUser.SetUpHyperLinks(req.headers.host, req.originalUrl);
       foundUser.employee.SetUpHyperLinks(req.headers.host, '/api/v1/employees/');
       res.status(200).json(foundUser);
@@ -48,7 +48,8 @@ const userController = {
         });
       }
       //  make sure role is capitalized first letter no matter whats entered
-      const role = `${req.body.role.substring(0, 1).toUpperCase()}${req.body.role.substring(1, req.body.role.length - 1).toLowerCase()}`;
+      const role = `${req.body.role.substring(0, 1).toUpperCase()}${req.body.role.substring(1, req.body.role.length).toLowerCase()}`;
+      console.log(role);
       const newUser = {
         _id: new mongoose.Types.ObjectId(),
         username: req.body.username,

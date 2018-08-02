@@ -91,7 +91,7 @@ module.exports = async () => {
     await User.create({
       username: 'test',
       email: genEmployees[0].email,
-      role: 'Master Administrator',
+      role: 'Master administrator',
       password: 'test',
     });
 
