@@ -6,6 +6,23 @@ const Wallet = require('../wallet/walletModel');
 const Workhours = require('../workhours/workhoursModel');
 const User = require('../user/userModel');
 
+const moment = require('moment-timezone');
+
+function getTime() {
+  return currentTime = new Date(moment().add(2, 'hours').format());
+}
+
+function getTimeZone() {
+return nDate = new Date(moment().format()).toLocaleString('en-DK', {
+  timeZone: 'Europe/Copenhagen'
+});
+}
+
+console.log(getTime());
+console.log(getTimeZone());
+
+// console.log(moment().add(2, 'hours').format('DD/MM/YYYY h:mm:ss'));
+
 const employeeController = {
   GetAllEmployees: async (req, res, next) => {
     try {
@@ -60,6 +77,7 @@ const employeeController = {
         street: req.body.street,
         phoneNumber: req.body.phoneNumber,
         startDate: req.body.startDate,
+        lastChanged: getTimeZone(),
       };
       
       //  consider giving option to add already created user
