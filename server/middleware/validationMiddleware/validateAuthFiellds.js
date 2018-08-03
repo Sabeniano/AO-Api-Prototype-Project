@@ -35,9 +35,6 @@ exports.signinFields = [
 ];
 
 exports.updatefields = [
-  body('_id', 'must not be specified')
-  .isEmpty(),
-
   body('username')
   .isString().withMessage('username must be a string')
   .optional(),
