@@ -49,7 +49,6 @@ const userController = {
       }
       //  make sure role is capitalized first letter no matter whats entered
       const role = `${req.body.role.substring(0, 1).toUpperCase()}${req.body.role.substring(1, req.body.role.length).toLowerCase()}`;
-      console.log(role);
       const newUser = {
         _id: new mongoose.Types.ObjectId(),
         username: req.body.username,
