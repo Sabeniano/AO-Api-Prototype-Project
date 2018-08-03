@@ -29,8 +29,17 @@ const employeeSchema = new mongoose.Schema({
   street: { type: String, required: true },
   phoneNumber: { type: Number, require: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+<<<<<<< HEAD
   startDate: { type: Date, default: moment().format('DD/MM/YYYY') },
   lastChanged: { type: Date, default: nDate },
+=======
+  job: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Jobs',
+  },
+  startDate: { type: Date, default: moment().format('DD/MM/YYYY') },
+  lastChanged: { type: Date, default: currentTime },
+>>>>>>> 4f9403191dfda947386ea443e5883db50e1bacb1
   links: {
     type: [{
       _id: false,
