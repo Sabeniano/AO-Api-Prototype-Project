@@ -1,8 +1,17 @@
 const { body } = require('express-validator/check');
 
 exports.updatefields = [
-  body('_id', 'must not be specified').isEmpty(),
-  body('employee_id', 'must not be specified').isEmpty(),
-  body('totalHoursThisPaycheck', 'must specify a valid number').isNumeric(),
-  body('totalOvertimeHoursThisPaycheck', 'must specify a valid number').isNumeric(),
+  body('_id')
+  .isEmpty().withMessage('_id must be empty'),
+
+  body('employee_id')
+  .isEmpty().withMessage('employee_id must be empty'),
+
+  body('totalHoursThisPaycheck')
+  .isNumeric().withMessage('totalHourTHisPaycheck must be a number')
+  .optional(),
+
+  body('totalOvertimeHoursThisPaycheck')
+  .isNumeric().withMessage('totalOvertimeHoursThisPaycheck must be a number')
+  .optional(),
 ];
