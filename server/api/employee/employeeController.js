@@ -8,6 +8,12 @@ const User = require('../user/userModel');
 
 const moment = require('moment-timezone');
 
+console.log(moment());
+
+process.env.TZ = 'Europe/Copenhagen'
+
+console.log(moment().format());
+
 function getTime() {
   return currentTime = new Date(moment().add(2, 'hours').format());
 }

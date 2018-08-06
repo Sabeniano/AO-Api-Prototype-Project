@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const moment = require('moment-timezone');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 
@@ -22,7 +21,7 @@ const employeeSchema = new mongoose.Schema({
   phoneNumber: { type: Number, require: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   startDate: { type: Date, required: true },
-  lastChanged: { type: Date, required: false },
+  lastChanged: { type: String, required: false },
   links: {
     type: [{
       _id: false,
