@@ -1000,4 +1000,8 @@ describe('Employee Controller Unit Testing', () => {
       });
     });
   });
+  describe('GetEmployeeById', () => {
+    describe('Successful Request Found Employee', () => {
+    });
+  });
 });

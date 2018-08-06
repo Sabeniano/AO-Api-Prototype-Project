@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
+
 const employeeSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
   firstName: { type: String, required: true },
@@ -19,8 +20,8 @@ const employeeSchema = new mongoose.Schema({
   street: { type: String, required: true },
   phoneNumber: { type: Number, require: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  startDate: { type: Date, default: Date.now },
-  lastChanged: { type: Date, default: Date.now },
+  startDate: { type: Date, required: true },
+  lastChanged: { type: String, required: false },
   links: {
     type: [{
       _id: false,
