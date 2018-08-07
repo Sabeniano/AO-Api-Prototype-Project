@@ -2,6 +2,17 @@ const User = require('./userModel');
 const mongoose = require('mongoose');
 
 const userController = {
+  params: (req, res, next) => {
+    if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      const error = new Error();
+      error.status = 404;
+      error.resMessage = 'Invalid ID';
+      next(error);
+    } else {
+      next();
+    }
+  },
+
   getAllUsers: async (req, res, next) => {
     try {
       const foundUsers = await User.find({}, 'username email links employee');

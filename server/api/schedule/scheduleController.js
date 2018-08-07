@@ -2,6 +2,17 @@ const Schedule = require('./scheduleModel');
 const mongoose = require('mongoose');
 
 const scheduleController = {
+  params: (req, res, next) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      const error = new Error();
+      error.status = 404;
+      error.resMessage = 'Invalid ID';
+      next(error)
+    } else {
+      next();
+    }
+  },
+  
   GetAllSchedules: async (req, res, next) => {
     try {
       const foundSchedules = await Schedule.find({ employee_id: req.params.id }, 'work_date start_work_hour end_work_hour links');
@@ -24,7 +35,7 @@ const scheduleController = {
 
   GetScheduleById: async (req, res, next) => {
     try {
-      const foundSchedule = await Schedule.findOne({ employee_id: req.params.id });
+      const foundSchedule = await Schedule.findOne({ _id: req.params.id });
       if (foundSchedule) {
         foundSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
         res.status(200).json(foundSchedule);
