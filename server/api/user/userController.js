@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const userController = {
   params: (req, res, next) => {
-    if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       const error = new Error();
       error.status = 404;
       error.resMessage = 'Invalid ID';

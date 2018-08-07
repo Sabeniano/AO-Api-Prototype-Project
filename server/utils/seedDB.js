@@ -16,7 +16,6 @@ const genWorkhours = [];
 
 
 for (let index = 0; index < 20; index += 1) {
-
   const employeeSeed = {
     _id: new mongoose.Types.ObjectId(),
     firstName: faker.name.firstName(),
@@ -75,28 +74,46 @@ for (let index = 0; index < 20; index += 1) {
 
 
 module.exports = async () => {
-  try {
-    await Employees.remove();
-    await Jobs.remove();
-    await Schedules.remove();
-    await Wallets.remove();
-    await Workhours.remove();
-    await User.remove();
+  const deleteAll = [
+    Employees.remove(),
+    Jobs.remove(),
+    Schedules.remove(),
+    Wallets.remove(),
+    Workhours.remove(),
+    User.remove(),
+  ];
 
-    await Employees.create(genEmployees);
-    await Jobs.create(genJobs);
-    await Schedules.create(genSchedules);
-    await Wallets.create(genWallets);
-    await Workhours.create(genWorkhours);
-    await User.create({
+  const createAll = [
+    Employees.create(genEmployees),
+    Jobs.create(genJobs),
+    Schedules.create(genSchedules),
+    Wallets.create(genWallets),
+    Workhours.create(genWorkhours),
+    User.create({
+      _id: new mongoose.Types.ObjectId(),
       username: 'test',
-      email: genEmployees[0].email,
+      email: faker.internet.email(),
       role: 'Master administrator',
       password: 'test',
+      links: [],
+    }),
+  ];
+
+  await Promise
+    .all(deleteAll)
+    .then(() => {
+      logger.log('Deleted all records in DB', 'info', true);
+    })
+    .catch((error) => {
+      logger.log(error, 'error');
     });
 
-    logger.log('Removed and seeded DB');
-  } catch (error) {
-    logger.log(error, 'error');
-  }
+  await Promise
+    .all(createAll)
+    .then(() => {
+      logger.log('Seeded DB', 'info', true);
+    })
+    .catch((error) => {
+      logger.log(error, 'error');
+    });
 };

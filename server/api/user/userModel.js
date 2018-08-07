@@ -41,14 +41,14 @@ userSchema.pre('save', async function hashPassword(next) {
 //  potential race condition
 //  consider doing this somewere else if too many weird behaviour
 userSchema.pre('findOneAndUpdate', async function hashOnUpdate(next) {
-  const password = this.getUpdate().$set.password
+  const { password } = this.getUpdate().$set;
   if (!password) {
-    next()
+    next();
   }
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     this.getUpdate().$set.password = hashedPassword;
-    next()
+    next();
   } catch (error) {
     next(error);
   }
