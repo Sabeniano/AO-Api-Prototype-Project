@@ -8,6 +8,7 @@ const Wallets = require('../api/wallet/walletModel');
 const Workhours = require('../api/workhours/workhoursModel');
 const User = require('../api/user/userModel');
 
+const genUsers = [];
 const genEmployees = [];
 const genJobs = [];
 const genSchedules = [];
@@ -16,8 +17,20 @@ const genWorkhours = [];
 
 
 for (let index = 0; index < 20; index += 1) {
-  const employeeSeed = {
+
+  const empId = new mongoose.Types.ObjectId();
+
+  const userSeed = {
     _id: new mongoose.Types.ObjectId(),
+    username: `${faker.random.word()}${faker.name.firstName()}`,
+    email: faker.internet.email(),
+    role: faker.random.arrayElement(['Master administrator', 'Administrative', 'Employee']),
+    employee: empId,
+    password: faker.random.word(),
+  };
+
+  const employeeSeed = {
+    _id: empId,
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
@@ -64,7 +77,7 @@ for (let index = 0; index < 20; index += 1) {
     totalHoursThisPaycheck: faker.random.number(),
     totalOvertimeHoursThisPaycheck: faker.random.number(),
   };
-
+  genUsers.push(userSeed);
   genEmployees.push(employeeSeed);
   genJobs.push(jobSeed);
   genSchedules.push(scheduleSeed);
@@ -89,6 +102,7 @@ module.exports = async () => {
     Schedules.create(genSchedules),
     Wallets.create(genWallets),
     Workhours.create(genWorkhours),
+    User.create(genUsers),
     User.create({
       _id: new mongoose.Types.ObjectId(),
       username: 'test',
@@ -101,19 +115,11 @@ module.exports = async () => {
 
   await Promise
     .all(deleteAll)
-    .then(() => {
-      logger.log('Deleted all records in DB', 'info', true);
-    })
-    .catch((error) => {
-      logger.log(error, 'error');
-    });
+    .then(() => logger.log('Deleted all records in DB', 'info', true))
+    .catch(error => logger.log(error, 'error'));
 
   await Promise
     .all(createAll)
-    .then(() => {
-      logger.log('Seeded DB', 'info', true);
-    })
-    .catch((error) => {
-      logger.log(error, 'error');
-    });
+    .then(() => logger.log('Seed DB', 'info', true))
+    .catch(error => logger.log(error, 'error'));
 };
