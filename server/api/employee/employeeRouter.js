@@ -7,6 +7,7 @@ const validateEmployeeFields = require('../../middleware/validationMiddleware/va
 
 // Using the specifik methods it sends the data from employeeController to api.js
 // Only the methods with attached parameters will work
+employeeRouter.param('id', employeeController.params);
 
 employeeRouter.route('/')
   .get(employeeController.GetAllEmployees)

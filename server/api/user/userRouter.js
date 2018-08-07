@@ -4,6 +4,8 @@ const MessageService = require('../../utils/messageService');
 const validationErrorHandler = require('../../middleware/validationMiddleware/validationErrorHandler');
 const validateUserFields = require('../../middleware/validationMiddleware/validateUserFields');
 
+userRouter.param('id', userController.params);
+
 userRouter.route('/')
   .get(userController.getAllUsers)
   .post(validateUserFields.createfields, validationErrorHandler(), userController.createOneUser)

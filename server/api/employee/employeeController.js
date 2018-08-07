@@ -6,30 +6,18 @@ const Wallet = require('../wallet/walletModel');
 const Workhours = require('../workhours/workhoursModel');
 const User = require('../user/userModel');
 
-const moment = require('moment-timezone');
-
-console.log(moment());
-
-process.env.TZ = 'Europe/Copenhagen'
-
-console.log(moment().format());
-
-function getTime() {
-  return currentTime = new Date(moment().add(2, 'hours').format());
-}
-
-function getTimeZone() {
-return nDate = new Date(moment().format()).toLocaleString('en-DK', {
-  timeZone: 'Europe/Copenhagen'
-});
-}
-
-console.log(getTime());
-console.log(getTimeZone());
-
-// console.log(moment().add(2, 'hours').format('DD/MM/YYYY h:mm:ss'));
-
 const employeeController = {
+  params: (req, res, next) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      const error = new Error();
+      error.status = 404;
+      error.resMessage = 'Invalid ID';
+      next(error)
+    } else {
+      next();
+    }
+  },
+
   GetAllEmployees: async (req, res, next) => {
     try {
       const foundEmployees = await Employee.find(req.query, 'firstName lastName phoneNumber links');
@@ -52,15 +40,9 @@ const employeeController = {
 
   GetEmployeeById: async (req, res, next) => {
     try {
-      if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        const error = new Error();
-        error.status = 404;
-        error.resMessage = 'Invalid ID';
-        next(error)
-      }
       const foundEmployee = await Employee.findOne({ _id: req.params.id });
       if (foundEmployee) {
-        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
+        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, true);
         res.status(200).json(foundEmployee);
       } else {
         res.status(204).json({});
@@ -83,7 +65,7 @@ const employeeController = {
         street: req.body.street,
         phoneNumber: req.body.phoneNumber,
         startDate: req.body.startDate,
-        lastChanged: getTimeZone(),
+        lastChanged: new Date(),
       };
       
       //  consider giving option to add already created user

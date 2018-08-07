@@ -5,6 +5,8 @@ const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 const validationErrorHandler = require('../../middleware/validationMiddleware/validationErrorHandler');
 const validateScheduleFields = require('../../middleware/validationMiddleware/validateScheduleFields');
 
+scheduleRouter.param('scheduleId', scheduleController.params);
+
 scheduleRouter.route('/')
   .get(scheduleController.GetAllSchedules)
   .post(verifyRole(), validateScheduleFields.createfields, validationErrorHandler(), scheduleController.CreateSchedule)
