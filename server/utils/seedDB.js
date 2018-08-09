@@ -8,6 +8,7 @@ const Wallets = require('../api/wallet/walletModel');
 const Workhours = require('../api/workhours/workhoursModel');
 const User = require('../api/user/userModel');
 
+const genUsers = [];
 const genEmployees = [];
 const genJobs = [];
 const genSchedules = [];
@@ -17,8 +18,19 @@ const genWorkhours = [];
 
 for (let index = 0; index < 20; index += 1) {
 
-  const employeeSeed = {
+  const empId = new mongoose.Types.ObjectId();
+
+  const userSeed = {
     _id: new mongoose.Types.ObjectId(),
+    username: `${faker.random.word()}${faker.name.firstName()}`,
+    email: faker.internet.email(),
+    role: faker.random.arrayElement(['Master administrator', 'Administrative', 'Employee']),
+    employee: empId,
+    password: faker.random.word(),
+  };
+
+  const employeeSeed = {
+    _id: empId,
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
@@ -65,7 +77,7 @@ for (let index = 0; index < 20; index += 1) {
     totalHoursThisPaycheck: faker.random.number(),
     totalOvertimeHoursThisPaycheck: faker.random.number(),
   };
-
+  genUsers.push(userSeed);
   genEmployees.push(employeeSeed);
   genJobs.push(jobSeed);
   genSchedules.push(scheduleSeed);
@@ -73,30 +85,49 @@ for (let index = 0; index < 20; index += 1) {
   genWorkhours.push(workhourSeed);
 }
 
+async function deleteAllRecords() {
+
+  return new Promise((resolve, reject) => {
+    Promise
+      .all([
+        Employees.remove(),
+        Jobs.remove(),
+        Schedules.remove(),
+        Wallets.remove(),
+        Workhours.remove(),
+        User.remove(),
+      ])
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
+async function seedRecords() {
+
+  return new Promise((resolve, reject) => {
+    Promise
+      .all([
+        Employees.create(genEmployees),
+        Jobs.create(genJobs),
+        Schedules.create(genSchedules),
+        Wallets.create(genWallets),
+        Workhours.create(genWorkhours),
+        User.create(genUsers),
+        User.create({
+          _id: new mongoose.Types.ObjectId(),
+          username: 'test',
+          email: faker.internet.email(),
+          role: 'Master administrator',
+          password: 'test',
+          links: [],
+        }),
+      ])
+      .then(resolve)
+      .catch(reject);
+  });
+}
 
 module.exports = async () => {
-  try {
-    await Employees.remove();
-    await Jobs.remove();
-    await Schedules.remove();
-    await Wallets.remove();
-    await Workhours.remove();
-    await User.remove();
-
-    await Employees.create(genEmployees);
-    await Jobs.create(genJobs);
-    await Schedules.create(genSchedules);
-    await Wallets.create(genWallets);
-    await Workhours.create(genWorkhours);
-    await User.create({
-      username: 'test',
-      email: genEmployees[0].email,
-      role: 'Master administrator',
-      password: 'test',
-    });
-
-    logger.log('Removed and seeded DB');
-  } catch (error) {
-    logger.log(error, 'error');
-  }
+  await deleteAllRecords().then(() => logger.log('Deleted all records', 'info', true));
+  await seedRecords().then(() => logger.log('Seeded database', 'info', true));
 };

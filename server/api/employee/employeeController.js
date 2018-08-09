@@ -12,7 +12,7 @@ const employeeController = {
       const error = new Error();
       error.status = 404;
       error.resMessage = 'Invalid ID';
-      next(error)
+      next(error);
     } else {
       next();
     }
@@ -42,7 +42,7 @@ const employeeController = {
     try {
       const foundEmployee = await Employee.findOne({ _id: req.params.id });
       if (foundEmployee) {
-        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, true);
+        foundEmployee.SetUpHyperLinks(req.headers.host, { removeUrlSlashes: 1 });
         res.status(200).json(foundEmployee);
       } else {
         res.status(204).json({});
@@ -65,9 +65,7 @@ const employeeController = {
         street: req.body.street,
         phoneNumber: req.body.phoneNumber,
         startDate: req.body.startDate,
-        lastChanged: new Date(),
       };
-      
       //  consider giving option to add already created user
       const username = `${req.body.firstName.substring(0, 2)}${req.body.lastName.substring(0, 2)}${Math.floor((Math.random() * 1000) + 1)}`;
       const password = await crypto.randomBytes(12);
@@ -77,7 +75,7 @@ const employeeController = {
         email: newEmployee.email,
         employee: newEmployee._id,
         password: password.toString('hex'),
-      }
+      };
       newEmployee.user = newUser._id;
       const createdEmployee = await Employee.create(newEmployee);
       createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
@@ -102,10 +100,13 @@ const employeeController = {
 
   UpdateEmployee: async (req, res, next) => {
     try {
+      delete req.body._id;
+      delete req.body.user;
+      delete req.body.lastChanged;
       req.body.lastChanged = new Date();
       const updatedEmployee = await Employee
         .findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
-      updatedEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      updatedEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, { removeUrlSlashes: 1 });
       res.status(200).json(updatedEmployee);
     } catch (error) {
       next(error);

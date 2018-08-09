@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const userSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId, default: mongoose.Types.ObjectId() },
+  _id: { type: mongoose.Schema.Types.ObjectId, default: () => mongoose.Types.ObjectId() },
   username: { type: String, required: true, unique: true },
   email: {
     type: String,
@@ -41,14 +41,14 @@ userSchema.pre('save', async function hashPassword(next) {
 //  potential race condition
 //  consider doing this somewere else if too many weird behaviour
 userSchema.pre('findOneAndUpdate', async function hashOnUpdate(next) {
-  const password = this.getUpdate().$set.password
+  const { password } = this.getUpdate().$set;
   if (!password) {
-    next()
+    next();
   }
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     this.getUpdate().$set.password = hashedPassword;
-    next()
+    next();
   } catch (error) {
     next(error);
   }

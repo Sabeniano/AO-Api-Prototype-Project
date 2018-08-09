@@ -36,7 +36,7 @@ walletSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
         description: 'update this wallet',
       },
     ];
-    hlGenerator(this, hostName, url, hateaosEndpoints, true);
+    hlGenerator(this, hostName, url, hateaosEndpoints, { isChild: true });
   }
 });
 

@@ -3,7 +3,7 @@ const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 
 const employeeSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
+  _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: {
@@ -21,7 +21,7 @@ const employeeSchema = new mongoose.Schema({
   phoneNumber: { type: Number, require: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   startDate: { type: Date, required: true },
-  lastChanged: { type: String, required: false },
+  lastChanged: { type: String, default: () => new Date() },
   links: {
     type: [{
       _id: false,
@@ -34,7 +34,7 @@ const employeeSchema = new mongoose.Schema({
   },
 });
 
-employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url, isChild) {
+employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url, options) {
   {
     const hateaosEndpoints = [
       {
@@ -73,8 +73,8 @@ employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url, isChild
         description: 'get employees workhour',
       },
     ];
-    const isUnderChild = isChild || false;
-    hlGenerator(this, hostName, url, hateaosEndpoints, isUnderChild);
+    const opts = options || {};
+    hlGenerator(this, hostName, url, hateaosEndpoints, opts);
   }
 });
 
