@@ -34,7 +34,7 @@ const employeeSchema = new mongoose.Schema({
   },
 });
 
-employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url, isChild) {
+employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url, options) {
   {
     const hateaosEndpoints = [
       {
@@ -73,8 +73,8 @@ employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url, isChild
         description: 'get employees workhour',
       },
     ];
-    const isUnderChild = isChild || false;
-    hlGenerator(this, hostName, url, hateaosEndpoints, isUnderChild);
+    const opts = options || {};
+    hlGenerator(this, hostName, url, hateaosEndpoints, opts);
   }
 });
 

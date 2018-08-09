@@ -42,7 +42,7 @@ const employeeController = {
     try {
       const foundEmployee = await Employee.findOne({ _id: req.params.id });
       if (foundEmployee) {
-        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, true);
+        foundEmployee.SetUpHyperLinks(req.headers.host, { removeUrlSlashes: 1 });
         res.status(200).json(foundEmployee);
       } else {
         res.status(204).json({});
@@ -78,7 +78,7 @@ const employeeController = {
       };
       newEmployee.user = newUser._id;
       const createdEmployee = await Employee.create(newEmployee);
-      createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, true);
+      createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
       await Job.create({
         _id: new mongoose.Types.ObjectId(),
         employee_id: createdEmployee._id,
@@ -106,7 +106,7 @@ const employeeController = {
       req.body.lastChanged = new Date();
       const updatedEmployee = await Employee
         .findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
-      updatedEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, true);
+      updatedEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, { removeUrlSlashes: 1 });
       res.status(200).json(updatedEmployee);
     } catch (error) {
       next(error);

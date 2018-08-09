@@ -86,47 +86,48 @@ for (let index = 0; index < 20; index += 1) {
 }
 
 async function deleteAllRecords() {
-  const deleteAll = [
-    Employees.remove(),
-    Jobs.remove(),
-    Schedules.remove(),
-    Wallets.remove(),
-    Workhours.remove(),
-    User.remove(),
-  ];
 
-  Promise
-    .all(deleteAll)
-    .then(() => logger.log('Deleted all records in DB', 'info', true))
-    .catch(error => logger.log(error, 'error'));
-};
+  return new Promise((resolve, reject) => {
+    Promise
+      .all([
+        Employees.remove(),
+        Jobs.remove(),
+        Schedules.remove(),
+        Wallets.remove(),
+        Workhours.remove(),
+        User.remove(),
+      ])
+      .then(resolve)
+      .catch(reject);
+  });
+}
 
 async function seedRecords() {
-  const createAll = [
-    Employees.create(genEmployees),
-    Jobs.create(genJobs),
-    Schedules.create(genSchedules),
-    Wallets.create(genWallets),
-    Workhours.create(genWorkhours),
-    User.create(genUsers),
-    User.create({
-      _id: new mongoose.Types.ObjectId(),
-      username: 'test',
-      email: faker.internet.email(),
-      role: 'Master administrator',
-      password: 'test',
-      links: [],
-    }),
-  ];
 
-
-  Promise
-    .all(createAll)
-    .then(() => logger.log('Seed DB', 'info', true))
-    .catch(error => logger.log(error, 'error'));
-};
+  return new Promise((resolve, reject) => {
+    Promise
+      .all([
+        Employees.create(genEmployees),
+        Jobs.create(genJobs),
+        Schedules.create(genSchedules),
+        Wallets.create(genWallets),
+        Workhours.create(genWorkhours),
+        User.create(genUsers),
+        User.create({
+          _id: new mongoose.Types.ObjectId(),
+          username: 'test',
+          email: faker.internet.email(),
+          role: 'Master administrator',
+          password: 'test',
+          links: [],
+        }),
+      ])
+      .then(resolve)
+      .catch(reject);
+  });
+}
 
 module.exports = async () => {
-  await deleteAllRecords();
-  await seedRecords();
+  await deleteAllRecords().then(() => logger.log('Deleted all records', 'info', true));
+  await seedRecords().then(() => logger.log('Seeded database', 'info', true));
 };

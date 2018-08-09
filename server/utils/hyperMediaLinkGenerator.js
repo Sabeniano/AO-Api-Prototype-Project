@@ -59,10 +59,18 @@ function removeTrailingSlashes(url) {
   return url;
 }
 
-function hateoasGenerator(record, hostName, url, endPoints, isChild) {
+function hateoasGenerator(record, hostName, url, endPoints, options) {
   //  replace the double forward slash with one for link generator
-  const newUrl = removeTrailingSlashes(url);
-  if (isChild) {
+  let newUrl = removeTrailingSlashes(url);
+
+  const opts = options || {};
+  if (opts.removeUrlSlashes && opts.removeUrlSlashes !== 0) {
+    for (let i = 0; i < opts.removeUrlSlashes; i += 1) {
+      newUrl = newUrl.substring(0, newUrl.lastIndexOf('/'));
+    }
+  }
+
+  if (opts.isChild) {
     generateChildLinks(record, hostName, url, endPoints);
   } else {
     generateLinks(record, hostName, newUrl, endPoints);
