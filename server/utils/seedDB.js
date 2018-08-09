@@ -85,8 +85,7 @@ for (let index = 0; index < 20; index += 1) {
   genWorkhours.push(workhourSeed);
 }
 
-
-module.exports = async () => {
+async function deleteAllRecords() {
   const deleteAll = [
     Employees.remove(),
     Jobs.remove(),
@@ -96,6 +95,13 @@ module.exports = async () => {
     User.remove(),
   ];
 
+  Promise
+    .all(deleteAll)
+    .then(() => logger.log('Deleted all records in DB', 'info', true))
+    .catch(error => logger.log(error, 'error'));
+};
+
+async function seedRecords() {
   const createAll = [
     Employees.create(genEmployees),
     Jobs.create(genJobs),
@@ -113,13 +119,14 @@ module.exports = async () => {
     }),
   ];
 
-  await Promise
-    .all(deleteAll)
-    .then(() => logger.log('Deleted all records in DB', 'info', true))
-    .catch(error => logger.log(error, 'error'));
 
-  await Promise
+  Promise
     .all(createAll)
     .then(() => logger.log('Seed DB', 'info', true))
     .catch(error => logger.log(error, 'error'));
+};
+
+module.exports = async () => {
+  await deleteAllRecords();
+  await seedRecords();
 };
