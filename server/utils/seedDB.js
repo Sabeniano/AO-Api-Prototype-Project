@@ -128,6 +128,10 @@ async function seedRecords() {
 }
 
 module.exports = async () => {
-  await deleteAllRecords().then(() => logger.log('Deleted all records', 'info', true));
-  await seedRecords().then(() => logger.log('Seeded database', 'info', true));
+  try {
+    await deleteAllRecords().then(() => logger.log('Deleted all records', 'info', true));
+    await seedRecords().then(() => logger.log('Seeded database', 'info', true)); 
+  } catch (error) {
+    logger.log(error, 'error');
+  }
 };
