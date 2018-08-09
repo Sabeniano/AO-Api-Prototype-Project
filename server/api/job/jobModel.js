@@ -31,7 +31,7 @@ jobSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
         description: 'update this job',
       },
     ];
-    hlGenerator(this, hostName, url, hateaosEndpoints, true);
+    hlGenerator(this, hostName, url, hateaosEndpoints, { isChild: true });
   }
 });
 
