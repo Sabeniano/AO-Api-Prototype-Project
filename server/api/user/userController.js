@@ -36,9 +36,11 @@ const userController = {
     try {
       const foundUser = await User.findOne({ _id: req.params.id }, 'username role email links employee').populate('employee', 'firstName lastName email phoneNumber links');
       foundUser.SetUpHyperLinks(req.headers.host, req.originalUrl);
-      foundUser.employee.SetUpHyperLinks(req.headers.host, '/api/v1/employees/');
+      if (foundUser.employee) {
+        foundUser.employee.SetUpHyperLinks(req.headers.host, '/api/v1/employee/');
+      }
       res.status(200).json(foundUser);
-    } catch (error) {
+    } catch (error) {                
       next(error);
     }
   },
@@ -78,8 +80,11 @@ const userController = {
   updateOneUser: async (req, res, next) => {
     try {
       const updatedUser = await User
-        .findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true, fields: 'username email links' });
+        .findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true, fields: 'username email links employee' });
       updatedUser.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      if (updatedUser.employee) {
+        updatedUser.employee.SetUpHyperLinks(req.headers.host, '/api/v1/employee/');
+      }
       res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
