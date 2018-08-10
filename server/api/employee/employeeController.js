@@ -42,7 +42,7 @@ const employeeController = {
     try {
       const foundEmployee = await Employee.findOne({ _id: req.params.id });
       if (foundEmployee) {
-        foundEmployee.SetUpHyperLinks(req.headers.host, { removeUrlSlashes: 1 });
+        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, { removeUrlSlashes: 1 });
         res.status(200).json(foundEmployee);
       } else {
         res.status(204).json({});

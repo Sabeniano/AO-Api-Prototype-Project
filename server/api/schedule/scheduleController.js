@@ -35,7 +35,7 @@ const scheduleController = {
 
   GetScheduleById: async (req, res, next) => {
     try {
-      const foundSchedule = await Schedule.findOne({ _id: req.params.id });
+      const foundSchedule = await Schedule.findOne({ _id: req.params.scheduleId });
       if (foundSchedule) {
         foundSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
         res.status(200).json(foundSchedule);
@@ -59,7 +59,7 @@ const scheduleController = {
         is_weekend: req.body.is_weekend,
       };
       const createdSchedule = await Schedule.create(newSchedule);
-      createdSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      createdSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl, { removeUrlSlashes: 1 });
       res.status(201).json(createdSchedule);
     } catch (error) {
       next(error);

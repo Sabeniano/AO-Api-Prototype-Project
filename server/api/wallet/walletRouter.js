@@ -8,7 +8,7 @@ const validateWalletFields = require('../../middleware/validationMiddleware/vali
 walletRouter.route('/')
   .get(walletController.FindWalletById)
   .post(MessageService(405, 'Cannot create a new wallet'))
-  .patch(verifyRole, validateWalletFields.updateFields, validationErrorHandler(), walletController.UpdateWallet)
+  .patch(verifyRole(), validateWalletFields.updateFields, validationErrorHandler(), walletController.UpdateWallet)
   .delete(MessageService(405, 'Cannot delete a wallet'));
 
 module.exports = walletRouter;
