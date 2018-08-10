@@ -18,7 +18,7 @@ employeeRouter.route('/')
 employeeRouter.route('/:id')
   .get(employeeController.GetEmployeeById)
   .post(MessageService(405, 'Use /employee/ only to create a new resource'))
-  .patch(verifyRole(), validateEmployeeFields.updateFields, validationErrorHandler(), employeeController.GetEmployeeById)
+  .patch(verifyRole(), validateEmployeeFields.updateFields, validationErrorHandler(), employeeController.UpdateEmployee)
   .delete(verifyRole(), employeeController.DeleteEmployee);
 
 module.exports = employeeRouter;

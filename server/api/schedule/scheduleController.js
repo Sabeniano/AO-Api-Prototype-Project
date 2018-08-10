@@ -59,7 +59,7 @@ const scheduleController = {
         is_weekend: req.body.is_weekend,
       };
       const createdSchedule = await Schedule.create(newSchedule);
-      createdSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      createdSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl, { removeUrlSlashes: 1 });
       res.status(201).json(createdSchedule);
     } catch (error) {
       next(error);

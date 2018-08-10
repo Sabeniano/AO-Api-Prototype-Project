@@ -3,6 +3,7 @@ const logger = require('./loggerWrapper');
 function handleError() {
   return (error, req, res, next) => {
     logger.log(error, 'error');
+    console.log(error);
     if (error.name === 'UnauthorizedError') {
       return res.status(401).json({
         status: 401,
