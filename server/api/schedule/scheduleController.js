@@ -35,7 +35,7 @@ const scheduleController = {
 
   GetScheduleById: async (req, res, next) => {
     try {
-      const foundSchedule = await Schedule.findOne({ _id: req.params.id });
+      const foundSchedule = await Schedule.findOne({ _id: req.params.scheduleId });
       if (foundSchedule) {
         foundSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
         res.status(200).json(foundSchedule);
