@@ -4,13 +4,14 @@ const MessageService = require('../../utils/messageService');
 const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 const validationErrorHandler = require('../../middleware/validationMiddleware/validationErrorHandler');
 const validateEmployeeFields = require('../../middleware/validationMiddleware/validateEmployeeFields');
+const cacheMiddleware = require('../../cache/cache');
 
 // Using the specifik methods it sends the data from employeeController to api.js
 // Only the methods with attached parameters will work
 employeeRouter.param('id', employeeController.params);
 
 employeeRouter.route('/')
-  .get(employeeController.GetAllEmployees)
+  .get(cacheMiddleware(40), employeeController.GetAllEmployees)
   .post(verifyRole(), validateEmployeeFields.createFields, validationErrorHandler(), employeeController.CreateEmployee)
   .patch(MessageService(405, 'Use /employee/ID to update specific resource'))
   .delete(MessageService(405, 'Use /employee/ID to delete specific resource'));

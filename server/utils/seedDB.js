@@ -16,7 +16,7 @@ const genWallets = [];
 const genWorkhours = [];
 
 
-for (let index = 0; index < 20; index += 1) {
+for (let index = 0; index < 200; index += 1) {
 
   const empId = new mongoose.Types.ObjectId();
 
