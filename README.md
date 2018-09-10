@@ -10,21 +10,18 @@
   <a href="#getting-started">Getting Started</a> •
   <a href="#api-userguide">API Userguide</a> •
   <a href="#api-endpoints">API Endpoints</a> •
-  <a href="#credits">Credits</a> •
   <a href="#authors">Authors</a>
 </p>
 
 ## About
 This document provides simple information regarding our API.
 
-AO API was first started in April 2018 by Balen, Mikkel and Jason, and is a collaborative project made with learning as its main purpose.
-
-The API is made mainly to serve both our web page and software, and will allow you to send and retrieve data. The API is a RESTful API and uses -!- for user authentication. 
+AO API was first started in April 2018 by BalenD, Mikkel and Jason, and is a collaborative project made with learning as its main purpose.
 
 ___This project is mainly made for us to gain knowlegde in the various technologies, while also being effective in best practices.___
 
 ## Getting Started
-To clone and run the API, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/), any editor [Visual Code](https://code.visualstudio.com/) and [MongoDB](https://www.mongodb.com/) installed on your computer.
+To clone and run the API, you'll need [Node.js](https://nodejs.org/en/download/) and [MongoDB](https://www.mongodb.com/) installed on your computer.
 
 From your command line:
 
@@ -40,6 +37,8 @@ $ npm install
 
 # Run the app
 $ npm start
+
+# Create a .env file in root and insert this line: NODE_ENV=dev
 ```
 ## API Userguide
 For a more in depth API Userguide:
@@ -74,13 +73,7 @@ The userguide will show how to format your JSON, and what values to insert and e
 #### Workhours Resources
 - <code>GET</code> employee/:id/workhours
 - <code>PATCH</code> employee/:id/workhours
-## Credits
-- [Git](https://git-scm.com)
-- [Node.js](https://nodejs.org/en/download/)
-- [Visual Code](https://code.visualstudio.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Postman](https://www.getpostman.com/)
 ## Authors
-- Balen - [BalenD](https://github.com/BalenD)
+- BalenD - [BalenD](https://github.com/BalenD)
 - Mikkel - [x-mfh](https://github.com/x-mfh)
 - Jason - [Sabeniano](https://github.com/Sabeniano)
