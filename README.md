@@ -20,7 +20,9 @@ This API is
 ## How To Use
 
 ## API Userguide
-(https://github.com/BalenD/AO-Api-Prototype-Project/blob/master/API_Userguide.md)
+For a more in depth API Userguide:
+https://github.com/BalenD/AO-Api-Prototype-Project/blob/master/API_Userguide.md
+The guide will show how to format your JSON, and what values to insert and expect.
 ## API endpoints
 #### User Resources
 - <code>GET</code> users
