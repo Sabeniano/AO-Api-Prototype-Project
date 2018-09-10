@@ -14,7 +14,6 @@
   <a href="#contact">Contact</a>
 </p>
 
-
 ## About
 This API is 
 
@@ -23,11 +22,28 @@ This API is
 ## API Userguide
 
 ## API endpoints
+#### User Resources
 #### Employee Resources
--  <code>GET</code> Employee
-
-
-
+- <code>GET</code> employee
+- <code>POST</code> employee
+- <code>GET</code> employee/:id
+- <code>PATCH</code> employee/:id
+- <code>DELETE</code> employee/:id
+#### Job Resources
+- <code>GET</code> employee/:id/job
+- <code>PATCH</code> employee/:id/job
+#### Schedule Resources
+- <code>GET</code> employee/:id/schedules
+- <code>POST</code> employee/:id/schedules
+- <code>GET</code> employee/:id/schedules/schedules:id
+- <code>PATCH</code> employee/:id/schedules/schedules:id
+- <code>DELETE</code> employee/:id/schedules/schedules:id
+#### Wallet Resources
+- <code>GET</code> employee/:id/wallet
+- <code>PATCH</code> employee/:id/wallet
+#### Workhours Resources
+- <code>GET</code> employee/:id/workhours
+- <code>PATCH</code> employee/:id/workhours
 ## Credits
 
 ## Contact
