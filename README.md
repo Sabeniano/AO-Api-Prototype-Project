@@ -23,6 +23,11 @@ This API is
 
 ## API endpoints
 #### User Resources
+- <code>GET</code> users
+- <code>POST</code> users
+- <code>GET</code> users:id
+- <code>PATCH</code> users/:id
+- <code>DELETE</code> users/:id
 #### Employee Resources
 - <code>GET</code> employee
 - <code>POST</code> employee
