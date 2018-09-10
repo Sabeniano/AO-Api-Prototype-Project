@@ -15,10 +15,10 @@
 </p>
 
 ## About
-AO API was first started in April 2018 by Balen, Mikkel and Jason.
+AO API was first started in April 2018 by Balen, Mikkel and Jason, and is a collaborative made with learning as its main purpose.
 The API's main purpose is to serve both the web page and software, that has yet been made, but will in the future.
 
-This project is mainly made for us to gain knowlegde in the various teknologies, and better ourselves.
+_This project is mainly made for us to gain knowlegde in the various technologies, while also being effective in best practices._
 
 ## Getting Started
 
