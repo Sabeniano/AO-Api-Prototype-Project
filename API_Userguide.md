@@ -9,7 +9,7 @@
   <a href="#getting-started">Getting Started</a> •
   <a href="#query-parameters">Query Parameters</a> •
   <a href="#http-verbs">HTTP Verbs</a> •
-  <a href="#error-codes">ERROR Codes</a> •
+  <a href="#error-codes">Error Codes</a> •
   <a href="#hateoas">Hateoas</a> •
   <a href="#example-parameters">Example Parameters</a> •
   <a href="#authors">Authors</a>
@@ -18,7 +18,17 @@
 ## Getting Started
 ## Query Parameters
 ## HTTP Verbs
-## ERROR Codes
+| Verb | Description |
+|:----:|-------------|
+| <code>GET</code> | Used for retrieving resources.|
+| <code>POST</code> | Used for creating resources.  |
+| <code>PATCH</code> |	Used for updating resources with partial JSON data. For instance, an Issue resource has title and body attributes. A PATCH request may accept one or more of the attributes to update the resource. PATCH is a relatively new and uncommon HTTP verb, so resource endpoints also accept POST requests.   |
+| <code>DELETE</code> | Used for deleting resources.  |
+## Error Codes
+| Error Code | Description |
+|:-----:|-------------|
+| <code>200</code> | OK - |
+| <code>201</code> | Created -|
 ## Hateoas
 ## Example Parameters
 ### Auth
