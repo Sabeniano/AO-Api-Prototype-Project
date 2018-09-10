@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="#about">About</a> •
-  <a href="#how-to-use">How To Use</a> •
+  <a href="#getting-started">Getting Started</a> •
   <a href="#api-userguide">API Userguide</a> •
   <a href="#api-endpoints">API Endpoints</a> •
   <a href="#credits">Credits</a> •
@@ -20,7 +20,7 @@ The API's main purpose is to serve both the web page and software, that has yet 
 
 This project is mainly made for us to gain knowlegde in the various teknologies, and better ourselves.
 
-## How To Use
+## Getting Started
 
 ## API Userguide
 For a more in depth API Userguide:
@@ -57,4 +57,4 @@ The guide will show how to format your JSON, and what values to insert and expec
 - <code>PATCH</code> employee/:id/workhours
 ## Credits
 
-## Contact
+## Authors
