@@ -24,7 +24,23 @@ The API is made mainly to serve both our web page and software, and will allow y
 ___This project is mainly made for us to gain knowlegde in the various technologies, while also being effective in best practices.___
 
 ## Getting Started
+To clone and run the API, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/), any editor [Visual Code](https://code.visualstudio.com/) and [MongoDB](https://www.mongodb.com/) installed on your computer.
 
+From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/BalenD/AO-Api-Prototype-Project.git
+
+# Go into the repository
+$ cd AO-Api-Prototype-Project
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm start
+```
 ## API Userguide
 For a more in depth API Userguide:
 https://github.com/BalenD/AO-Api-Prototype-Project/blob/master/API_Userguide.md
