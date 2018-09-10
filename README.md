@@ -11,14 +11,17 @@
   <a href="#api-userguide">API Userguide</a> •
   <a href="#api-endpoints">API Endpoints</a> •
   <a href="#credits">Credits</a> •
-  <a href="#contact">Contact</a>
+  <a href="#authors">Authors</a>
 </p>
 
 ## About
-AO API was first started in April 2018 by Balen, Mikkel and Jason, and is a collaborative made with learning as its main purpose.
-The API's main purpose is to serve both the web page and software, that has yet been made, but will in the future.
+This document provides simple information regarding our API.
 
-_This project is mainly made for us to gain knowlegde in the various technologies, while also being effective in best practices._
+AO API was first started in April 2018 by Balen, Mikkel and Jason, and is a collaborative project made with learning as its main purpose.
+
+The API is made mainly to serve both our web page and software, and will allow you to send and retrieve data. The API is a RESTful API and uses -- for user authentication. 
+
+___This project is mainly made for us to gain knowlegde in the various technologies, while also being effective in best practices.___
 
 ## Getting Started
 
