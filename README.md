@@ -23,35 +23,9 @@ This API is
 ## API Userguide
 
 ## API endpoints
-<h2> Employee Resources </h2>
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
-•
+#### Employee Resources
+-  <code>GET</code> Employee
+
 
 
 ## Credits
