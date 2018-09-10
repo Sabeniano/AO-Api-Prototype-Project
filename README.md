@@ -19,7 +19,7 @@ This document provides simple information regarding our API.
 
 AO API was first started in April 2018 by Balen, Mikkel and Jason, and is a collaborative project made with learning as its main purpose.
 
-The API is made mainly to serve both our web page and software, and will allow you to send and retrieve data. The API is a RESTful API and uses -- for user authentication. 
+The API is made mainly to serve both our web page and software, and will allow you to send and retrieve data. The API is a RESTful API and uses -!- for user authentication. 
 
 ___This project is mainly made for us to gain knowlegde in the various technologies, while also being effective in best practices.___
 
@@ -29,7 +29,7 @@ ___This project is mainly made for us to gain knowlegde in the various technolog
 For a more in depth API Userguide:
 https://github.com/BalenD/AO-Api-Prototype-Project/blob/master/API_Userguide.md
 
-The guide will show how to format your JSON, and what values to insert and expect.
+The userguide will show how to format your JSON, and what values to insert and expect.
 ## API endpoints
 #### User Resources
 - <code>GET</code> users
@@ -61,3 +61,6 @@ The guide will show how to format your JSON, and what values to insert and expec
 ## Credits
 
 ## Authors
+- Balen - [BalenD](https://github.com/BalenD)
+- Mikkel - [x-mfh](https://github.com/x-mfh)
+- Jason - [Sabeniano](https://github.com/Sabeniano)
