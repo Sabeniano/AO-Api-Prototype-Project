@@ -35,7 +35,7 @@ $ cd AO-Api-Prototype-Project
 # Install dependencies
 $ npm install
 
-# Create a .env file in \AO-Api-Prototype-Project\ and insert this line:
+# Create a .env file in \AO-Api-Prototype-Project\ and insert this line in the file:
 NODE_ENV=dev
 
 # Run the app
