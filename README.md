@@ -15,7 +15,10 @@
 </p>
 
 ## About
-This API is 
+AO API was first started in April 2018 by Balen, Mikkel and Jason.
+The API's main purpose is to serve both the web page and software, that has yet been made, but will in the future.
+
+This project is mainly made for us to gain knowlegde in the various teknologies, and better ourselves.
 
 ## How To Use
 
