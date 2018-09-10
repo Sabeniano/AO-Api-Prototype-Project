@@ -35,10 +35,11 @@ $ cd AO-Api-Prototype-Project
 # Install dependencies
 $ npm install
 
+# Create a .env file in root and insert this line:
+NODE_ENV=dev
+
 # Run the app
 $ npm start
-
-# Create a .env file in root and insert this line: NODE_ENV=dev
 ```
 ## API Userguide
 For a more in depth API Userguide:
