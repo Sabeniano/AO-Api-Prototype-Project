@@ -75,7 +75,11 @@ The userguide will show how to format your JSON, and what values to insert and e
 - <code>GET</code> employee/:id/workhours
 - <code>PATCH</code> employee/:id/workhours
 ## Credits
-
+- [Git](https://git-scm.com)
+- [Node.js](https://nodejs.org/en/download/)
+- [Visual Code](https://code.visualstudio.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Postman](https://www.getpostman.com/)
 ## Authors
 - Balen - [BalenD](https://github.com/BalenD)
 - Mikkel - [x-mfh](https://github.com/x-mfh)
