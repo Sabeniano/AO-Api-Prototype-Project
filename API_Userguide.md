@@ -571,14 +571,18 @@ ___
 ```
 http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/workhours
 {
-	"totalHoursThisPaycheck": 0,
-	"totalOvertimeHoursThisPaycheck": 0,
+	"totalHoursThisPaycheck": 32,
+	"totalOvertimeHoursThisPaycheck": 2,
 }
 ```
 *[Response]* 200 OK
 ```
 {
-	FEJL ATM
+	"totalHoursThisPaycheck": 32,
+	"totalOvertimeHoursThisPaycheck": 2,
+	"_id": "5b965da7e8378620b44bdbc3",
+	"employee_id": "5b965da7e8378620b44bf85z",
+	"links": [...]
 }
 ```
 ___
