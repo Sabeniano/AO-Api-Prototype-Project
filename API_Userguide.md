@@ -48,15 +48,14 @@ http://localhost:3000/api/v1/auth/signup
   "role": "employee"
 }
 ```
-
 *[Response]* 201 Created
 ```json
 {
   "status": 201,
   "message": "User succesfully created"
 }
-```
-
+``` 
+___
 *[Request]* **<code>POST</code> /api/v1/auth/signin**
 ```
 http://localhost:3000/api/v1/auth/signin
@@ -65,7 +64,6 @@ http://localhost:3000/api/v1/auth/signin
   "password": "Gesdf144!"
 }
 ```
-
 *[Response]* 200 OK
 ```json
 {
@@ -74,12 +72,11 @@ http://localhost:3000/api/v1/auth/signin
   "token": "I1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yjk2NWRhN2U4Mzc4NjIwYjQ0Y"
 }
 ```
-
+___
 *[Request]* **<code>GET</code> /api/v1/auth/me**
 ```
 http://localhost:3000/api/v1/auth/me
 ```
-
 *[Response]* 200 OK
 ```json
 {
@@ -90,7 +87,7 @@ http://localhost:3000/api/v1/auth/me
   "links":
 }
 ```
-
+___
 *[Request]* **<code>PATCH</code> /api/v1/auth/me**
 ```
 http://localhost:3000/api/v1/auth/me
@@ -101,7 +98,6 @@ http://localhost:3000/api/v1/auth/me
   "email": "johndoe@email.com",
 }
 ```
-
 *[Response]* 200 OK
 ```json
 {
@@ -111,12 +107,11 @@ http://localhost:3000/api/v1/auth/me
   "links":
 }
 ```
-
+___
 *[Request]* **<code>DELETE</code> /api/v1/auth/me**
 ```
 http://localhost:3000/api/v1/auth/me
 ```
-
 *[Response]* 200 OK
 ```json
 {
@@ -124,6 +119,7 @@ http://localhost:3000/api/v1/auth/me
   "message": "Successfully deleted user"
 }
 ```
+___
 ### User
 ### Employee
 ### Job
@@ -132,3 +128,6 @@ http://localhost:3000/api/v1/auth/me
 ### Workhours
 
 ## Authors
+- BalenD - [BalenD](https://github.com/BalenD)
+- Mikkel - [x-mfh](https://github.com/x-mfh)
+- Jason - [Sabeniano](https://github.com/Sabeniano)
