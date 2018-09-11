@@ -72,7 +72,7 @@ http://localhost:3000/api/v1/auth/signin
 {
   "status": 200,
   "message": "Auth successful",
-  "token": "I1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yjk2NWRhN2U4Mzc4NjIwYjQ0Y"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX3CJ9.eyJfaWQiOiI1Yjk3Nj30ZGU1NTY3YTJiMzgyOGRiYjMiLCJpYXQiOjE1M3Y2NTY4MzYsImV4cCI6MTUzNj32MDQzNn0.rpdiBw5K6gGua6m_SlKxg3DFmQeNsFnk6-77YVb4-qP"
 }
 ```
 ___
