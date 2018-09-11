@@ -87,7 +87,7 @@ http://localhost:3000/api/v1/auth/me
   "_id": "5b965da7e8378620b44bf852",
   "username": "john",
   "email": "johndoe@email.com",
-  "links": [...]
+  "links": []
 }
 ```
 ___
@@ -107,7 +107,7 @@ http://localhost:3000/api/v1/auth/me
   "_id": "5b965da7e8378620b44bf852",
   "username": "john",
   "email": "johndoe@email.com",
-  "links": [...]
+  "links": []
 }
 ```
 ___
@@ -137,10 +137,9 @@ http://localhost:3000/api/v1/users
       "_id": "5b965da7e8378620b44bf85z",
       "username": "john",
       "email": "johndoe@email.com",
-      "employee": "5b965da7e8378620b44bf852",  (Employee collection will only be there if user is created through /api/v1/employee)
-      "links": [...]
+      "employee": "5b965da7e8378620b44bf852" **(Employee collection will only be there if user is created through /api/v1/employee)**,
+      "links": []
     },
-    ...
   ]
 }
 ```
