@@ -25,15 +25,16 @@
 | <code>PATCH</code> |	Used for updating resources with partial JSON data. For instance, an Issue resource has title and body attributes. A PATCH request may accept one or more of the attributes to update the resource. PATCH is a relatively new and uncommon HTTP verb, so resource endpoints also accept POST requests.   |
 | <code>DELETE</code> | Used for deleting resources.  |
 ## Status Codes
-| Status Code | Description |
-|:-----:|-------------|
+| Status Code | Status | Description |
+|:-----------:|:------:|-------------|
 | <code>200</code> | OK |
 | <code>201</code> | Created |
 | <code>401</code> | Unauthorized |
-| <code>404</code> | Not Found |
-| <code>405</code> | |
-| <code>422</code> | |
-| <code>201</code> | Created -|
+| <code>404</code> | No Content |
+| <code>405</code> | Method Not Allowed |
+| <code>409</code> | Conflict |
+| <code>422</code> | Unprocessable Entity |
+| <code>500</code> | Internal Server Error |
 ## Hateoas
 ## Example Parameters
 ### Auth
