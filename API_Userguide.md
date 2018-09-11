@@ -38,6 +38,8 @@
 ## Hateoas
 ## Example Parameters
 The section will show you how to format your JSON, what values to insert and expect.
+
+**NOTICE: Creating a employee through /api/v1/employee will automatically create a user account, but creating a user through /api/v1/users or /api/v1/auth/signup will not make you an employee.**
 ### Auth
 *[Request]* **<code>POST</code> /api/v1/auth/signup**
 ```
@@ -82,10 +84,10 @@ http://localhost:3000/api/v1/auth/me
 ```json
 {
   "role": "employee",
-  "_id_": "5b965da7e8378620b44bf852",
+  "_id": "5b965da7e8378620b44bf852",
   "username": "john",
   "email": "johndoe@email.com",
-  "links":
+  "links": [...]
 }
 ```
 ___
@@ -102,10 +104,10 @@ http://localhost:3000/api/v1/auth/me
 *[Response]* 200 OK
 ```json
 {
-  "_id_": "5b965da7e8378620b44bf852",
+  "_id": "5b965da7e8378620b44bf852",
   "username": "john",
   "email": "johndoe@email.com",
-  "links":
+  "links": [...]
 }
 ```
 ___
@@ -122,6 +124,26 @@ http://localhost:3000/api/v1/auth/me
 ```
 ___
 ### User
+*[Request]* **<code>GET</code> /api/v1/users/**
+```
+http://localhost:3000/api/v1/users
+```
+*[Response]* 200 OK
+```json
+{
+  "count": 50,
+  "users": [
+    {
+      "_id": "5b965da7e8378620b44bf85z",
+      "username": "john",
+      "email": "johndoe@email.com",
+      "employee": "5b965da7e8378620b44bf852",  (**Employee collection will only be there if the user is created through employee**)
+      "links": [...]
+    },
+    ...
+  ]
+}
+```
 ### Employee
 ### Job
 ### Schedule
