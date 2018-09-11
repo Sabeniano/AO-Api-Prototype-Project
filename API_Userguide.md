@@ -52,7 +52,7 @@ http://localhost:3000/api/v1/auth/signup
 }
 ```
 *[Response]* 201 Created
-```json
+```
 {
   "status": 201,
   "message": "User succesfully created"
@@ -68,7 +68,7 @@ http://localhost:3000/api/v1/auth/signin
 }
 ```
 *[Response]* 200 OK
-```json
+```
 {
   "status": 200,
   "message": "Auth successful",
@@ -81,13 +81,13 @@ ___
 http://localhost:3000/api/v1/auth/me
 ```
 *[Response]* 200 OK
-```json
+```
 {
   "role": "employee",
   "_id": "5b965da7e8378620b44bf852",
   "username": "john",
   "email": "johndoe@email.com",
-  "links": []
+  "links": [...]
 }
 ```
 ___
@@ -102,12 +102,12 @@ http://localhost:3000/api/v1/auth/me
 }
 ```
 *[Response]* 200 OK
-```json
+```
 {
   "_id": "5b965da7e8378620b44bf852",
   "username": "john",
   "email": "johndoe@email.com",
-  "links": []
+  "links": [...]
 }
 ```
 ___
@@ -116,7 +116,7 @@ ___
 http://localhost:3000/api/v1/auth/me
 ```
 *[Response]* 200 OK
-```json
+```
 {
   "status": 200,
   "message": "Successfully deleted user"
@@ -129,7 +129,7 @@ ___
 http://localhost:3000/api/v1/users
 ```
 *[Response]* 200 OK
-```json
+```
 {
   "count": 50,
   "users": [
@@ -137,9 +137,10 @@ http://localhost:3000/api/v1/users
       "_id": "5b965da7e8378620b44bf85z",
       "username": "john",
       "email": "johndoe@email.com",
-      "employee": "5b965da7e8378620b44bf852" **(Employee collection will only be there if user is created through /api/v1/employee)**,
-      "links": []
+      "employee": "5b965da7e8378620b44bf852" (employee collection will only be there if user is created through /api/v1/employee),
+      "links": [...]
     },
+    ...
   ]
 }
 ```
