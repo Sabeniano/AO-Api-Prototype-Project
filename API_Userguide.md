@@ -360,8 +360,39 @@ http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z
 ```
 ___
 ### Job
-
-
+*[Request]* **<code>GET</code> /api/v1/employee/:id/job**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/job
+```
+*[Response]* 200 OK
+```
+{  
+  "jobTitle": "Empty",
+  "description": "Empty",
+  "_id": "5b965da7e8378620b44bdbc1",
+  "employee_id": "5b965da7e8378620b44bf85z",
+  "links": [..]
+```
+___
+*[Request]* **<code>PATCH</code> /api/v1/employee/:id/job**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/job
+{
+  "jobTitle": "IT Supporter",
+  "description": "On call IT support"
+}
+```
+*[Response]* 200 OK
+```
+{
+  "jobTitle": "IT Supporter",
+  "description": "On call IT support",
+  "_id": "5b965da7e8378620b44bdbc1",
+  "employee_id": "5b965da7e8378620b44bf85z",
+  "links": [...]
+}
+```
+___
 ### Schedule
 ### Wallet
 ### Workhours
