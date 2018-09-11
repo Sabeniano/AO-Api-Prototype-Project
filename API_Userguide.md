@@ -170,8 +170,11 @@ http://localhost:3000/api/v1/users
 *[Response]* 201 Created
 ```
 {
-  "status": 201,
-  "message": "User succesfully created"
+  "role": "employee",
+  "_id": "5b965da7e8378620b44bf852",
+  "username": "john",
+  "email": "johndoe@email.com",
+  "links": [...]
 }
 ```
 ___
@@ -269,11 +272,10 @@ http://localhost:3000/api/v1/employee
 }
 
 ```
-```
 *[Response]* 201 Created
 ```
 {
-  "_id": "5b9791a0e5567a2b3828dbb8",
+  "_id": "5b965da7e8378620b44bf85z",
   "firstName": "john",
   "lastName": "doe",
   "birthday": "1990-01-01T00:00:00.000Z",
@@ -283,7 +285,7 @@ http://localhost:3000/api/v1/employee
   "street": "telegrafvej 9",
   "phoneNumber": 54512054,
   "startDate": "2018-01-01T00:00:00.000Z",
-  "user": "5b9791a0e5567a2b3828dbb9",
+  "user": "5b965da7e8378620b44bf852",
   "lastChanged": "Tue Sep 11 2018 11:57:52 GMT+0200 (Romance Daylight Time)",
   "links": [...]
 }
