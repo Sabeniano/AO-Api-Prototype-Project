@@ -582,7 +582,6 @@ http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/workhours
 }
 ```
 ___
-___
 ## Authors
 - BalenD - [BalenD](https://github.com/BalenD)
 - Mikkel - [x-mfh](https://github.com/x-mfh)
