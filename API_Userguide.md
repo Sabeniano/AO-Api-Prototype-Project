@@ -207,8 +207,8 @@ http://localhost:3000/api/v1/users/5b965da7e8378620b44bf852
 {
   "role": "employee",
   "username": "john",
-  "password": "Gesdf144!"
-  "email": "johndoe@email.com",
+  "password": "Gesdf144!",
+  "email": "johndoe@email.com"
 }
 ```
 *[Response]* 200 OK
@@ -291,7 +291,77 @@ http://localhost:3000/api/v1/employee
 }
 ```
 ___
+*[Request]* **<code>GET</code> /api/v1/employee/:id**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z
+```
+*[Response]* 200 OK
+```
+{
+  "_id": "5b965da7e8378620b44bf85z",
+  "firstName": "john",
+  "lastName": "doe",
+  "birthday": "1990-01-01T00:00:00.000Z",
+  "email": "johndoe@email.com",
+  "city": "copenhagen",
+  "country": "denmark",
+  "street": "telegrafvej 9",
+  "phoneNumber": 54512054,
+  "startDate": "2018-01-01T00:00:00.000Z",
+  "user": "5b965da7e8378620b44bf852",
+  "lastChanged": "Tue Sep 11 2018 11:57:52 GMT+0200 (Romance Daylight Time)",
+  "links": [...]
+}
+```
+___
+*[Request]* **<code>PATCH</code> /api/v1/employee/:id**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z
+{
+  "firstName": "john",
+  "lastName": "doe",
+  "birthday": "1990-01-01T00:00:00.000Z",
+  "email": "johndoe@email.com",
+  "city": "copenhagen",
+  "country": "denmark",
+  "street": "telegrafvej 9",
+  "phoneNumber": 54512054,
+  "startDate": "2018-01-01T00:00:00.000Z",
+```
+*[Response]* 200 OK
+```
+{
+  "_id": "5b965da7e8378620b44bf85z",
+  "firstName": "john",
+  "lastName": "doe",
+  "birthday": "1990-01-01T00:00:00.000Z",
+  "email": "johndoe@email.com",
+  "city": "copenhagen",
+  "country": "denmark",
+  "street": "telegrafvej 9",
+  "phoneNumber": 54512054,
+  "startDate": "2018-01-01T00:00:00.000Z",
+  "user": "5b965da7e8378620b44bf852",
+  "lastChanged": "Tue Sep 11 2018 11:57:52 GMT+0200 (Romance Daylight Time)",
+  "links": [...]
+}
+```
+___
+*[Request]* **<code>DELETE</code> /api/v1/employee/:id**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z
+```
+*[Response]* 200 OK
+```
+{
+  "status": 200,
+  "message": "Successfully deleted employee"
+}
+```
+___
 ### Job
+
+
 ### Schedule
 ### Wallet
 ### Workhours
