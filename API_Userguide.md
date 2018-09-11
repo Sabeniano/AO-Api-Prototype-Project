@@ -46,7 +46,8 @@
   <a href="#wallet">Wallet</a> •
   <a href="#workhours">Workhours</a>
 </p>
-- The section will show you how to format your JSON, what values to insert and expect.
+
+- This section will show you how to format your JSON, what values to insert and expect.
 
 - In some examples you will see ```"Links": [...]``` in *[Response]*, please see <a href="#hateoas">Hateoas</a> for references.
 
