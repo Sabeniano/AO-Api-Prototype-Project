@@ -37,9 +37,11 @@
 | <code>500</code> | Internal Server Error | A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. |
 ## Hateoas
 ## Example Parameters
-The section will show you how to format your JSON, what values to insert and expect.
+- The section will show you how to format your JSON, what values to insert and expect.
 
-**NOTICE: Creating a employee through /api/v1/employee will automatically create a user account, but creating a user through /api/v1/users or /api/v1/auth/signup will not make you an employee.**
+- In some examples you will see ```"Links": [...]``` in *[Response]*, please see <a href="#hateoas">Hateoas</a> for references.
+
+- **NOTICE: Creating a employee through /api/v1/employee will automatically create a user account, but creating a user through /api/v1/users or /api/v1/auth/signup will not make you an employee.**
 ### Auth
 *[Request]* **<code>POST</code> /api/v1/auth/signup**
 ```
