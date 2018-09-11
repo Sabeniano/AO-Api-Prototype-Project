@@ -371,7 +371,7 @@ http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/job
   "description": "Empty",
   "_id": "5b965da7e8378620b44bdbc1",
   "employee_id": "5b965da7e8378620b44bf85z",
-  "links": [..]
+  "links": [...]
 ```
 ___
 *[Request]* **<code>PATCH</code> /api/v1/employee/:id/job**
@@ -394,6 +394,106 @@ http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/job
 ```
 ___
 ### Schedule
+*[Request]* **<code>GET</code> /api/v1/employee/:id/schedules**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/schedules
+```
+*[Response]* 200 OK
+```
+{  
+  "count": 2,
+  "schedules": [
+    {
+      "_id": "",
+      "work_date": "2018-09-11",
+	    "start_work_hour": "2018-09-11T20:00:00.000Z",
+      "end_work_hour": "2018-09-11T23:00:00.000Z",
+      "links": [...]
+    },
+    ...
+  ]
+}
+```
+___
+*[Request]* **<code>POST</code> /api/v1/employee/:id/schedules**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/schedules
+{
+  "is_holiday": true (bool),
+  "is_weekend": true (bool),
+  "work_date": "2018-09-11",
+	"start_work_hour": "2018-09-11T20:00:00.000Z",
+  "end_work_hour": "2018-09-11T23:00:00.000Z"
+}
+```
+*[Response]* 200 OK
+```
+{
+  "is_holiday": true,
+  "is_weekend": true,
+  "_id": "5b965da7e8378620b44bdbc9",
+  "employee_id": "5b965da7e8378620b44bf85z",
+  "work_date": "2018-09-11T00:00:00.000Z",
+  "start_work_hour": "2018-09-11T20:00:00.000Z",
+  "end_work_hour": "2018-09-11T23:00:00.000Z",
+  "links": [...]
+}
+```
+___
+*[Request]* **<code>GET</code> /api/v1/employee/:id/schedules/:schedulesid**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/schedules/5b965da7e8378620b44bdbc9
+```
+*[Response]* 200 OK
+```
+{
+  "is_holiday": true,
+  "is_weekend": true,
+  "_id": "5b965da7e8378620b44bdbc9",
+  "employee_id": "5b965da7e8378620b44bf85z",
+  "work_date": "2018-09-11T00:00:00.000Z",
+  "start_work_hour": "2018-09-11T20:00:00.000Z",
+  "end_work_hour": "2018-09-11T23:00:00.000Z",
+  "links": [...]
+}
+```
+___
+*[Request]* **<code>PATCH</code> /api/v1/employee/:id/schedules/:schedulesid**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/schedules/5b965da7e8378620b44bdbc9
+{
+  "is_holiday": false (bool),
+  "is_weekend": false (bool),
+  "work_date": "2018-09-10",
+  "start_work_hour": "2018-09-10T20:00:00.000Z",
+  "end_work_hour": "2018-09-10T23:00:00.000Z"
+}
+```
+*[Response]* 200 OK
+```
+{
+  "is_holiday": false,
+  "is_weekend": false,
+  "_id": "5b965da7e8378620b44bdbc9",
+  "employee_id": "5b965da7e8378620b44bf85z",
+  "work_date": "2018-09-10T00:00:00.000Z",
+  "start_work_hour": "2018-09-10T20:00:00.000Z",
+  "end_work_hour": "2018-09-10T23:00:00.000Z",
+  "links": [...]
+}
+```
+___
+*[Request]* **<code>PATCH</code> /api/v1/employee/:id/schedules/:schedulesid**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/schedules/5b965da7e8378620b44bdbc9
+```
+*[Response]* 200 OK
+```
+{
+  "status": 200,
+  "message": "Successfully deleted schedule"
+}
+```
 ### Wallet
 ### Workhours
 
