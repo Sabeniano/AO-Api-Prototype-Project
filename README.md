@@ -45,7 +45,7 @@ $ npm start
 For a more in depth API Userguide:
 https://github.com/BalenD/AO-Api-Prototype-Project/blob/master/API_Userguide.md
 
-The userguide will show how to format your JSON, and what values to insert and expect.
+The userguide will show you how to format your JSON, and what values to insert and expect.
 ## API endpoints
 #### User Resources
 - <code>GET</code> users
