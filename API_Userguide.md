@@ -231,6 +231,64 @@ http://localhost:3000/api/v1/users/5b965da7e8378620b44bf852
 ```
 ___
 ### Employee
+*[Request]* **<code>GET</code> /api/v1/employee/**
+```
+http://localhost:3000/api/v1/employee
+```
+*[Response]* 200 OK
+```
+{
+  "count": 50,
+  "employees": [
+    {
+      "_id": "5b965da7e8378620b44bf85z",
+      "firstName": "john",
+      "lastName": "doe",
+      "phoneNumber": 54512054,
+      "links": [...]
+    },
+    ...
+  ]
+}
+```
+___
+
+*[Request]* **<code>POST</code> /api/v1/employee/**
+```
+http://localhost:3000/api/v1/employee
+{
+  "firstName": "john",
+  "lastName": "doe",
+  "email": "johndoe@email.com",
+  "birthday": "1990-01-01",
+  "city": "copenhagen",
+  "country": "denmark",
+  "street": "telegrafvej 9",
+  "phoneNumber": 54512054,
+  "startDate": "2018-01-01"
+}
+
+```
+```
+*[Response]* 201 Created
+```
+{
+  "_id": "5b9791a0e5567a2b3828dbb8",
+  "firstName": "john",
+  "lastName": "doe",
+  "birthday": "1990-01-01T00:00:00.000Z",
+  "email": "johndoe@email.com",
+  "city": "copenhagen",
+  "country": "denmark",
+  "street": "telegrafvej 9",
+  "phoneNumber": 54512054,
+  "startDate": "2018-01-01T00:00:00.000Z",
+  "user": "5b9791a0e5567a2b3828dbb9",
+  "lastChanged": "Tue Sep 11 2018 11:57:52 GMT+0200 (Romance Daylight Time)",
+  "links": [...]
+}
+```
+___
 ### Job
 ### Schedule
 ### Wallet
