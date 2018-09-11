@@ -27,14 +27,14 @@
 ## Status Codes
 | Status Code | Status | Description |
 |:-----------:|:------:|-------------|
-| <code>200</code> | OK |
-| <code>201</code> | Created |
-| <code>401</code> | Unauthorized |
-| <code>404</code> | No Content |
-| <code>405</code> | Method Not Allowed |
-| <code>409</code> | Conflict |
-| <code>422</code> | Unprocessable Entity |
-| <code>500</code> | Internal Server Error |
+| <code>200</code> | OK | Standard response for successful HTTP requests. |
+| <code>201</code> | Created | The request has been fulfilled, resulting in the creation of a new resource. |
+| <code>401</code> | Unauthorized | Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided. |
+| <code>404</code> | Not Found | The requested resource could not be found but may be available in the future. |
+| <code>405</code> | Method Not Allowed | A request method is not supported for the requested resource; for example, a GET request on a form that requires data to be presented via POST, or a PUT request on a read-only resource. |
+| <code>409</code> | Conflict | Indicates that the request could not be processed because of conflict in the current state of the resource, such as an edit conflict between multiple simultaneous updates. |
+| <code>422</code> | Unprocessable Entity | The request was well-formed but was unable to be followed due to semantic errors. |
+| <code>500</code> | Internal Server Error | A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. |
 ## Hateoas
 ## Example Parameters
 ### Auth
