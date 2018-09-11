@@ -134,16 +134,90 @@ http://localhost:3000/api/v1/users
   "count": 50,
   "users": [
     {
-      "_id": "5b965da7e8378620b44bf85z",
+      "_id": "5b965da7e8378620b44bf852",
       "username": "john",
       "email": "johndoe@email.com",
-      "employee": "5b965da7e8378620b44bf852" (employee collection will only be there if user is created through /api/v1/employee),
+      "employee": "5b965da7e8378620b44bf85z" (employee collection will only be there if user is created through /api/v1/employee),
       "links": [...]
     },
     ...
   ]
 }
 ```
+___
+*[Request]* **<code>POST</code> /api/v1/users/**
+```
+http://localhost:3000/api/v1/users
+{
+  "username": "john",
+  "password": "Gesdf144!" (minimum 5 characters, 1 capital letter, 1 symbol),
+  "email": "johndoe@email.com",
+  "role": "employee"
+}
+```
+*[Response]* 201 Created
+```
+{
+  "status": 201,
+  "message": "User succesfully created"
+}
+```
+___
+*[Request]* **<code>GET</code> /api/v1/users/:id**
+```
+http://localhost:3000/api/v1/users/5b965da7e8378620b44bf852
+```
+*[Response]* 200 OK
+```
+{
+  "role": "employee",
+  "_id": "5b965da7e8378620b44bf852",
+  "username": "john",
+  "email": "johndoe@email.com",
+  "employee": {
+    "_id": "5b965da7e8378620b44bf85z",
+    "firstName": "john",
+    "lastName": "doe",
+    "email": "johndoe@email.com",
+    "phoneNumber": 54512054,
+    "links": [...]
+  },
+  "links": [...]
+}
+```
+___
+*[Request]* **<code>PATCH</code> /api/v1/users/:id**
+```
+http://localhost:3000/api/v1/users/5b965da7e8378620b44bf852
+{
+  "role": "employee",
+  "username": "john",
+  "password": "Gesdf144!"
+  "email": "johndoe@email.com",
+}
+```
+*[Response]* 200 OK
+```
+{
+  "_id": "5b965da7e8378620b44bf852",
+  "username": "john",
+  "email": "johndoe@email.com",
+  "links": [...]
+}
+```
+___
+*[Request]* **<code>DELETE</code> /api/v1/users/:id**
+```
+http://localhost:3000/api/v1/users/5b965da7e8378620b44bf852
+```
+*[Response]* 200 OK
+```
+{
+  "status": 200,
+  "message": "Successfully deleted user"
+}
+```
+___
 ### Employee
 ### Job
 ### Schedule
