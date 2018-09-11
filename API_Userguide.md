@@ -387,6 +387,7 @@ http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/job
   "_id": "5b965da7e8378620b44bdbc1",
   "employee_id": "5b965da7e8378620b44bf85z",
   "links": [...]
+}
 ```
 ___
 *[Request]* **<code>PATCH</code> /api/v1/employee/:id/job**
