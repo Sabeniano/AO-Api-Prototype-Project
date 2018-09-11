@@ -15,6 +15,20 @@
   <a href="#authors">Authors</a>
 </p>
 
+<h3 align="center">
+  Navigate through Example Parameters
+</h3>
+
+<p align="center">
+  <a href="#auth">Auth</a> •
+  <a href="#user">User</a> •
+  <a href="#employee">Employee</a> •
+  <a href="#job">Job</a> •
+  <a href="#schedule">Schedule</a> •
+  <a href="#wallet">Wallet</a> •
+  <a href="#workhours">Workhours</a>
+</p>
+
 ## Getting Started
 ## Query Parameters
 ## HTTP Verbs
