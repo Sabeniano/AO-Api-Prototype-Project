@@ -37,6 +37,7 @@
 | <code>500</code> | Internal Server Error | A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. |
 ## Hateoas
 ## Example Parameters
+The section will show you how to format your JSON, what values to insert and expect.
 ### Auth
 *[Request]* **<code>POST</code> /api/v1/auth/signup**
 ```
