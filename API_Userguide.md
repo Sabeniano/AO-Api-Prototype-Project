@@ -340,7 +340,8 @@ http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z
   "country": "denmark",
   "street": "telegrafvej 9",
   "phoneNumber": 54512054,
-  "startDate": "2018-01-01T00:00:00.000Z",
+  "startDate": "2018-01-01T00:00:00.000Z"
+}
 ```
 *[Response]* 200 OK
 ```
