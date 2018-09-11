@@ -510,9 +510,79 @@ http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/schedules/5b965da
   "message": "Successfully deleted schedule"
 }
 ```
+___
 ### Wallet
+*[Request]* **<code>GET</code> /api/v1/employee/:id/wallet**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/wallet
+```
+*[Response]* 200 OK
+```
+{
+	"wage": 200,
+	"salary": 0,
+	"paymentMethod": "Hourly",
+	"lastChanged": "2018-09-11T08:27:18.000Z",
+	"_id": "5b965da7e8378620b44bdbc2",
+	"employee_id": "5b965da7e8378620b44bf85z",
+	"links": [...]
+}
+```
+___
+*[Request]* **<code>PATCH</code> /api/v1/employee/:id/wallet**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/wallet
+{
+	"wage": 0,
+	"salary": 32000,
+	"paymentMethod": "Monthly",
+}
+```
+*[Response]* 200 OK
+```
+{
+	"wage": 0,
+	"salary": 32000,
+	"paymentMethod": "Monthly",
+	"lastChanged": "2018-09-11T08:27:18.000Z",
+	"_id": "5b965da7e8378620b44bdbc2",
+	"employee_id": "5b965da7e8378620b44bf85z",
+	"links": [...]
+}
+```
+___
 ### Workhours
-
+*[Request]* **<code>GET</code> /api/v1/employee/:id/workhours**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/workhours
+```
+*[Response]* 200 OK
+```
+{
+	"totalHoursThisPaycheck": 0,
+	"totalOvertimeHoursThisPaycheck": 0,
+	"_id": "5b965da7e8378620b44bdbc3",
+	"employee_id": "5b965da7e8378620b44bf85z",
+	"links": [...]
+}
+```
+___
+*[Request]* **<code>PATCH</code> /api/v1/employee/:id/workhours**
+```
+http://localhost:3000/api/v1/employee/5b965da7e8378620b44bf85z/workhours
+{
+	"totalHoursThisPaycheck": 0,
+	"totalOvertimeHoursThisPaycheck": 0,
+}
+```
+*[Response]* 200 OK
+```
+{
+	FEJL ATM
+}
+```
+___
+___
 ## Authors
 - BalenD - [BalenD](https://github.com/BalenD)
 - Mikkel - [x-mfh](https://github.com/x-mfh)
