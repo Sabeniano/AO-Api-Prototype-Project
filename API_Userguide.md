@@ -109,8 +109,8 @@ http://localhost:3000/api/v1/auth/me
 {
   "role": "employee",
   "username": "john",
-  "password": "Gesdf144!"
-  "email": "johndoe@email.com",
+  "password": "Gesdf144!" (minimum 5 characters, 1 capital letter, 1 symbol),
+  "email": "johndoe@email.com"
 }
 ```
 *[Response]* 200 OK
@@ -207,7 +207,7 @@ http://localhost:3000/api/v1/users/5b965da7e8378620b44bf852
 {
   "role": "employee",
   "username": "john",
-  "password": "Gesdf144!",
+  "password": "Gesdf144!"(minimum 5 characters, 1 capital letter, 1 symbol),
   "email": "johndoe@email.com"
 }
 ```
