@@ -37,6 +37,15 @@
 | <code>500</code> | Internal Server Error | A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. |
 ## Hateoas
 ## Example Parameters
+<p align="center">
+  <a href="#auth">Auth</a> •
+  <a href="#user">User</a> •
+  <a href="#employee">Employee</a> •
+  <a href="#job">Job</a> •
+  <a href="#schedule">Schedule</a> •
+  <a href="#wallet">Wallet</a> •
+  <a href="#workhours">Workhours</a>
+</p>
 - The section will show you how to format your JSON, what values to insert and expect.
 
 - In some examples you will see ```"Links": [...]``` in *[Response]*, please see <a href="#hateoas">Hateoas</a> for references.
