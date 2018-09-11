@@ -33,6 +33,7 @@ module.exports = class Utils {
     /**
      * checks if an object has any keys
      * @param {object} object
+     * @returns {boolean} true or false
      */
     static hasKeys(obj) {
         if(Object.keys(obj).length > 0) {
@@ -42,9 +43,9 @@ module.exports = class Utils {
     }
 
     /**
-     * copy object with option to exclude keys
-     * @param {object} objectToCopy object to be copied
-     * @param {array} excludeProps array of keys to be excluded 
+     * takes an object and returns a new object without the excluded fields
+     * @param {object} obj object to copy
+     * @param {string} fields fields to exclude
      */
     static cloneProperties(objectToCopy, excludeProps) {
         const args = excludeProps.split(' ');
