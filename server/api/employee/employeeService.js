@@ -7,11 +7,11 @@ const Wallet = require('../wallet/walletModel');
 const Work = require('../workhours/workhoursModel');
 const User = require('../user/userModel');
 const {
-        clonePropererties,
-        capitalizeFirstLetter,
-        populate,
-        hasKeys } = require('../../utils/utils');
-        // TODO: extract populate from methods and make it seperate only ?
+    clonePropererties,
+    capitalizeFirstLetter,
+    populate,
+    hasKeys } = require('../../utils/utils');
+    // TODO: extract populate from methods and make it seperate only ?
 
 class EmployeeService {
     /**
