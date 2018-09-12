@@ -20,7 +20,7 @@ class EmployeeService {
      * @returns {Promise} a promise
      */
     static findAllEmployees(conditions) {
-        return new Promize((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             if (typeof conditions !== 'object') reject(new Error(`${typeof conditions} is not an object`));
 
             if (Array.isArray(conditions)) reject(new Error('Array is not an object'));

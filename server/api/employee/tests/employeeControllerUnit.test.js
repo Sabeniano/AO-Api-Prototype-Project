@@ -2,12 +2,12 @@ const chai = require('chai');
 
 const should = chai.should();
 const sinon = require('sinon');
-const employeeController = require('./employeeController');
-const Employee = require('./employeeModel');
-const Job = require('../job/jobModel');
-const Wallet = require('../wallet/walletModel');
-const Workhours = require('../workhours/workhoursModel');
-const User = require('../user/userModel');
+const employeeController = require('../employeeController');
+const Employee = require('../employeeModel');
+const Job = require('../../job/jobModel');
+const Wallet = require('../../wallet/walletModel');
+const Workhours = require('../../workhours/workhoursModel');
+const User = require('../../user/userModel');
 
 
 describe('Employee Controller Unit Testing', () => {

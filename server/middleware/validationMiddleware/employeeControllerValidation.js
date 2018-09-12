@@ -89,7 +89,7 @@ exports.updateFields = [
         .custom((birthday) => {
             const fifteenYearsAgo = moment().subtract(15, 'years');
             const birthDate = moment(birthday, 'YYYY/MM/DD', true);
-            // test om det er nødvendigt at tjekke om validt date igen
+            // test om det er nødvendigt at tjekke om valid date igen
             //if (!birthDate.isValid()) {
             //    return false;
             //} 
