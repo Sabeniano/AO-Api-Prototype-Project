@@ -7,7 +7,7 @@ const Wallet = require('../wallet/walletModel');
 const Work = require('../workhours/workhoursModel');
 const User = require('../user/userModel');
 const {
-    clonePropererties,
+    cloneProperties,
     capitalizeFirstLetter,
     populate,
     hasKeys } = require('../../utils/utils');
@@ -55,7 +55,7 @@ class EmployeeService {
 
             if (typeof obj !== 'object') reject(new Error(`${typeof obj} is not an object`));
             
-            if (Array.isArray(conditions)) reject(new Error('Array is not an object'));
+            if (Array.isArray(obj)) reject(new Error('Array is not an object'));
 
             resolve(Employee.findOneAndUpdate({ _id: id }, { $set: obj}, { new: true }));
         });
@@ -171,7 +171,7 @@ class EmployeeService {
      * @param {string} fields fields to exclude
      */
     static copyObjectAndAddLastChanged(obj, fields) {
-        const newObj = clonePropererties(obj, fields);
+        const newObj = cloneProperties(obj, fields);
         newObj.lastChanged = moment().format('YYYY/MM/DD');
         return newObj;
     }
