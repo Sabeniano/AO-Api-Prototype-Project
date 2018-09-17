@@ -52,7 +52,7 @@ describe('Employee Service Unit Tests', () => {
     });
     it('should throw if called with an array', async () => {
       const employeeToFind = ['firstName: John'];
-      await expect(findAllEmployees(employeeToFind)).to.eventually.be.rejectedWith('Array is not an object');
+      await expect(findAllEmployees(employeeToFind)).to.eventually.be.rejectedWith('array is not an object');
     });
     it('should throw if not called with an object', async () => {
       const employeeToFind = 'firstName: John';
@@ -131,7 +131,7 @@ describe('Employee Service Unit Tests', () => {
       const idToFind = '123';
       const newUpdated = ['_id: 123'];
       await expect(updateEmployeeById(newUpdated, idToFind))
-        .to.eventually.be.rejectedWith('Array is not an object');
+        .to.eventually.be.rejectedWith('array is not an object');
     });
     it('should throw if employee arguement is not an object', async () => {
       const idToFind = '123';
@@ -230,7 +230,7 @@ describe('Employee Service Unit Tests', () => {
     it('should throw if id arguement is an array', async () => {
       const newEmployee = ['_id: 123'];
       await expect(createEmployee(newEmployee))
-        .to.eventually.be.rejectedWith('Array is not an object');
+        .to.eventually.be.rejectedWith('array is not an object');
     });
     it('should throw if id arguement is not an object', async () => {
       const newEmployee = '_id: 123';
@@ -329,12 +329,12 @@ describe('Employee Service Unit Tests', () => {
     });
     it('should throw if employee arguement is an array', async () => {
       const employee = ['abcdef'];
-      await expect(createEmployee(employee))
-        .to.eventually.be.rejectedWith('Array is not an object');
+      await expect(createEmployeeObject(employee))
+        .to.eventually.be.rejectedWith('array is not an object');
     });
     it('should throw if employee arguement is not an object', async () => {
-      const employee = '_id: 123';
-      await expect(createEmployee(employee))
+      const employee = 'abcdef';
+      await expect(createEmployeeObject(employee))
         .to.eventually.be.rejectedWith(`${typeof employee} is not an object`);
     });
   });
@@ -371,7 +371,7 @@ describe('Employee Service Unit Tests', () => {
       const path = 'test';
       const select = 'test';
       await expect(populate(obj, path, select))
-        .to.eventually.be.rejectedWith('Array is not an object');
+        .to.eventually.be.rejectedWith('array is not an object');
     });
     it('should throw if obj arguement is not an object', async () => {
       const obj = 'id: 123';
@@ -403,7 +403,6 @@ describe('Employee Service Unit Tests', () => {
     it('should return true if an object has any key/value pair', () => {
       const obj = { key: 'value' };
       const result = hasKeys(obj);
-      console.log(result);
       expect(result).to.be.true();
     });
     it('should return false if an object thas no key/value pairs', () => {

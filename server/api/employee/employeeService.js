@@ -22,9 +22,9 @@ class EmployeeService {
      */
   static findAllEmployees(conditions) {
     return new Promise((resolve, reject) => {
-      if (typeof conditions !== 'object') reject(new Error(`${typeof conditions} is not an object`));
+      if (Array.isArray(conditions)) reject(new Error('array is not an object'));
 
-      if (Array.isArray(conditions)) reject(new Error('Array is not an object'));
+      if (typeof conditions !== 'object') reject(new Error(`${typeof conditions} is not an object`));
 
       resolve(Employee.find(conditions, 'firstName lastName phoneNumber links'));
     });
@@ -54,9 +54,10 @@ class EmployeeService {
     return new Promise((resolve, reject) => {
       if (typeof id !== 'string') reject(new Error(`${typeof id} is not a string`));
 
+      if (Array.isArray(obj)) reject(new Error('array is not an object'));
+
       if (typeof obj !== 'object') reject(new Error(`${typeof obj} is not an object`));
 
-      if (Array.isArray(obj)) reject(new Error('Array is not an object'));
 
       resolve(Employee.findOneAndUpdate({ _id: id }, { $set: obj }, { new: true }));
     });
@@ -93,9 +94,11 @@ class EmployeeService {
      */
   static createEmployee(employee) {
     return new Promise((resolve, reject) => {
+      if (Array.isArray(employee)) reject(new Error('array is not an object'));
+
       if (typeof employee !== 'object') reject(new Error(`${typeof employee} is not an object`));
 
-      if (Array.isArray(employee)) reject(new Error('Array is not an object'));
+      
 
       const createAll = [
         Job.create({
@@ -122,9 +125,8 @@ class EmployeeService {
      * @returns {object} an object resembling the employee model
      */
   static async createEmployeeObject(employee, user) {
+    if (Array.isArray(employee)) throw new Error('array is not an object');
     if (typeof employee !== 'object') throw new Error(`${typeof employee} is not an object`);
-
-    if (Array.isArray(employee)) throw new Error('Array is not an object');
 
     const newUser = user || {};
     let role;

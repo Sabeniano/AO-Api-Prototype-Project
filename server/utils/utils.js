@@ -9,9 +9,9 @@ module.exports = class Utils {
      */
   static populate(mongooseObject, obj, path, select) {
     return new Promise((resolve, reject) => {
-      if (typeof obj !== 'object') reject(new Error(`${typeof obj} is not an object`));
+      if (Array.isArray(obj)) reject(new Error('array is not an object'));
 
-      if (Array.isArray(obj)) reject(new Error('Array is not an object'));
+      if (typeof obj !== 'object') reject(new Error(`${typeof obj} is not an object`));
 
       if (typeof path !== 'string') reject(new Error(`${typeof path} is not a string`));
 
