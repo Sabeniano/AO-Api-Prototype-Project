@@ -403,6 +403,7 @@ describe('Employee Service Unit Tests', () => {
     it('should return true if an object has any key/value pair', () => {
       const obj = { key: 'value' };
       const result = hasKeys(obj);
+      console.log(result);
       expect(result).to.be.true();
     });
     it('should return false if an object thas no key/value pairs', () => {

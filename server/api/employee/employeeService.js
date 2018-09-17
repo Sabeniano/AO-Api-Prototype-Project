@@ -162,7 +162,7 @@ class EmployeeService {
      * @returns {boolean} true or false
      */
   static hasKeys(obj) {
-    hasKeys(obj);
+    return hasKeys(obj);
   }
 
   /**
