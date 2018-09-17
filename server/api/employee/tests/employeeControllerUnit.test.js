@@ -84,19 +84,19 @@ describe('Employee Controller Unit Tests', () => {
     });
     context('successfully found employee', () => {
       it('should return a promise that eventually resolves to an objet with property result', async () => {
-        await expect(getEmployeeById('123', '',''))
+        await expect(getEmployeeById('123', '', ''))
           .to.be.a('promise').that.is.eventually.fulfilled()
           .to.an('object').with.property('result');
       });
       it('result property should be an employee object', async () => {
-        await expect(getEmployeeById('123', '',''))
+        await expect(getEmployeeById('123', '', ''))
           .to.eventually.have.property('result')
           .that.is.an('object').with.property('firstName');
       });
     });
     context('found no employee', () => {
       it('should return an object with status property of value 204 and result property of value of null', async () => {
-        await expect(getEmployeeById('12345', '',''))
+        await expect(getEmployeeById('12345', '', ''))
           .to.eventually.be.an('object')
           .with.keys('status', 'result')
           .to.deep.equal({ status: 204, result: null });
@@ -191,7 +191,7 @@ describe('Employee Controller Unit Tests', () => {
           city: 'fakecity',
           country: 'USA',
           street: 'fakestreet',
-          phoneNumber: '45644544',  
+          phoneNumber: '45644544',
         };
         await expect(createEmployee(employeeToCreate))
           .to.be.a('promise').that.is.eventually.fulfilled()
@@ -208,7 +208,7 @@ describe('Employee Controller Unit Tests', () => {
           city: 'fakecity',
           country: 'USA',
           street: 'fakestreet',
-          phoneNumber: '45644544',  
+          phoneNumber: '45644544',
         };
         await expect(createEmployee(employeeToCreate))
           .to.eventually.be.an('object').with.property('result')

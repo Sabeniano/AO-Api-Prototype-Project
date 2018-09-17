@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const hlGenerator = require('../../utils/hyperMediaLinkGenerator'); 
+const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const currentTime = new Date(moment().add(2, 'hours').format());
 

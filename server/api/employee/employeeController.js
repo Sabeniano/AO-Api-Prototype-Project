@@ -11,7 +11,6 @@ const {
 } = require('./employeeService');
 
 module.exports = class EmployeeController {
-
   /**
    * gets all the employees, sets up HATEOAS and returns the result
    * @param {object} obj an object representing what the user wants
@@ -88,7 +87,7 @@ module.exports = class EmployeeController {
    * @param {string} id id of the employee to update
    * @param {string} host the host name portion of the requested url
    * @param {string} originalUrl the requested url after the hostname
-   * @returns {object} returns an object with a message 
+   * @returns {object} returns an object with a message
    */
   static async updateEmployeeById(employee, id, host, originalUrl) {
     const newEmployee = copyObjectAndAddLastChanged(employee, '_id user');
@@ -102,7 +101,7 @@ module.exports = class EmployeeController {
   /**
    * deletes the employee in the database with the given id
    * @param {string} id the id of the employee to be deleted
-   * @returns {object} returns an object with a message 
+   * @returns {object} returns an object with a message
    */
   static async deleteEmployeeById(id) {
     await deleteEmployeeById(id);

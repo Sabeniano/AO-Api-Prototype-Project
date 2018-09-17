@@ -7,12 +7,12 @@ const scheduleController = {
       const error = new Error();
       error.status = 404;
       error.resMessage = 'Invalid ID';
-      next(error)
+      next(error);
     } else {
       next();
     }
   },
-  
+
   GetAllSchedules: async (req, res, next) => {
     try {
       const foundSchedules = await Schedule.find({ employee_id: req.params.id }, 'work_date start_work_hour end_work_hour links');
@@ -23,7 +23,7 @@ const scheduleController = {
       if (documents.count > 0) {
         for (let i = 0; i < foundSchedules.length; i += 1) {
           foundSchedules[i].SetUpHyperLinks(req.headers.host, req.originalUrl);
-        };
+        }
         res.status(200).json(documents);
       } else {
         res.status(200).json(documents);

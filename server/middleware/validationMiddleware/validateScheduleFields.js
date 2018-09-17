@@ -45,5 +45,5 @@ exports.updatefields = [
 
   body('is_weekend', 'must specify a valid boolean')
     .isBoolean().withMessage('is_weekend must be a valid boolean')
-    .optional()
+    .optional(),
 ];

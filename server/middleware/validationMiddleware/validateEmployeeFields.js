@@ -5,11 +5,13 @@ const Employee = require('../../api/employee/employeeModel');
 exports.createFields = [
   body('firstName')
     .exists().withMessage('firstName must not be empty')
-    .isString().withMessage('firstName must be a string'),
+    .isString()
+    .withMessage('firstName must be a string'),
 
   body('lastName')
     .exists().withMessage('lastName must not be empty')
-    .isString().withMessage('lastName must be a string'),
+    .isString()
+    .withMessage('lastName must be a string'),
 
   body('birthday')
     .exists().withMessage('birthday must not be empty')
@@ -25,10 +27,12 @@ exports.createFields = [
 
   body('email')
     .exists().withMessage('email must not be empty')
-    .isString().withMessage('email must be a string')
-    .isEmail().withMessage('email must be a valid email')
+    .isString()
+    .withMessage('email must be a string')
+    .isEmail()
+    .withMessage('email must be a valid email')
     .custom(async (email) => {
-      const foundEmployee = await Employee.findOne({ email: email });
+      const foundEmployee = await Employee.findOne({ email });
       if (!foundEmployee) {
         return true;
       }
@@ -38,20 +42,25 @@ exports.createFields = [
 
   body('city')
     .exists().withMessage('city must not be empty')
-    .isString().withMessage('city must be a string'),
+    .isString()
+    .withMessage('city must be a string'),
 
   body('country')
     .exists().withMessage('country must not be empty')
-    .isString().withMessage('country must be a string'),
+    .isString()
+    .withMessage('country must be a string'),
 
   body('street')
     .exists().withMessage('street must not be empty')
-    .isString().withMessage('street must be a string'),
+    .isString()
+    .withMessage('street must be a string'),
 
   body('phoneNumber')
     .exists().withMessage('phoneNumber must not be empty')
-    .isNumeric().withMessage('phoneNumber must be a number')
-    .isMobilePhone('da-DK').withMessage('phoneNumber must be a valid phone number'),
+    .isNumeric()
+    .withMessage('phoneNumber must be a number')
+    .isMobilePhone('da-DK')
+    .withMessage('phoneNumber must be a valid phone number'),
 
   body('startDate')
     .custom((startDate) => {
@@ -80,7 +89,8 @@ exports.updateFields = [
 
   body('email')
     .isString().withMessage('email must be a string')
-    .isEmail().withMessage('email must be a valid email')
+    .isEmail()
+    .withMessage('email must be a valid email')
     .optional(),
 
   body('city')
@@ -97,7 +107,8 @@ exports.updateFields = [
 
   body('phoneNumber')
     .isNumeric().withMessage('phoneNumber must be a number')
-    .isMobilePhone('da-DK').withMessage('phoneNumber must be a valid number')
+    .isMobilePhone('da-DK')
+    .withMessage('phoneNumber must be a valid number')
     .optional(),
 
   body('user', 'must be empty')

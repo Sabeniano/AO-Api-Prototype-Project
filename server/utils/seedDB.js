@@ -17,7 +17,6 @@ const genWorkhours = [];
 
 
 for (let index = 0; index < 20; index += 1) {
-
   const empId = new mongoose.Types.ObjectId();
 
   const userSeed = {
@@ -86,7 +85,6 @@ for (let index = 0; index < 20; index += 1) {
 }
 
 async function deleteAllRecords() {
-
   return new Promise((resolve, reject) => {
     Promise
       .all([
@@ -103,7 +101,6 @@ async function deleteAllRecords() {
 }
 
 async function seedRecords() {
-
   return new Promise((resolve, reject) => {
     Promise
       .all([
@@ -130,7 +127,7 @@ async function seedRecords() {
 module.exports = async () => {
   try {
     await deleteAllRecords().then(() => logger.log('Deleted all records', 'info', true));
-    await seedRecords().then(() => logger.log('Seeded database', 'info', true)); 
+    await seedRecords().then(() => logger.log('Seeded database', 'info', true));
   } catch (error) {
     logger.log(error, 'error');
   }

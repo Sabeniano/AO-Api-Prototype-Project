@@ -40,7 +40,7 @@ const userController = {
         foundUser.employee.SetUpHyperLinks(req.headers.host, '/api/v1/employee/');
       }
       res.status(200).json(foundUser);
-    } catch (error) {                
+    } catch (error) {
       next(error);
     }
   },

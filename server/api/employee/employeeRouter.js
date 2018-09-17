@@ -27,14 +27,14 @@ employeeRouter.route('/')
   .delete(MessageService(405, 'Use /employees/id to delete specific resource'));
 
 employeeRouter.route('/:id')
-    .get(c(getEmployeeById, req => [req.params.id, req.headers.host, req.originalUrl]))
-    .post(MessageService(405, 'Use /employees/ to create a new resource'))
-    .patch(
-      verifyRole(),
-      validateFields.updateFields,
-      validationErrorHandler(),
-      c(updateEmployeeById, req => [req.body, req.params.id, req.headers.host, req.originalUrl]),
-    )
-    .delete(verifyRole(), c(deleteEmployeeById, req => [req.params.id]));
+  .get(c(getEmployeeById, req => [req.params.id, req.headers.host, req.originalUrl]))
+  .post(MessageService(405, 'Use /employees/ to create a new resource'))
+  .patch(
+    verifyRole(),
+    validateFields.updateFields,
+    validationErrorHandler(),
+    c(updateEmployeeById, req => [req.body, req.params.id, req.headers.host, req.originalUrl]),
+  )
+  .delete(verifyRole(), c(deleteEmployeeById, req => [req.params.id]));
 
-  module.exports = employeeRouter;
+module.exports = employeeRouter;

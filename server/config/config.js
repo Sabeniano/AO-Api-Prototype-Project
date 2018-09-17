@@ -10,9 +10,9 @@ const dev = {
     name: process.env.DEV_DB_NAME || 'aoe',
   },
   jwt: {
-    secret: process.env.DEV_JWT_SECRET ||'secrettesting',
+    secret: process.env.DEV_JWT_SECRET || 'secrettesting',
     expireTime: process.env.DEV_JWT_EXPIRES || '1h',
-  }
+  },
 };
 
 const test = {
