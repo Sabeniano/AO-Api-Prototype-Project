@@ -158,7 +158,7 @@ class EmployeeService {
 
   /**
      * checks if an object has any keys
-     * @param {object} object
+     * @param {object} obj
      * @returns {boolean} true or false
      */
   static hasKeys(obj) {
