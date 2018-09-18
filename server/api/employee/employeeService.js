@@ -98,8 +98,6 @@ class EmployeeService {
 
       if (typeof employee !== 'object') reject(new Error(`${typeof employee} is not an object`));
 
-      
-
       const createAll = [
         Job.create({
           _Owner: employee._id,

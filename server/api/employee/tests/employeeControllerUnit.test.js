@@ -83,7 +83,7 @@ describe('Employee Controller Unit Tests', () => {
       sinon.stub(Employee, 'populate').resolves();
     });
     context('successfully found employee', () => {
-      it('should return a promise that eventually resolves to an objet with property result', async () => {
+      it('should return a promise that eventually resolves to an object with property result', async () => {
         await expect(getEmployeeById('123', '', ''))
           .to.be.a('promise').that.is.eventually.fulfilled()
           .to.an('object').with.property('result');

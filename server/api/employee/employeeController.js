@@ -50,7 +50,8 @@ module.exports = class EmployeeController {
     if (foundEmployee) {
       await populate(foundEmployee, 'user', 'username email links');
       foundEmployee.setupHyperLinks(host, originalUrl, { removeAfterSlash: 1 });
-      foundEmployee.user.setupHyperLinks(host, '/api/v1/users/');
+      // user er undefined
+      //foundEmployee.user.setupHyperLinks(host, '/api/v1/users/');
       return {
         result: foundEmployee,
       };
@@ -73,7 +74,8 @@ module.exports = class EmployeeController {
     const employeeObject = await createEmployeeObject(employee, user);
     const createdEmployee = await createEmployee(employeeObject);
     await populate(createdEmployee, 'user', 'username role links');
-    createdEmployee.user.setupHyperLinks(host, '/api/v1/users/');
+    //user undefined
+    //createdEmployee.user.setupHyperLinks(host, '/api/v1/users/');
     createdEmployee.setupHyperLinks(host, originalUrl);
     return {
       status: 201,

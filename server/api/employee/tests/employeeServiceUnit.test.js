@@ -82,12 +82,12 @@ describe('Employee Service Unit Tests', () => {
         .to.be.a('promise').that.is.eventually.fulfilled()
         .to.an('object');
     });
-    it('should resovle to an employee object', async () => {
+    it('should resolve to an employee object', async () => {
       const idToFind = '123';
       await expect(findEmployeeById(idToFind)).to.eventually.have.property('_id');
     });
     it('should throw if not called with a string', async () => {
-      const idToFind = {};
+      const idToFind = 123;
       await expect(findEmployeeById(idToFind)).to.eventually.be.rejectedWith(`${typeof idToFind} is not a string`);
     });
     after(() => {
@@ -97,6 +97,7 @@ describe('Employee Service Unit Tests', () => {
 
   describe('updateEmployeeById', () => {
     before(() => {
+      // se på at ændre newUpdate og toFindBy til mere selvforklarige navne
       sinon.stub(Employee, 'findOneAndUpdate').callsFake((toFindBy, toUpdate) => toUpdate.$set);
     });
     it('should return a promise that eventually resolves to an object', async () => {
@@ -184,8 +185,7 @@ describe('Employee Service Unit Tests', () => {
         .to.eventually.have.property('_id');
     });
     it('should throw if id arguement is not a string', async () => {
-      // test med number istedet for string?
-      const id = ['123'];
+      const id = 123;
       await expect(deleteEmployeeById(id))
         .to.eventually.be.rejectedWith(`${typeof id} is not a string`);
     });

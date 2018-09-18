@@ -75,7 +75,8 @@ exports.createFields = [
         return true;
       }
       return false;
-    }).withMessage('startDate is not a valid date format'),
+    }).withMessage('startDate is not a valid date format')
+    .optional(),
 ];
 
 exports.updateFields = [
