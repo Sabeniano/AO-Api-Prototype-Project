@@ -240,7 +240,7 @@ describe('Employee Controller Unit Tests', () => {
   describe('deleteEmployeeById', () => {
     context('successfully delete an employee', () => {
       before(() => {
-        sinon.stub(Employee, 'findOneAndRemove');
+        sinon.stub(Employee, 'findOneAndDelete');
       });
       it('should return a promise that eventually resolves to an object with a result property', async () => {
         await expect(deleteEmployeeById('123'))
@@ -254,7 +254,7 @@ describe('Employee Controller Unit Tests', () => {
           .that.equals('Successfully deleted');
       });
       after(() => {
-        Employee.findOneAndRemove.restore();
+        Employee.findOneAndDelete.restore();
       });
     });
     context('unsuccessfully deleted an employee', () => {

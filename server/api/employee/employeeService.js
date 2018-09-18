@@ -72,7 +72,7 @@ class EmployeeService {
     return new Promise((resolve, reject) => {
       if (typeof id !== 'string') reject(new Error(`${typeof id} is not a string`));
 
-      resolve(Employee.findOneAndRemove({ _id: id }));
+      resolve(Employee.findOneAndDelete({ _id: id }));
     });
   }
 

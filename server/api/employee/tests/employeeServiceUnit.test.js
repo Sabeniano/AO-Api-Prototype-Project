@@ -159,7 +159,7 @@ describe('Employee Service Unit Tests', () => {
 
   describe('deleteEmployeeById', () => {
     before(() => {
-      sinon.stub(Employee, 'findOneAndRemove').callsFake((obj) => {
+      sinon.stub(Employee, 'findOneAndDelete').callsFake((obj) => {
         const db = [{
           _id: '123',
           firstName: 'John',
@@ -184,12 +184,13 @@ describe('Employee Service Unit Tests', () => {
         .to.eventually.have.property('_id');
     });
     it('should throw if id arguement is not a string', async () => {
-      const id = '123';
+      // test med number istedet for string?
+      const id = ['123'];
       await expect(deleteEmployeeById(id))
         .to.eventually.be.rejectedWith(`${typeof id} is not a string`);
     });
     after(() => {
-      Employee.findOneAndRemove.restore();
+      Employee.findOneAndDelete.restore();
     });
   });
 
