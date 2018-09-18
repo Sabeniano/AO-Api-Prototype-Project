@@ -74,7 +74,7 @@ userSchema.methods = {
   },
 };
 
-userSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
+userSchema.method('setupHyperLinks', function setupHL(hostName, url) {
   const hateaosEndpoints = [
     {
       rel: 'self',
