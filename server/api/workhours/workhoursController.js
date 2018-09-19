@@ -1,5 +1,5 @@
 const Workhour = require('./workhoursModel');
-
+const { cloneProperties } = require('../../utils/utils')
 
 module.exports = class WorkController {
   static async getWorkhoursById(req, res, next) {
@@ -14,6 +14,8 @@ module.exports = class WorkController {
 
   static async updateWorkhoursById(req, res, next) {
     try {
+      // mangler copyObject ??
+      req.body = cloneProperties(req.body, '_id _Owner');
       const updatedWork = await Workhour
         .findOndAndUpdate({ _Owner: req.params.id }, { $set: req.body }, { new: true });
       updatedWork.setupHyperLinks(req.headers.host, req.originalUrl);

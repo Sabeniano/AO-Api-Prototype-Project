@@ -1,20 +1,16 @@
 const { body } = require('express-validator/check');
-const User = require('../../api/user/userModel');
 
 exports.createfields = [
   body('username')
     .exists().withMessage('username must not be empty')
-    .isString()
-    .withMessage('username must be a string'),
+    .isString().withMessage('username must be a string'),
 
   body('email')
     .exists().withMessage('email must not be empty')
-    .isString()
-    .withMessage('email must be a string')
-    .isEmail()
-    .withMessage('email must be a valid email'),
+    .isString().withMessage('email must be a string')
+    .isEmail().withMessage('email must be a valid email'),
 
-  body('role')
+  body('role', 'Must specify a valid role')
     .isString().withMessage('role must be a string')
     .custom((value) => {
       const roles = ['employee', 'administrative', 'master administrator'];
@@ -22,10 +18,9 @@ exports.createfields = [
     })
     .withMessage('role must be valid role'),
 
-  body('password')
+  body('password', 'Must specify a valid string')
     .exists().withMessage('password must not be empty')
-    .isString()
-    .withMessage('password must be a string'),
+    .isString().withMessage('password must be a string'),
 ];
 
 exports.updatefields = [
@@ -35,8 +30,7 @@ exports.updatefields = [
 
   body('email')
     .isString().withMessage('email must be a string')
-    .isEmail()
-    .withMessage('email must be a valid email')
+    .isEmail().withMessage('email must be a valid email')
     .optional(),
 
   body('role')

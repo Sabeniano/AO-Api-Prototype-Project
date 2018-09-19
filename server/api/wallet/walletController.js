@@ -15,6 +15,7 @@ module.exports = class WalletController {
 
   static async updateWalletById(req, res, next) {
     try {
+      // mangler rigtig cloneObject??
       req.body = cloneProperties(req.body, '_id _Owner');
       req.body.lastChanged = moment().format('YYYY/MM/DD');
       const updatedWallet = await Wallet
