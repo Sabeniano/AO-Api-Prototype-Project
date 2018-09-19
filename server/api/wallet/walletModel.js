@@ -2,19 +2,20 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
-const currentTime = new Date(moment().add(2, 'hours').format());
+//const currentTime = new Date(moment().add(2, 'hours').format());
 
 const walletSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
+  _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
   wage: { type: Number, default: 0 },
   salary: { type: Number, default: 0 },
   paymentMethod: { type: String, enum: ['Monthly', 'Hourly'], default: 'Hourly' },
   employee_id: { type: String, required: true },
-  lastChanged: { type: Date, default: currentTime },
+  lastChanged: { type: Date, default: () => new Date },
   links: {
     type: [{
       _id: false,
       rel: String,
+      type: { type: String, enum: ['GET', 'POST', 'PATCH', 'DELETE'] },
       href: String,
       description: String,
     }],
