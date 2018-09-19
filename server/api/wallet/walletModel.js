@@ -9,7 +9,7 @@ const walletSchema = new mongoose.Schema({
   wage: { type: Number, default: 0 },
   salary: { type: Number, default: 0 },
   paymentMethod: { type: String, enum: ['Monthly', 'Hourly'], default: 'Hourly' },
-  employee_id: { type: String, required: true },
+  _Owner: { type: String, required: true },
   lastChanged: { type: Date, default: () => new Date },
   links: {
     type: [{
@@ -23,7 +23,7 @@ const walletSchema = new mongoose.Schema({
   },
 });
 
-walletSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
+walletSchema.method('setupHyperLinks', function setupHL(hostName, url) {
   {
     const hateaosEndpoints = [
       {

@@ -1,14 +1,14 @@
 const walletRouter = require('express').Router({ mergeParams: true });
-const walletController = require('./walletController');
+const WalletController = require('./walletController');
 const MessageService = require('../../utils/messageService');
 const verifyRole = require('../../middleware/authMiddleware/verifyRole');
+const validateFields = require('../../middleware/validationMiddleware/walletControllerValidation');
 const validationErrorHandler = require('../../middleware/validationMiddleware/validationErrorHandler');
-const validateWalletFields = require('../../middleware/validationMiddleware/validateWalletFields');
 
 walletRouter.route('/')
-  .get(walletController.FindWalletById)
+  .get(WalletController.getWalletById)
   .post(MessageService(405, 'Cannot create a new wallet'))
-  .patch(verifyRole(), validateWalletFields.updateFields, validationErrorHandler(), walletController.UpdateWallet)
+  .patch(verifyRole(), validateFields.updateFields, validationErrorHandler(), WalletController.updateWalletById)
   .delete(MessageService(405, 'Cannot delete a wallet'));
 
 module.exports = walletRouter;

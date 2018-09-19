@@ -21,8 +21,8 @@ exports.updateFields = [
     .withMessage('must be a valid payementMethod')
     .optional(),
 
-  body('employee_id')
-    .isEmpty().withMessage('employee_id must be empty'),
+  body('_Owner')
+    .isEmpty().withMessage('_Owner must be empty'),
 
   //  TODO: fix these date checks properly with a custom validator in next update
   body('lastChanged')
