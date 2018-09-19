@@ -2,21 +2,23 @@ const mongoose = require('mongoose');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const workhoursSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
-  employee_id: { type: String, required: true },
+  _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
+  _Owner: { type: String, required: true },
   totalHoursThisPaycheck: { type: Number, default: 0 },
   totalOvertimeHoursThisPaycheck: { type: Number, default: 0 },
   links: {
     type: [{
       _id: false,
       rel: String,
+      type: { type: String, enum: ['GET', 'POST', 'PATCH', 'DELETE'] },
       href: String,
+      description: String,
     }],
     default: [],
   },
 });
 
-workhoursSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
+workhoursSchema.method('setupHyperLinks', function setupHL(hostName, url) {
   {
     const hateaosEndpoints = [
       {

@@ -66,13 +66,13 @@ for (let index = 0; index < 20; index += 1) {
     wage: faker.finance.amount(),
     salary: faker.finance.amount(),
     paymentMethod: faker.random.arrayElement(['Monthly', 'Hourly']),
-    employee_id: employeeSeed._id,
+    _Owner: employeeSeed._id,
     lastChanged: faker.date.past(),
   };
 
   const workhourSeed = {
     _id: new mongoose.Types.ObjectId(),
-    employee_id: employeeSeed._id,
+    _Owner: employeeSeed._id,
     totalHoursThisPaycheck: faker.random.number(),
     totalOvertimeHoursThisPaycheck: faker.random.number(),
   };

@@ -4,7 +4,7 @@ const moment = require('moment');
 const Employee = require('./employeeModel');
 const Job = require('../job/jobModel');
 const Wallet = require('../wallet/walletModel');
-const Work = require('../workhours/workhoursModel');
+const Workhours = require('../workhours/workhoursModel');
 const User = require('../user/userModel');
 const {
   cloneProperties,
@@ -105,7 +105,7 @@ class EmployeeService {
         Wallet.create({
           _Owner: employee._id,
         }),
-        Work.create({
+        Workhours.create({
           _Owner: employee._id,
         }),
         User.create(employee.user),
