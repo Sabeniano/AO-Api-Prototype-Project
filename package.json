@@ -7,7 +7,7 @@
     "lint": "node_modules/.bin/eslint server.js",
     "test": "mocha ./server/api/**/*.test.js",
     "prestart": "npm i",
-    "start": "node ./serverjs",
+    "start": "node ./server.js",
     "dev": "nodemon ./server.js",
     "cover": "./node_modules/.bin/nyc --reporter=lcov --reporter=text-lcov npm test"
   },
@@ -35,11 +35,11 @@
     "express-jwt": "5.3.1",
     "express-validator": "^5.3.0",
     "jsonwebtoken": "8.2.2",
-    "memory-cache": "^0.2.0",
     "moment": "2.22.2",
     "moment-timezone": "0.5.21",
     "mongoose": "5.1.4",
     "morgan": "1.9.0",
+    "redis": "2.8.0",
     "winston": "3.0.0"
   }
 }

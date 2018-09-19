@@ -8,7 +8,7 @@ const validateWorkhourFields = require('../../middleware/validationMiddleware/va
 workhoursRouter.route('/')
   .get(workhoursController.FindWorkhourById)
   .post(MessageService(405, 'Cannot create new work'))
-  .patch(verifyRole, validateWorkhourFields.updatefields, validationErrorHandler(), workhoursController.UpdateWorkhour)
+  .patch(verifyRole(), validateWorkhourFields.updatefields, validationErrorHandler(), workhoursController.UpdateWorkhour)
   .delete(MessageService(405, 'Cannot delete work'));
 
 module.exports = workhoursRouter;
