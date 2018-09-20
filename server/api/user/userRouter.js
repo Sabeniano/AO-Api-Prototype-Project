@@ -13,7 +13,7 @@ const {
   deleteOneUser,
 } = require('./userController');
 
-userRouter.param('id', p(req => req.params.id));
+userRouter.param('id', p(req => [req.params.id]));
 
 userRouter.route('/')
   .get(c(getAllUsers, req => [req.query, req.headers.host, req.originalUrl]))
