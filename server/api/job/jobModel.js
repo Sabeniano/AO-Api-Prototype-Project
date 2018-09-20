@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const jobSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
+  _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
   jobTitle: { type: String, default: 'Empty' },
-  employee_id: { type: String, require: true },
   description: { type: String, default: 'Empty' },
+  _Owner: { type: String, require: true },
   links: {
     type: [{
       _id: false,
       rel: String,
+      type: { type: String, enum: ['GET', 'POST', 'PATCH', 'DELETE'] },
       href: String,
       description: String,
     }],
@@ -17,7 +18,7 @@ const jobSchema = new mongoose.Schema({
   },
 });
 
-jobSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
+jobSchema.method('setupHyperLinks', function setupHL(hostName, url) {
   {
     const hateaosEndpoints = [
       {
