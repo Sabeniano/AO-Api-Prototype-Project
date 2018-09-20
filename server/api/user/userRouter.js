@@ -16,7 +16,7 @@ const {
 userRouter.param('id', p(req => req.params.id));
 
 userRouter.route('/')
-  .get(c(getOneUser, req => [req.query, req.headers.host, req.originalUrl]))
+  .get(c(getAllUsers, req => [req.query, req.headers.host, req.originalUrl]))
   .post(
     validateFields.createfields,
     validationErrorHandler(),

@@ -2,24 +2,26 @@ const mongoose = require('mongoose');
 const hlGenerator = require('../../utils/hyperMediaLinkGenerator');
 
 const scheduleSchema = new mongoose.Schema({
-  _id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
-  employee_id: { type: String, required: true },
-  work_date: { type: Date, required: true },
-  start_work_hour: { type: Date, required: true },
-  end_work_hour: { type: Date, required: true },
-  is_holiday: { type: Boolean, default: false },
-  is_weekend: { type: Boolean, default: false },
+  _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
+  _Owner: { type: String, required: true },
+  workDate: { type: Date, required: true },
+  startHour: { type: Date, required: true },
+  endHour: { type: Date, required: true },
+  isHoliday: { type: Boolean, default: false },
+  isWeekend: { type: Boolean, default: false },
   links: {
     type: [{
       _id: false,
       rel: String,
+      type: { type: String, enum: ['GET', 'POST', 'PATCH', 'DELETE'] },
       href: String,
+      description: String,
     }],
     default: [],
   },
 });
 
-scheduleSchema.method('SetUpHyperLinks', function setupHL(hostName, url) {
+scheduleSchema.method('setupHyperLinks', function setupHL(hostName, url) {
   {
     const hateaosEndpoints = [
       {

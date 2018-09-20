@@ -38,6 +38,7 @@ for (let index = 0; index < 20; index += 1) {
     country: faker.address.country(),
     street: faker.address.streetAddress(),
     phoneNumber: parseInt(faker.phone.phoneNumber('########'), 10),
+    user: userSeed._id,
     startDate: faker.date.past(),
     lastChanged: faker.date.past(),
   };
@@ -53,12 +54,12 @@ for (let index = 0; index < 20; index += 1) {
 
   const scheduleSeed = {
     _id: new mongoose.Types.ObjectId(),
-    employee_id: employeeSeed._id,
-    work_date: faker.date.future(),
-    start_work_hour: faker.date.future(),
-    end_work_hour: faker.date.future(),
-    is_holiday: faker.random.boolean(),
-    is_weekend: faker.random.boolean(),
+    _Owner: employeeSeed._id,
+    workDate: faker.date.future(),
+    startHour: faker.date.future(),
+    endHour: faker.date.future(),
+    isHoliday: faker.random.boolean(),
+    isWeekend: faker.random.boolean(),
   };
 
   const walletSeed = {
