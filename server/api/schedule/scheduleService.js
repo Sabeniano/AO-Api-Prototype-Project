@@ -60,8 +60,8 @@ module.exports = class ScheduleService {
             workDate: obj.workDate,
             startHour: obj.startHour,
             endHour: obj.endHour,
-            isHoliday: obj.isHoliday,
             isWeekend: obj.isWeekend,
+            isHoliday: obj.isHoliday,
         };
 
         return createObj;
