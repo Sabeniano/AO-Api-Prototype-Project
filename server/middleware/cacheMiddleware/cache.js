@@ -5,8 +5,8 @@ const client = redis.createClient('6379', '127.0.0.1', { no_ready_check: true })
 // Checks to see if the key is in the DB, takes the data in the DB if it is
 // If not it will save the data from the URL, and save it for X amount of time
 const redisMiddleware = (req, res, next) => {
-  const key = '__redisKEY__' + req.originalUrl || req.url;
-  client.get(key, (err, reply) => {
+  const key = `__redisKEY__${req.originalUrl}` || req.url;
+  client.get(key, (reply) => {
     if (reply) {
       res.send(reply);
     } else {
