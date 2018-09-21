@@ -2,6 +2,10 @@ const { body } = require('express-validator/check');
 
 exports.createfields = [
   //  TODO: fix these date checks properly with a custom validator in next update
+  body('_Owner')
+    .exists().withMessage('_Owner must not be empty')
+    .isString().withMessage('_Owner must be a string'),
+
   body('workDate')
     .exists().withMessage('workDate must not be empty')
     .isISO8601().withMessage('workDate must be a valid ISO date format'),
@@ -25,6 +29,10 @@ exports.createfields = [
 
 exports.updatefields = [
   //  TODO: fix these date checks properly with a custom validator in next update
+  body('_Owner')
+    .isString().withMessage('_Owner must be a string')
+    .optional(),
+    
   body('workDate')
     .isISO8601().withMessage('workDate must be a valid ISO date format')
     .optional(),
