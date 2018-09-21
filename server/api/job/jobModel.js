@@ -5,7 +5,7 @@ const jobSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
   jobTitle: { type: String, default: 'Empty' },
   description: { type: String, default: 'Empty' },
-  _Owner: { type: String, require: true },
+  //_Owner: { type: String, require: true },
   links: {
     type: [{
       _id: false,

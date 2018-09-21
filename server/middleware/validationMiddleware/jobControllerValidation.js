@@ -12,6 +12,6 @@ exports.updateFields = [
     .isString().withMessage('description must be a string')
     .optional(),
     
-  body('_Owner')
-    .isEmpty().withMessage('_Owner must be empty'),
+  //body('_Owner')
+    //.isEmpty().withMessage('_Owner must be empty'),
   ];

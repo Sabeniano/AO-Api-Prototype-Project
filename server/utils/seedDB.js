@@ -48,7 +48,7 @@ for (let index = 0; index < 20; index += 1) {
     _id: new mongoose.Types.ObjectId(),
     jobTitle: faker.random.arrayElement(['Administrator', 'Medarbejder', 'IT-Support']),
     description: faker.name.jobDescriptor(),
-    _Owner: employeeSeed._id,
+    //_Owner: employeeSeed._id,
     permissions: [faker.random.arrayElement(['Create', 'Read', 'Update', 'Delete'])],
   };
 
