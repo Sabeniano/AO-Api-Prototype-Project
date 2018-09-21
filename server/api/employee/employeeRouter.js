@@ -4,7 +4,7 @@ const MessageService = require('../../utils/messageService');
 const verifyRole = require('../../middleware/authMiddleware/verifyRole');
 const validationErrorHandler = require('../../middleware/validationMiddleware/validationErrorHandler');
 const validateEmployeeFields = require('../../middleware/validationMiddleware/validateEmployeeFields');
-const redisMiddleware = require('../../cache/cache');
+const redisMiddleware = require('../../middleware/cacheMiddleware/cache.js');
 
 // Using the specifik methods it sends the data from employeeController to api.js
 // Only the methods with attached parameters will work
