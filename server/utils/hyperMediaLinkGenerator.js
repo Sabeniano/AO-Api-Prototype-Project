@@ -1,3 +1,5 @@
+const removeTrailingSlashes = require('../utils/trailingSlashes');
+
 function generateLinks(record, hostname, url, endPoints) {
   for (let i = 0; i < endPoints.length; i += 1) {
     if (endPoints[i].rel === 'owner') {
@@ -47,16 +49,6 @@ function generateChildLinks(record, hostname, url, endPoints) {
       });
     }
   }
-}
-
-function removeTrailingSlashes(url) {
-  if (url.endsWith('/')) {
-    //  replace the double forward slash with one
-    const urlEnd = url.replace(/\/\/+/g, '/');
-    //  remove the single forward slashamrk
-    return urlEnd.substring(0, urlEnd.length - 1);
-  }
-  return url;
 }
 
 function hateoasGenerator(record, hostName, url, endPoints, options) {
