@@ -1,90 +1,105 @@
-const Schedule = require('./scheduleModel');
-const mongoose = require('mongoose');
+const {
+  findScheduleByOwnerId,
+  findSheduleById,
+  createSchedule,
+  createScheduleObject,
+  findAndUpdateScheduleById,
+  findAndDeleteScheduleById,
+} = require('./scheduleService');
+const { cloneProperties } = require('../../utils/utils');
 
-const scheduleController = {
-  params: (req, res, next) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      const error = new Error();
-      error.status = 404;
-      error.resMessage = 'Invalid ID';
-      next(error)
-    } else {
-      next();
-    }
-  },
-  
-  GetAllSchedules: async (req, res, next) => {
-    try {
-      const foundSchedules = await Schedule.find({ employee_id: req.params.id }, 'work_date start_work_hour end_work_hour links');
-      const documents = {
-        count: foundSchedules.length,
-        schedules: foundSchedules,
-      };
-      if (documents.count > 0) {
-        for (let i = 0; i < foundSchedules.length; i += 1) {
-          foundSchedules[i].SetUpHyperLinks(req.headers.host, req.originalUrl);
-        };
-        res.status(200).json(documents);
-      } else {
-        res.status(200).json(documents);
+module.exports = class ScheduleController {
+
+  /**
+   * gets all schedules belonging to the employee
+   * @param {String} ownerId id of the schedule owner
+   * @param {String} host the hostname portion of the requested url
+   * @param {String} url the requested url after the hostname
+   * @returns {Promise} a promise
+   */
+  static async getAllSchedules(ownerId, host, url) {
+    const schedules = await findScheduleByOwnerId(ownerId)
+    if (schedules.length > 0) {
+      for (let i = 0; i < schedules.length; i += 1); {
+        schedules[i].setupHyperLinks(host, url);
       }
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  GetScheduleById: async (req, res, next) => {
-    try {
-      const foundSchedule = await Schedule.findOne({ _id: req.params.scheduleId });
-      if (foundSchedule) {
-        foundSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
-        res.status(200).json(foundSchedule);
-      } else {
-        res.status(204).json({});
-      }
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  CreateSchedule: async (req, res, next) => {
-    try {
-      const newSchedule = {
-        _id: new mongoose.Types.ObjectId(),
-        employee_id: req.params.id,
-        work_date: req.body.work_date,
-        start_work_hour: req.body.start_work_hour,
-        end_work_hour: req.body.end_work_hour,
-        is_holiday: req.body.is_holiday,
-        is_weekend: req.body.is_weekend,
+      return {
+        result: {
+          count: schedules.length,
+          schedules,
+        },
       };
-      const createdSchedule = await Schedule.create(newSchedule);
-      createdSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl, { removeUrlSlashes: 1 });
-      res.status(201).json(createdSchedule);
-    } catch (error) {
-      next(error);
     }
-  },
+    return {
+      status: 204,
+      result: null,
+    };
+  }
 
-  UpdateScheduleById: async (req, res, next) => {
-    try {
-      const updatedSchedule = await Schedule
-        .findOneAndUpdate({ _id: req.params.scheduleId }, { $set: req.body }, { new: true });
-      updatedSchedule.SetUpHyperLinks(req.headers.host, req.originalUrl);
-      res.status(200).json(updatedSchedule);
-    } catch (error) {
-      next(error);
+  /**
+   * gets a schedule by id and returns it
+   * @param {String} id id of the schedule to get
+   * @param {String} host the hostname portion of the requested url
+   * @param {String} url the requested url after the hostname
+   * @returns {Promise} a promise
+   */
+  static async getScheduleById(id, host, url) {
+    const foundSchedule = await findSheduleById(id);
+    if (foundSchedule) {
+      foundSchedule.setupHyperLinks(host, url);
+      return {
+        result: foundSchedule,
+      };
     }
-  },
+    return {
+      status: 204,
+      result: null,
+    };
+  }
 
-  DeleteScheduleById: async (req, res, next) => {
-    try {
-      await Schedule.findOneAndRemove({ _id: req.params.scheduleId });
-      res.status(200).json({ status: 200, message: 'Successfully deleted schedule' });
-    } catch (error) {
-      next(error);
+  /**
+   * creates a new schedule and returns it
+   * @param {Object} obj the schedule to be create
+   * @param {String} ownerId id of the owner of the schedule
+   * @param {String} host the hostname part of the requeste url
+   * @param {String} url the requested url after the hostname
+   * @returns {Promise} a promise that resolves to an object
+   */
+  static async createSchedule(obj, ownerId, host, url) {
+    const newSchedule = createScheduleObject(obj, ownerId);
+    const createSchedule = await createSchedule(newSchedule);
+    createSchedule.setupHyperLinks(host, url);
+    return {
+      status: 201,
+      result: createSchedule,
+    };
+  }
+
+  /**
+   * updates a schedule and returns the updated schedule
+   * @param {Object} obj the object to update the schedule with
+   * @param {String} id id of the schedule to update
+   * @param {String} host the hostname part of the requeste url
+   * @param {String} url the requested url after the hostname
+   * @returns {Promise} a promise that resolves to an object
+   */
+  static async updateScheduleById(obj, id, host, url) {
+    const updated = cloneProperties(obj, '_id _Owner');
+    const updatedSchedule = await findAndUpdateScheduleById(updated, id);
+    updatedSchedule.setupHyperLinks(host, url);
+    return {
+      result: updatedSchedule,
+    };
+  }
+
+  /**
+   * deletes a schedule with the given id
+   * @param {String} id id of the schedule to delete
+   */
+  static async deleteScheduleById(id) {
+    await findAndDeleteScheduleById(id);
+    return {
+      result: 'successfully deleted schedule'
     }
-  },
-};
-
-module.exports = scheduleController;
+  }
+}

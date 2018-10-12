@@ -12,10 +12,10 @@ const userRoutes = require('./user/userRouter');
 const verifyTokenAndGetUser = [verifyToken(), getFullUser()];
 
 router.use('/users', verifyTokenAndGetUser, verifyRole(), userRoutes);
-router.use('/employee', verifyTokenAndGetUser, employeeRouter);
-router.use('/employee/:id/wallet', verifyTokenAndGetUser, walletRouter);
-router.use('/employee/:id/job', verifyTokenAndGetUser, jobRouter);
-router.use('/employee/:id/workhours', verifyTokenAndGetUser, workhoursRouter);
-router.use('/employee/:id/schedules', verifyTokenAndGetUser, scheduleRouter);
+router.use('/employees', verifyTokenAndGetUser, employeeRouter);
+router.use('/employees/:id/wallet', verifyTokenAndGetUser, walletRouter);
+router.use('/employees/:id/job', verifyTokenAndGetUser, jobRouter);
+router.use('/employees/:id/workhours', verifyTokenAndGetUser, workhoursRouter);
+router.use('/employees/:id/schedules', verifyTokenAndGetUser, scheduleRouter);
 
 module.exports = router;

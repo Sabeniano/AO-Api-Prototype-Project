@@ -1,5 +1,4 @@
 const { body } = require('express-validator/check');
-const User = require('../../api/user/userModel');
 
 exports.createfields = [
   body('username')
@@ -11,7 +10,7 @@ exports.createfields = [
     .isString().withMessage('email must be a string')
     .isEmail().withMessage('email must be a valid email'),
 
-  body('role')
+  body('role', 'Must specify a valid role')
     .isString().withMessage('role must be a string')
     .custom((value) => {
       const roles = ['employee', 'administrative', 'master administrator'];
@@ -19,7 +18,7 @@ exports.createfields = [
     })
     .withMessage('role must be valid role'),
 
-  body('password')
+  body('password', 'Must specify a valid string')
     .exists().withMessage('password must not be empty')
     .isString().withMessage('password must be a string'),
 ];

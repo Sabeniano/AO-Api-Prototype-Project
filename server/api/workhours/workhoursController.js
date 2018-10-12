@@ -1,25 +1,27 @@
 const Workhour = require('./workhoursModel');
+const { cloneProperties } = require('../../utils/utils')
 
-const workhoursController = {
-  FindWorkhourById: async (req, res, next) => {
+module.exports = class WorkController {
+  static async getWorkhoursById(req, res, next) {
     try {
-      const foundWorkhour = await Workhour.findOne({ employee_id: req.params.id });
-      foundWorkhour.SetUpHyperLinks(req.headers.host, req.originalUrl);
-      res.status(200).json(foundWorkhour);
+      const foundWork = await Workhour.findOne({ _Owner: req.params.id });
+      foundWork.setupHyperLinks(req.headers.host, req.originalUrl);
+      res.json(foundWork);
     } catch (error) {
       next(error);
     }
-  },
+  }
 
-  UpdateWorkhour: async (req, res, next) => {
+  static async updateWorkhoursById(req, res, next) {
     try {
-      const updatedWorkhour = await Workhour.findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true });
-      updatedWorkhour.SetUpHyperLinks(req.headers.host, req.originalUrl);
-      res.status(200).json(updatedWorkhour);
+      // mangler copyObject ??
+      req.body = cloneProperties(req.body, '_id _Owner');
+      const updatedWork = await Workhour
+        .findOndAndUpdate({ _Owner: req.params.id }, { $set: req.body }, { new: true });
+      updatedWork.setupHyperLinks(req.headers.host, req.originalUrl);
+      res.json(updatedWork);
     } catch (error) {
       next(error);
     }
-  },
+  }
 };
-
-module.exports = workhoursController;

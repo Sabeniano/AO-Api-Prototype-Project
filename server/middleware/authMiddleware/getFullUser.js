@@ -10,7 +10,7 @@ function getFullUser() {
           message: 'Authorization Failed',
         });
       }
-      user.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      user.setupHyperLinks(req.headers.host, req.originalUrl);
       req.user = user.removePassword();
       return next();
     } catch (error) {

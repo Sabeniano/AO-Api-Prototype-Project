@@ -1,126 +1,110 @@
-const mongoose = require('mongoose');
-const crypto = require('crypto');
-const Employee = require('./employeeModel');
-const Job = require('../job/jobModel');
-const Wallet = require('../wallet/walletModel');
-const Workhours = require('../workhours/workhoursModel');
-const User = require('../user/userModel');
+const {
+  findAllEmployees,
+  findEmployeeById,
+  hasKeys,
+  createEmployeeObject,
+  createEmployee,
+  deleteEmployeeById,
+  populate,
+  copyObjectAndAddLastChanged,
+  updateEmployeeById,
+} = require('./employeeService');
 
-const employeeController = {
-  params: (req, res, next) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      const error = new Error();
-      error.status = 404;
-      error.resMessage = 'Invalid ID';
-      next(error);
-    } else {
-      next();
-    }
-  },
-
-  GetAllEmployees: async (req, res, next) => {
-    try {
-      const foundEmployees = await Employee.find(req.query, 'firstName lastName phoneNumber links');
-      const documents = {
-        count: foundEmployees.length,
-        employees: foundEmployees,
-      };
-      if (documents.count > 0) {
-        for (let i = 0; i < foundEmployees.length; i += 1) {
-          foundEmployees[i].SetUpHyperLinks(req.headers.host, req.originalUrl);
-        }
-        res.status(200).json(documents);
-      } else {
-        res.status(204).json(documents);
+module.exports = class EmployeeController {
+  /**
+   * gets all the employees, sets up HATEOAS and returns the result
+   * @param {object} obj an object representing what the user wants
+   * @param {string} host the host name portion of the requested url
+   * @param {string} originalUrl the requested url after the hostname
+   * @returns {object} returns an object with the result and status code
+   */
+  static async getAllEmployees(obj, host, originalUrl) {
+    const isQueryString = hasKeys(obj);
+    const employees = await findAllEmployees(obj);
+    if (employees.length > 0) {
+      for (let i = 0; i < employees.length; i += 1) {
+        employees[i].setupHyperLinks(host, originalUrl, { queryString: isQueryString });
       }
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  GetEmployeeById: async (req, res, next) => {
-    try {
-      const foundEmployee = await Employee.findOne({ _id: req.params.id });
-      if (foundEmployee) {
-        foundEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, { removeUrlSlashes: 1 });
-        res.status(200).json(foundEmployee);
-      } else {
-        res.status(204).json({});
-      }
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  CreateEmployee: async (req, res, next) => {
-    try {
-      const newEmployee = {
-        _id: new mongoose.Types.ObjectId(),
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        birthday: req.body.birthday,
-        email: req.body.email,
-        city: req.body.city,
-        country: req.body.country,
-        street: req.body.street,
-        phoneNumber: req.body.phoneNumber,
-        startDate: req.body.startDate,
+      return {
+        result: {
+          count: employees.length,
+          employees,
+        },
       };
-      //  consider giving option to add already created user
-      const username = `${req.body.firstName.substring(0, 2)}${req.body.lastName.substring(0, 2)}${Math.floor((Math.random() * 1000) + 1)}`;
-      const password = await crypto.randomBytes(12);
-      const newUser = {
-        _id: new mongoose.Types.ObjectId(),
-        username,
-        email: newEmployee.email,
-        employee: newEmployee._id,
-        password: password.toString('hex'),
+    }
+    return {
+      status: 204,
+      result: null,
+    };
+  }
+
+  /**
+   * get an employee by a given ID; sets up HATEOAS and returns the employee
+   * @param {string} id id to find emplooye by
+   * @param {string} host the host name portion of the requested url
+   * @param {string} originalUrl the request url after the hostname
+   * @returns {object} the found employee
+   */
+  static async getEmployeeById(id, host, originalUrl) {
+    const foundEmployee = await findEmployeeById(id);
+    if (foundEmployee) {
+      await populate(foundEmployee, 'user', 'username email links');
+      foundEmployee.setupHyperLinks(host, originalUrl, { removeAfterSlash: 1 });
+      foundEmployee.user.setupHyperLinks(host, '/api/v1/users/');
+      return {
+        result: foundEmployee,
       };
-      newEmployee.user = newUser._id;
-      const createdEmployee = await Employee.create(newEmployee);
-      createdEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl);
-      await Job.create({
-        _id: new mongoose.Types.ObjectId(),
-        employee_id: createdEmployee._id,
-      });
-      await Wallet.create({
-        _id: new mongoose.Types.ObjectId(),
-        employee_id: createdEmployee._id,
-      });
-      await Workhours.create({
-        _id: new mongoose.Types.ObjectId(),
-        employee_id: createdEmployee._id,
-      });
-      await User.create(newUser);
-      res.status(201).json(createdEmployee);
-    } catch (error) {
-      next(error);
     }
-  },
+    return {
+      status: 204,
+      result: null,
+    };
+  }
 
-  UpdateEmployee: async (req, res, next) => {
-    try {
-      delete req.body._id;
-      delete req.body.user;
-      delete req.body.lastChanged;
-      req.body.lastChanged = new Date();
-      const updatedEmployee = await Employee
-        .findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
-      updatedEmployee.SetUpHyperLinks(req.headers.host, req.originalUrl, { removeUrlSlashes: 1 });
-      res.status(200).json(updatedEmployee);
-    } catch (error) {
-      next(error);
-    }
-  },
+  /**
+   * creates given employee and given user in database
+   * @param {object} employee emplooye object to create in the database
+   * @param {object} user user object to create in database
+   * @param {string} host the host name portion of the requested url
+   * @param {string} originalUrl the requested url after the hostname
+   * @returns {object} returns an object containing the result and status
+   */
+  static async createEmployee(employee, user, host, originalUrl) {
+    const employeeObject = await createEmployeeObject(employee, user);
+    const createdEmployee = await createEmployee(employeeObject);
+    await populate(createdEmployee, 'user', 'username role links');
+    createdEmployee.user.setupHyperLinks(host, '/api/v1/users/');
+    createdEmployee.setupHyperLinks(host, originalUrl);
+    return {
+      status: 201,
+      result: createdEmployee,
+    };
+  }
 
-  DeleteEmployee: async (req, res, next) => {
-    try {
-      await Employee.findOneAndRemove({ _id: req.params.id });
-      res.status(200).json({ status: 200, message: 'Successfully deleted employee' });
-    } catch (error) {
-      next(error);
-    }
-  },
+  /**
+   * updates an employee by id with a given object
+   * @param {object} employee new object to update employee with
+   * @param {string} id id of the employee to update
+   * @param {string} host the host name portion of the requested url
+   * @param {string} originalUrl the requested url after the hostname
+   * @returns {object} returns an object with a message
+   */
+  static async updateEmployeeById(employee, id, host, originalUrl) {
+    const newEmployee = copyObjectAndAddLastChanged(employee, '_id user');
+    const updatedEmployee = await updateEmployeeById(newEmployee, id);
+    updatedEmployee.setupHyperLinks(host, originalUrl);
+    return {
+      result: updatedEmployee,
+    };
+  }
+
+  /**
+   * deletes the employee in the database with the given id
+   * @param {string} id the id of the employee to be deleted
+   * @returns {object} returns an object with a message
+   */
+  static async deleteEmployeeById(id) {
+    await deleteEmployeeById(id);
+    return { result: 'Successfully deleted' };
+  }
 };
-
-module.exports = employeeController;

@@ -1,30 +1,29 @@
-const wallet = require('./walletModel');
+const Wallet = require('./walletModel');
+const moment = require('moment');
+const { cloneProperties } = require('../../utils/utils')
 
-const walletController = {
-  FindWalletById: async (req, res, next) => {
+module.exports = class WalletController {
+  static async getWalletById(req, res, next) {
     try {
-      const foundWallet = await wallet.findOne({ employee_id: req.params.id });
-      foundWallet.SetUpHyperLinks(req.headers.host, req.originalUrl);
-      res.status(200).json(foundWallet);
+      const foundWallet = await Wallet.findOne({ _Owner: req.params.id });
+      foundWallet.setupHyperLinks(req.headers.host, req.originalUrl);
+      res.json(foundWallet);
     } catch (error) {
       next(error);
     }
-  },
+  }
 
-  UpdateWallet: async (req, res, next) => {
+  static async updateWalletById(req, res, next) {
     try {
-      req.body.lastChanged = new Date();
-      if (req.body.paymentMethod) {
-        const paymentMethod = `${req.body.paymentMethod.substring(0, 1).toUpperCase()}${req.body.paymentMethod.substring(1, req.body.paymentMethod.length).toLowerCase()}`
-        req.body.paymentMethod = paymentMethod;
-      }
-      const updatedWallet = await wallet.findOneAndUpdate({ employee_id: req.params.id }, { $set: req.body }, { new: true });
-      updatedWallet.SetUpHyperLinks(req.headers.host, req.originalUrl);
+      // mangler rigtig cloneObject??
+      req.body = cloneProperties(req.body, '_id _Owner');
+      req.body.lastChanged = moment().format('YYYY/MM/DD');
+      const updatedWallet = await Wallet
+        .findOneAndUpdate({ _Owner: req.params.id }, { $set: req.body }, { new: true});
+      updatedWallet.setupHyperLinks(req.headers.host, req.originalUrl);
       res.status(200).json(updatedWallet);
     } catch (error) {
       next(error);
     }
-  },
+  }
 };
-
-module.exports = walletController;

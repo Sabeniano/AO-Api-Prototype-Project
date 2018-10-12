@@ -17,7 +17,6 @@ const genWorkhours = [];
 
 
 for (let index = 0; index < 20; index += 1) {
-
   const empId = new mongoose.Types.ObjectId();
 
   const userSeed = {
@@ -39,6 +38,7 @@ for (let index = 0; index < 20; index += 1) {
     country: faker.address.country(),
     street: faker.address.streetAddress(),
     phoneNumber: parseInt(faker.phone.phoneNumber('########'), 10),
+    user: userSeed._id,
     startDate: faker.date.past(),
     lastChanged: faker.date.past(),
   };
@@ -47,19 +47,19 @@ for (let index = 0; index < 20; index += 1) {
   const jobSeed = {
     _id: new mongoose.Types.ObjectId(),
     jobTitle: faker.random.arrayElement(['Administrator', 'Medarbejder', 'IT-Support']),
-    employee_id: employeeSeed._id,
     description: faker.name.jobDescriptor(),
+    //_Owner: employeeSeed._id,
     permissions: [faker.random.arrayElement(['Create', 'Read', 'Update', 'Delete'])],
   };
 
   const scheduleSeed = {
     _id: new mongoose.Types.ObjectId(),
-    employee_id: employeeSeed._id,
-    work_date: faker.date.future(),
-    start_work_hour: faker.date.future(),
-    end_work_hour: faker.date.future(),
-    is_holiday: faker.random.boolean(),
-    is_weekend: faker.random.boolean(),
+    _Owner: employeeSeed._id,
+    workDate: faker.date.future(),
+    startHour: faker.date.future(),
+    endHour: faker.date.future(),
+    isHoliday: faker.random.boolean(),
+    isWeekend: faker.random.boolean(),
   };
 
   const walletSeed = {
@@ -67,13 +67,13 @@ for (let index = 0; index < 20; index += 1) {
     wage: faker.finance.amount(),
     salary: faker.finance.amount(),
     paymentMethod: faker.random.arrayElement(['Monthly', 'Hourly']),
-    employee_id: employeeSeed._id,
+    _Owner: employeeSeed._id,
     lastChanged: faker.date.past(),
   };
 
   const workhourSeed = {
     _id: new mongoose.Types.ObjectId(),
-    employee_id: employeeSeed._id,
+    _Owner: employeeSeed._id,
     totalHoursThisPaycheck: faker.random.number(),
     totalOvertimeHoursThisPaycheck: faker.random.number(),
   };
@@ -86,7 +86,6 @@ for (let index = 0; index < 20; index += 1) {
 }
 
 async function deleteAllRecords() {
-
   return new Promise((resolve, reject) => {
     Promise
       .all([
@@ -103,7 +102,6 @@ async function deleteAllRecords() {
 }
 
 async function seedRecords() {
-
   return new Promise((resolve, reject) => {
     Promise
       .all([
@@ -130,7 +128,7 @@ async function seedRecords() {
 module.exports = async () => {
   try {
     await deleteAllRecords().then(() => logger.log('Deleted all records', 'info', true));
-    await seedRecords().then(() => logger.log('Seeded database', 'info', true)); 
+    await seedRecords().then(() => logger.log('Seeded database', 'info', true));
   } catch (error) {
     logger.log(error, 'error');
   }

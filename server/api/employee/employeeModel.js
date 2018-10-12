@@ -18,9 +18,9 @@ const employeeSchema = new mongoose.Schema({
   city: { type: String, required: true },
   country: { type: String, required: true },
   street: { type: String, required: true },
-  phoneNumber: { type: Number, require: true },
+  phoneNumber: { type: Number, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  startDate: { type: Date, required: true },
+  startDate: { type: Date, default: () => new Date() },
   lastChanged: { type: String, default: () => new Date() },
   links: {
     type: [{
@@ -34,7 +34,7 @@ const employeeSchema = new mongoose.Schema({
   },
 });
 
-employeeSchema.method('SetUpHyperLinks', function setupHL(hostName, url, options) {
+employeeSchema.method('setupHyperLinks', function setupHL(hostName, url, options) {
   {
     const hateaosEndpoints = [
       {
