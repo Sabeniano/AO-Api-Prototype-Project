@@ -11,7 +11,7 @@
   <a href="#http-verbs">HTTP Verbs</a> •
   <a href="#status-codes">Status Codes</a> •
   <a href="#hateoas">Hateoas</a> •
-  <a href="#example-parameters">Example Parameters</a> •
+  <a href="#routes">Routes</a> •
   <a href="#authors">Authors</a>
 </p>
 
@@ -50,7 +50,7 @@
 | <code>422</code> | Unprocessable Entity | The request was well-formed but was unable to be followed due to semantic errors. |
 | <code>500</code> | Internal Server Error | A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. |
 ## Hateoas
-## Example Parameters
+## Routes
 <p align="center">
   <a href="#auth">Auth</a> •
   <a href="#user">User</a> •
